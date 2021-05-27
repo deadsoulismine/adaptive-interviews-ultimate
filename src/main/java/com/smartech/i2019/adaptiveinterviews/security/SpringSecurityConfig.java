@@ -42,17 +42,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/login", "/logout").permitAll().
-                anyRequest().authenticated();
-        httpSecurity.httpBasic().and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/interviews/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .antMatchers("/users/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .antMatchers(HttpMethod.GET, "/departments/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .antMatchers(HttpMethod.POST, "/departments/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.GET, "/employees/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')");
+        httpSecurity
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/login", "/logout").permitAll();
+
+        httpSecurity
+                .httpBasic()
+                    .and()
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
+                    .antMatchers("/interviews/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                    .antMatchers("/users/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                    .antMatchers(HttpMethod.GET, "/departments/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                    .antMatchers(HttpMethod.POST, "/departments/**").access("hasRole('ROLE_ADMIN')")
+                    .antMatchers(HttpMethod.GET, "/employees/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                    .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().authenticated();
+
 
         httpSecurity.authorizeRequests().and().formLogin().and().
                 logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/login");
