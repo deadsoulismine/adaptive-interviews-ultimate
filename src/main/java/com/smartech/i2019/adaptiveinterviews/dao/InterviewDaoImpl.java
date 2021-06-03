@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 public class InterviewDaoImpl implements InterviewDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     @Autowired
     private Dates dates;
 

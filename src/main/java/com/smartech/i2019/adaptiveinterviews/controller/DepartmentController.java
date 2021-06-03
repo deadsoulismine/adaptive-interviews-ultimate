@@ -18,7 +18,7 @@ public class DepartmentController {
     @Autowired
     DepartmentDaoImpl departmentDao;
 
-    @RequestMapping(path = "/departments", method = RequestMethod.GET)
+    @GetMapping(path = "/departments")
     public String allDepartments(Model model) {
         List<Department> departments = departmentDao.list();
         model.addAttribute("departments", departments);

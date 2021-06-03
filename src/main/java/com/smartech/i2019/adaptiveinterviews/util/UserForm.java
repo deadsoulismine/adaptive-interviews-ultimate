@@ -25,7 +25,6 @@ public class UserForm {
         this.name = userAutorities.getUser().getName();
         this.email = userAutorities.getUser().getEmail();
         this.username = userAutorities.getUsername();
-
     }
 
     public String getName() {

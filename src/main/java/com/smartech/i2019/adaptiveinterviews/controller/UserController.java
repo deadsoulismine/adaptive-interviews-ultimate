@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,7 +26,7 @@ public class UserController {
     @Autowired
     UsersAutoritiesDao usersAutoritiesDao;
 
-    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    @GetMapping(path = "/users")
     public String allUsers(Model model) {
         List<User> users = userDao.list();
         model.addAttribute("users", users);
@@ -53,7 +51,6 @@ public class UserController {
     @PostMapping("/users/update")
     public String updateUser(@Valid UserForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
-           // UserAutorities userAutorities = getUserAutorities();
             model.addAttribute("userForm", form);
             return "userform";
         }
@@ -69,10 +66,18 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/delete")
+    public String deleteUser(BindingResult result, Model model) {
+        UserAutorities userAutorities = getUserAutorities();
+        User user = userAutorities.getUser();
+        userDao.delete(user.getId());
+        return "redirect:/users";
+    }
+
     @PostMapping("/users/new/update")
     public String createUser(@Valid UserForm form, BindingResult result) throws Exception {
         if (result.hasErrors()) {
-             return "userform";
+            return "userform";
         }
         UserAutorities userAutorities = new UserAutorities();
         User user = new User();

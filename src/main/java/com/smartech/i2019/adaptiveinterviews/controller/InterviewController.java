@@ -47,7 +47,7 @@ public class InterviewController {
         return "interviewform";
     }
 
-    @RequestMapping(path = "/interviews", method = RequestMethod.GET)
+    @GetMapping(path = "/interviews")
     public String allInterviews(Model model, HttpServletRequest request) {
         List<Interview> interviews = new ArrayList<>();
         try {
@@ -64,9 +64,9 @@ public class InterviewController {
         if (request.getParameter("lastName") != null) {
             List<Employee> employees = employeeDao.getByLastName(request.getParameter("lastName"));
             interviews = new ArrayList<>();
-                for (Employee employee : employees) {
-                    interviews.addAll(new ArrayList<>(employee.getInterviews()));
-                }
+            for (Employee employee : employees) {
+                interviews.addAll(new ArrayList<>(employee.getInterviews()));
+            }
 
         }
         model.addAttribute("interviews", interviews);

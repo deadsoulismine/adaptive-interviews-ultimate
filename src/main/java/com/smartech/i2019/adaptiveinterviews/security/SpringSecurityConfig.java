@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -20,18 +19,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
-
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-
-    }
-
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
     }
-
 
     @Bean
     @Override
@@ -40,26 +31,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
                 .csrf().disable()
+                .cors().disable()
                 .authorizeRequests()
-                    .antMatchers("/login", "/logout").permitAll();
+                .antMatchers("/login", "/logout").permitAll();
 
         httpSecurity
                 .httpBasic()
-                    .and()
+                .and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
-                    .antMatchers("/interviews/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                    .antMatchers("/users/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                    .antMatchers(HttpMethod.GET, "/departments/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                    .antMatchers(HttpMethod.POST, "/departments/**").access("hasRole('ROLE_ADMIN')")
-                    .antMatchers(HttpMethod.GET, "/employees/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                    .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/interviews/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers("/users/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, "/departments/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers(HttpMethod.POST, "/departments/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, "/employees/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers(HttpMethod.POST, "/employees/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated();
-
 
         httpSecurity.authorizeRequests().and().formLogin().and().
                 logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/login");

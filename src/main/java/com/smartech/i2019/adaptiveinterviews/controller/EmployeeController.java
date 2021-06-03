@@ -24,7 +24,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeDaoImpl employeeDao;
 
-    @RequestMapping(path = "/employees", method = RequestMethod.GET)
+    @GetMapping(path = "/employees")
     public String allEmployees(Model model, HttpServletRequest request) {
         List<Employee> employees = employeeDao.listInAdaptation();
         if (request.getParameter("findLastName") != null) {

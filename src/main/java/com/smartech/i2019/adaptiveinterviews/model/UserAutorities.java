@@ -21,7 +21,7 @@ public class UserAutorities {
         this.user_id = user_id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @MapsId
     public User getUser() {
@@ -59,5 +59,4 @@ public class UserAutorities {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

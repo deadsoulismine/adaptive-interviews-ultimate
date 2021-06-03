@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public EmployeeDaoImpl(SessionFactory sessionFactory) {
@@ -32,7 +32,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         transaction.commit();
         session.close();
     }
-
 
     @Override
     public void update(Employee employee, int id) {

@@ -16,6 +16,9 @@
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
     <input type="button" class="floated" onclick="location.href='/users/new/add'" value="Добавить пользователя">
 </c:if>
+<c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+    <input type="button" class="floated" onclick="location.href='/users/delete'" value="Удалить пользователя">
+</c:if>
 <input type="button" class="floated" onclick="location.href='/users/edit'" value="Редактировать свой профиль">
 <h2></h2>
 <table>
