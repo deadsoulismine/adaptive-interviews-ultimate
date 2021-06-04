@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class UsersAutoritiesDaoImpl implements UsersAutoritiesDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -45,6 +45,7 @@ public class UsersAutoritiesDaoImpl implements UsersAutoritiesDao {
         session.close();
         return users;
     }
+
     @Override
     public void add(UserAutorities user) {
         Session session = sessionFactory.openSession();

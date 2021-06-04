@@ -9,11 +9,11 @@ import java.util.Calendar;
 @Component
 @Scope("prototype")
 public class Dates {
-    private java.util.Date dateSubtractDay = subtractDay();
-    private Date sqlSubtractDay = new Date(subtractDay().getTime());
-    private java.util.Date dateNextDay = nextDay();
-    private Date sqlNextDay = new Date(nextDay().getTime());
-    private Date sqlToday = new Date(new java.util.Date().getTime());
+    private final java.util.Date dateSubtractDay = subtractDay();
+    private final Date sqlSubtractDay = new Date(subtractDay().getTime());
+    private final java.util.Date dateNextDay = nextDay();
+    private final Date sqlNextDay = new Date(nextDay().getTime());
+    private final Date sqlToday = new Date(new java.util.Date().getTime());
 
     public java.util.Date getDateNextDay() {
         return dateNextDay;

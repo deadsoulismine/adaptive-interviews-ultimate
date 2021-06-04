@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class DepartmentDaoImpl implements DepartmentDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public DepartmentDaoImpl(SessionFactory sessionFactory) {
@@ -82,4 +82,5 @@ public class DepartmentDaoImpl implements DepartmentDao {
         session.getTransaction().commit();
         session.close();
         return departments;
-}}
+    }
+}
