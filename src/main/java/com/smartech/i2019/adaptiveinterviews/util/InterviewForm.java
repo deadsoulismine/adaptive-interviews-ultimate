@@ -27,12 +27,12 @@ public class InterviewForm {
     private String date1;
 
     public String getFirstName() {
-        String arr[] = employeeName.split(" ", 2);
+        String[] arr = employeeName.split(" ", 2);
         return arr[1];
     }
 
     public String getLastName() {
-        String arr[] = employeeName.split(" ", 2);
+        String[] arr = employeeName.split(" ", 2);
         return arr[0];
     }
 
@@ -54,7 +54,6 @@ public class InterviewForm {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Employee getEmployee() {
         return employee;

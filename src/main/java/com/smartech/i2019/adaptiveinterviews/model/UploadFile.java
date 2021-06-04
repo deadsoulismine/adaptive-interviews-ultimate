@@ -20,7 +20,6 @@ public class UploadFile {
         this.employee = employee;
     }
 
-
     @Column(name = "file_name", nullable = false)
     public String getFileName() {
         return fileName;

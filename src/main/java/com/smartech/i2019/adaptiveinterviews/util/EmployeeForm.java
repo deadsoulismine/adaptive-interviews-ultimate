@@ -1,4 +1,5 @@
 package com.smartech.i2019.adaptiveinterviews.util;
+
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 
 import javax.validation.constraints.NotBlank;

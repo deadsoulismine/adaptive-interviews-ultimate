@@ -20,7 +20,7 @@ public class HibernateConfig {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
 
-    @Value("${spring.datasource.url}")
+    @Value("jdbc:postgresql://10.10.109.109:5432/interviews")
     private String DB_URL;
 
     @Value("${spring.datasource.username}")
@@ -45,7 +45,6 @@ public class HibernateConfig {
         dataSource.setUrl(DB_URL);
         dataSource.setUsername(DB_USERNAME);
         dataSource.setPassword(DB_PASSWORD);
-
         return dataSource;
     }
 
@@ -59,10 +58,7 @@ public class HibernateConfig {
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-
-        hibernateProperties.setProperty(
-                "hibernate.dialect", DB_DIALECT);
-
+        hibernateProperties.setProperty("hibernate.dialect", DB_DIALECT);
         return hibernateProperties;
     }
 }

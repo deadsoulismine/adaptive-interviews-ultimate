@@ -2,7 +2,6 @@ package com.smartech.i2019.adaptiveinterviews.dao;
 
 import com.smartech.i2019.adaptiveinterviews.api.UserDao;
 import com.smartech.i2019.adaptiveinterviews.model.User;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public UserDaoImpl(SessionFactory sessionFactory) {

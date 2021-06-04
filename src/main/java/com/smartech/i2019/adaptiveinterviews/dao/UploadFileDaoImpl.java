@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UploadFileDaoImpl implements UploadFileDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public UploadFileDaoImpl(SessionFactory sessionFactory) {

@@ -44,6 +44,7 @@ public class FileController {
                 .contentLength(uploadFile.getData().length) //
                 .body(resource);
     }
+
     @GetMapping("/employees/{id}/upload")
     public String uploadFileForm(@PathVariable int id, Model model) {
         Employee employee = employeeDao.getById(id);

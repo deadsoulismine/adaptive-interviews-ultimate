@@ -63,7 +63,7 @@ public class Interview {
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
 
     public User getUser() {
         return user;

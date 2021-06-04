@@ -3,11 +3,9 @@ package com.smartech.i2019.adaptiveinterviews.dao;
 import com.smartech.i2019.adaptiveinterviews.api.InterviewDao;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.Dates;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class InterviewDaoImpl implements InterviewDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     @Autowired
     private Dates dates;
 

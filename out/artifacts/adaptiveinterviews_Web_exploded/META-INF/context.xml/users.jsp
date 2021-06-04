@@ -3,20 +3,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title>Отделы</title>
+    <title>Пользователи</title>
 </head>
 <body>
 
-<h2>Отделы</h2>
+<h2>Пользователи</h2>
 <input type="button" class="floated" onclick="location.href='/employees'" value="На главную">
 <input type="button" class="floated" onclick="location.href='/interviews'" value="Беседы">
-<input type="button" class="floated" onclick="location.href='/users'" value="Пользователи">
+<input type="button" class="floated" onclick="location.href='/departments'" value="Отделы">
 <input type="button" class="floated" onclick="location.href='/logout'" value="Выйти из системы">
 <h2></h2>
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/departments/add'" value="Добавить отдел">
+    <input type="button" class="floated" onclick="location.href='/users/new/add'" value="Добавить пользователя">
 </c:if>
-
+<input type="button" class="floated" onclick="location.href='/users/edit'" value="Редактировать свой профиль">
 <h2></h2>
 <table>
     <style type="text/css">
@@ -34,24 +34,15 @@
         }
     </style>
     <tr>
-        <th>Название</th>
-        <th>Руководитель</th>
-        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-            <th></th>
-        </c:if>
+        <th>Имя</th>
+        <th>Email</th>
     </tr>
-    <c:forEach var="department" items="${departments}">
+    <c:forEach var="user" items="${users}">
         <tr>
-            <td>${department.name}</td>
-            <td>${department.supervisor}</td>
-            <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-                <td><input type="button" onclick="location.href='departments/${department.id}/edit'"
-                           value="Редактировать"></td>
-            </c:if>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
         </tr>
     </c:forEach>
 </table>
-
-
 </body>
 </html>
