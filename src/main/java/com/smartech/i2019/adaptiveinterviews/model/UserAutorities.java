@@ -1,5 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,7 +27,7 @@ public class UserAutorities {
     @JoinColumn(name = "user_id")
     @MapsId
     public User getUser() {
-        return user;
+        return (User) Hibernate.unproxy(user);
     }
 
     public void setUser(User user) {
@@ -59,5 +61,4 @@ public class UserAutorities {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
