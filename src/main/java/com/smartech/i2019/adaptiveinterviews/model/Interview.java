@@ -1,5 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -11,6 +15,37 @@ public class Interview {
     private String description;
     private User user;
     private Date date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return (User) Hibernate.unproxy(user);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee", nullable = false)
+    public Employee getEmployee() {
+        return (Employee) Hibernate.unproxy(employee);
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     @Column(name = "name", nullable = false)
     public String getName() {
@@ -32,27 +67,6 @@ public class Interview {
         this.date = date;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "employee", nullable = false)
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     @Column(name = "description")
     public String getDescription() {
         return description;
@@ -61,17 +75,4 @@ public class Interview {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", nullable = false)
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
 }

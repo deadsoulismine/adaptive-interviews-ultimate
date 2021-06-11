@@ -1,5 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.*;
@@ -18,8 +20,12 @@ public class Employee {
     private Set<UploadFile> files = new HashSet<>();
     private Set<Interview> interviews = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     public Set<Interview> getInterviews() {
+        Iterator iterator = interviews.iterator();
+        while (iterator.hasNext()) {
+            Hibernate.unproxy(iterator.next());
+        }
         return interviews;
     }
 
@@ -27,8 +33,12 @@ public class Employee {
         this.interviews = interviews;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     public Set<UploadFile> getFiles() {
+        Iterator iterator = files.iterator();
+        while (iterator.hasNext()) {
+            Hibernate.unproxy(iterator.next());
+        }
         return files;
     }
 
@@ -67,6 +77,7 @@ public class Employee {
     }
 
     @Column(name = "firstname", nullable = false)
+
     public String getFirstName() {
         return firstName;
     }
@@ -87,7 +98,7 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "department")
     public Department getDepartment() {
-        return department;
+        return (Department) Hibernate.unproxy(department);
     }
 
     public void setDepartment(Department department) {
