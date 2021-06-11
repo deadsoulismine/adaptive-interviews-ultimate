@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+    <title>Добавление/Изменение беседы</title>
     <style type="text/css">
         .error {
             color: red;
@@ -89,7 +90,6 @@
         </table>
     </form:form>
 </c:if>
-
 
 <input type="button" onclick="location.href='/interviews'" value="Отменить">
 </body>

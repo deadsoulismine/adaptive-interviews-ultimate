@@ -5,6 +5,7 @@
 
 <html>
 <head>
+    <title>Добавление/Изменение сотрудника</title>
     <style type="text/css">
         .error {
             color: red;

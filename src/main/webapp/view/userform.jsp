@@ -5,6 +5,7 @@
 
 <html>
 <head>
+    <title>Добавление/Изменение пользователя</title>
     <style type="text/css">
         .error {
             color: red;
@@ -12,7 +13,7 @@
     </style>
 </head>
 <body>
-<h3>Пользователь</h3>
+<h3>Добавление/Изменение пользователя</h3>
 <form:form method="POST"
            action="update" modelAttribute="userForm">
     <table>
@@ -36,17 +37,16 @@
             <td><form:input path="password" type="text"/></td>
             <td><form:errors path="password" cssClass="error"/></td>
         </tr>
-        <tr>
-            <td><form:label path="role">Права</form:label></td>
-            <td><form:select path="role">
-
-                <form:option value="USER"/>
-                <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <tr>
+                <td><form:label path="role">Права</form:label></td>
+                <td><form:select path="role">
+                    <form:option value="USER"/>
                     <form:option value="ADMIN"/>
-                </c:if>
-            </form:select></td>
-        </tr>
-
+                </form:select>
+                </td>
+            </tr>
+        </c:if>
         <tr>
             <td><input type="submit" value="Сохранить"/></td>
             </td>

@@ -94,22 +94,22 @@ public class InterviewDaoImpl implements InterviewDao {
     }
 
     @Override
-    public List<Interview> listByDate(Date date) {
+    public List<Interview> list() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("FROM Interview where date = :paramName");
-        query.setParameter("paramName", date);
-        List<Interview> interviews = query.list();
+        List<Interview> interviews = session.createQuery("FROM Interview ").list();
         transaction.commit();
         session.close();
         return interviews;
     }
 
     @Override
-    public List<Interview> list() {
+    public List<Interview> listByDate(Date date) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<Interview> interviews = session.createQuery("FROM Interview ").list();
+        Query query = session.createQuery("FROM Interview where date = :paramName");
+        query.setParameter("paramName", date);
+        List<Interview> interviews = query.list();
         transaction.commit();
         session.close();
         return interviews;

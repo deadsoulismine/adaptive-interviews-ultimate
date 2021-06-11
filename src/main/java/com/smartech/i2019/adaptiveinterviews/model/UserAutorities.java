@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users_autorities")
 public class UserAutorities {
-
     private String username;
     private String password;
     private String role;
@@ -23,7 +22,7 @@ public class UserAutorities {
         this.user_id = user_id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @MapsId
     public User getUser() {
