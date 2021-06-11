@@ -52,6 +52,12 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    @GetMapping("/departments/delete/{id}")
+    public String deleteEmployee(@PathVariable(value = "id") int id) {
+        departmentDao.delete(id);
+        return "redirect:/departments";
+    }
+
     @PostMapping("departments/{id}/update")
     public String editDepartment(@PathVariable int id,
                                  @ModelAttribute("department") @Valid Department departmentToUpdate,

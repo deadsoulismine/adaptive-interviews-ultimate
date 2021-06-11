@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,17 +61,18 @@ public class UserController {
         user.setEmail(form.getEmail());
         userAutorities.setPassword(form.getPassword());
         userAutorities.setUsername(form.getUsername());
-        userAutorities.setRole(form.getRole());
+        if (form.getRole() != null ){
+            userAutorities.setRole(form.getRole());
+        }
         userDao.update(user, user.getId());
         usersAutoritiesDao.update(userAutorities, userAutorities.getUser_id());
         return "redirect:/users";
     }
 
-    @GetMapping("/users/delete")
-    public String deleteUser(BindingResult result, Model model) {
-        UserAutorities userAutorities = getUserAutorities();
-        User user = userAutorities.getUser();
-        userDao.delete(user.getId());
+
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable(value = "id") int id) {
+        usersAutoritiesDao.delete(id);
         return "redirect:/users";
     }
 

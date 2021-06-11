@@ -38,6 +38,7 @@
         <th>Руководитель</th>
         <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
             <th></th>
+            <th></th>
         </c:if>
     </tr>
     <c:forEach var="department" items="${departments}">
@@ -48,10 +49,12 @@
                 <td><input type="button" onclick="location.href='departments/${department.id}/edit'"
                            value="Редактировать"></td>
             </c:if>
+            <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <td><input type="button" onclick="location.href='/departments/delete/${department.id}'"
+                       value="Удалить"></td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
-
-
 </body>
 </html>

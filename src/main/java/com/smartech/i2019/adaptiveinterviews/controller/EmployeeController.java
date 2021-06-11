@@ -3,6 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
+import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-
 
 @Controller
 public class EmployeeController {
@@ -26,7 +25,8 @@ public class EmployeeController {
 
     @GetMapping(path = "/employees")
     public String allEmployees(Model model, HttpServletRequest request) {
-        List<Employee> employees = employeeDao.listInAdaptation();
+        List<Employee> employees = employeeDao.list();
+
         if (request.getParameter("findLastName") != null) {
             employees = employeeDao.listByLastName(request.getParameter("findLastName"));
         }
@@ -36,6 +36,7 @@ public class EmployeeController {
         if (request.getParameter("all") != null) {
             employees = employeeDao.list();
         }
+
         model.addAttribute("employees", employees);
         return "employees";
     }
@@ -86,9 +87,14 @@ public class EmployeeController {
         return "redirect:/employees/" + employee.getId();
     }
 
+    @GetMapping("/employees/delete/{id}")
+    public String deleteEmployee(@PathVariable(value = "id") int id) {
+        employeeDao.delete(id);
+        return "redirect:/employees";
+    }
+
     @GetMapping("/employees/{id}/edit")
     public String showEditEmployeePage(@PathVariable(name = "id") int id, Model model) {
-
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
             throw new EntityNotFoundException("Сотрудник не найден");

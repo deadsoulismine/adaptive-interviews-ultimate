@@ -64,6 +64,9 @@
         <th>Статус</th>
         <th>Беседы</th>
         <th></th>
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <th></th>
+        </c:if>
     </tr>
     <tr>
         <c:forEach var="employee" items="${employees}">
@@ -79,7 +82,6 @@
             PaleGreen
     </c:otherwise>
             </c:choose>">
-
         <td>${employee.lastName}</td>
         <td>${employee.firstName}</td>
         <td>${employee.department.name}</td>
@@ -89,6 +91,9 @@
         <td>${employee.status}</td>
         <td>${fn:length(employee.interviews.toArray())}</td>
         <td><input type="button" onclick="location.href='/employees/${employee.id}'" value="Открыть"></td>
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+        <td><input type="button" onclick="location.href='/employees/delete/${employee.id}'" value="Удалить"></td>
+        </c:if>
     </tr>
     </c:forEach>
     </tr>

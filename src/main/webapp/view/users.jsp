@@ -16,9 +16,6 @@
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
     <input type="button" class="floated" onclick="location.href='/users/new/add'" value="Добавить пользователя">
 </c:if>
-<c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/users/delete'" value="Удалить пользователя">
-</c:if>
 <input type="button" class="floated" onclick="location.href='/users/edit'" value="Редактировать свой профиль">
 <h2></h2>
 <table>
@@ -39,11 +36,17 @@
     <tr>
         <th>Имя</th>
         <th>Email</th>
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <th></th>
+        </c:if>
     </tr>
     <c:forEach var="user" items="${users}">
         <tr>
             <td>${user.name}</td>
             <td>${user.email}</td>
+            <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                <td><input type="button" onclick="location.href='/users/delete/${user.id}'" value="Удалить"></td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

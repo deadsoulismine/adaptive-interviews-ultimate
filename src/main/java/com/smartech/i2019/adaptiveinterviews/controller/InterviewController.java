@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -51,7 +52,7 @@ public class InterviewController {
 
     @GetMapping(path = "/interviews")
     public String allInterviews(Model model, HttpServletRequest request) {
-        List<Interview> interviews = new ArrayList<>();
+        List<Interview> interviews;
         try {
             interviews = interviewDao.listByDate(Date.valueOf(request.getParameter("findDate")));
         } catch (IllegalArgumentException ex) {
@@ -69,13 +70,12 @@ public class InterviewController {
             for (Employee employee : employees) {
                 interviews.addAll(new ArrayList<>(employee.getInterviews()));
             }
-
         }
         model.addAttribute("interviews", interviews);
         return "interviews";
     }
 
-    @GetMapping("/interviews/add")
+    @GetMapping("/interviews/new/add")
     public ModelAndView getInterviewForm(Model model) {
         ModelAndView mav = new ModelAndView("interviewform");
         mav.addObject("interviewForm", new InterviewForm());
@@ -91,6 +91,12 @@ public class InterviewController {
             names.add(emp.getLastName() + " " + emp.getFirstName());
         }
         return names;
+    }
+
+    @GetMapping("/interviews/delete/{id}")
+    public String deleteInterwiew(@PathVariable(value = "id") int id) {
+        interviewDao.delete(id);
+        return "redirect:/interviews?all=yes";
     }
 
     @PostMapping("interviews/{id}/update")
@@ -116,8 +122,8 @@ public class InterviewController {
         return "redirect:/interviews";
     }
 
-    @PostMapping("/interviews/update")
-    public String addInterview(@Valid InterviewForm form, BindingResult result, Model model) {
+    @PostMapping("/interviews/new/update")
+    public String createInterview(@Valid InterviewForm form, BindingResult result, Model model) {
         if (result.hasErrors()) {
             if (result.hasFieldErrors("date")) {
                 result.rejectValue("date1", "error.interviewForm", "Заполните обязательное поле");
