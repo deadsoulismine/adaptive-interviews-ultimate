@@ -1,5 +1,8 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +13,10 @@ public class UploadFile {
     private byte[] data;
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", nullable  = false)
     public Employee getEmployee() {
-        return employee;
+        return (Employee) Hibernate.unproxy(employee);
     }
 
     public void setEmployee(Employee employee) {
@@ -40,6 +43,7 @@ public class UploadFile {
     }
 
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "file_data", nullable = false)
     public byte[] getData() {
         return data;
