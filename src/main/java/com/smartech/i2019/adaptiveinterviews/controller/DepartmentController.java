@@ -14,60 +14,60 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/departments")
 public class DepartmentController {
     @Autowired
     DepartmentDaoImpl departmentDao;
 
-    @GetMapping(path = "/departments")
+    @GetMapping()
     public String allDepartments(Model model) {
         List<Department> departments = departmentDao.list();
         model.addAttribute("departments", departments);
         return "departments";
     }
 
-    @GetMapping("/departments/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String editDepartmentForm(@PathVariable int id, Model model) {
         Department department = departmentDao.getById(id);
         if (department == null) {
             throw new EntityNotFoundException("Отдел не найден");
         }
 
-        model.addAttribute("department", department);
-        return "departmentform";
+        model.addAttribute("departmentEdit", department);
+        return "departmentformedit";
     }
 
-    @GetMapping("/departments/add")
+    @GetMapping("/create")
     public String departmentForm(Model model) {
-        model.addAttribute("department", new Department());
-        return "departmentform";
+        model.addAttribute("departmentCreate", new Department());
+        return "departmentformcreate";
     }
 
-    @PostMapping("/departments/update")
-    public String createDepartment(@ModelAttribute("department") @Valid Department department,
-                                   BindingResult result, ModelMap model) {
+    @PostMapping("/add")
+    public String addDepartment(@ModelAttribute("departmentCreate") @Valid Department department,
+                                BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
-            return "departmentform";
+            return "departmentformcreate";
         }
         departmentDao.add(department);
         return "redirect:/departments";
     }
 
-    @GetMapping("/departments/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable(value = "id") int id) {
         departmentDao.delete(id);
         return "redirect:/departments";
     }
 
-    @PostMapping("departments/{id}/update")
-    public String editDepartment(@PathVariable int id,
-                                 @ModelAttribute("department") @Valid Department departmentToUpdate,
-                                 BindingResult result, ModelMap model) {
+    @PostMapping("/edit/update")
+    public String editDepartment(@RequestParam("id") @ModelAttribute("departmentEdit") int id,
+                                 @Valid Department departmentToUpdate, BindingResult result, ModelMap model) {
         Department department = departmentDao.getById(id);
         if (department == null) {
             throw new EntityNotFoundException("Отдел не найден");
         }
         if (result.hasErrors()) {
-            return "departmentform";
+            return "departmentformedit";
         }
         departmentDao.update(departmentToUpdate, id);
         return "redirect:/departments";

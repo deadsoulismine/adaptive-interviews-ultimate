@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Добавление/Изменение пользователя</title>
+    <title>Добавление пользователя</title>
     <style type="text/css">
         .error {
             color: red;
@@ -13,9 +13,9 @@
     </style>
 </head>
 <body>
-<h3>Добавление/Изменение пользователя</h3>
+<h3>Добавление нового пользователя</h3>
 <form:form method="POST"
-           action="update" modelAttribute="userForm">
+           action="add" modelAttribute="userFormCreate">
     <table>
         <tr>
             <td><form:label path="name">Имя*</form:label></td>

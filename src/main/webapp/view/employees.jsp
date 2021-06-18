@@ -28,14 +28,14 @@
 <input type="button" class="floated" onclick="location.href='/users'" value="Пользователи">
 <input type="button" class="floated" onclick="location.href='/logout'" value="Выйти из системы">
 <h2></h2>
-<input type="button" class="floated" onclick="location.href='/employees?adaptation=yes'" value="В адаптации">
-<input type="button" class="floated" onclick="location.href='/employees?all=yes'" value="Все сотрудники">
+<input type="button" class="floated" onclick="location.href='/employees/adaptation'" value="В адаптации">
+<input type="button" class="floated" onclick="location.href='/employees/all'" value="Все сотрудники">
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/employees/add'" value="Новый сотрудник">
+    <input type="button" class="floated" onclick="location.href='/employees/create'" value="Новый сотрудник">
 </c:if>
 <h2></h2>
-<form action="/employees" method="GET">
-    Фамилия: <input type="text" name="findLastName"/>
+<form action="/employees/findByLastName" method="GET">
+    Фамилия: <input type="text" name="lastName"/>
     <input type="submit" value="Найти"/>
 </form>
 

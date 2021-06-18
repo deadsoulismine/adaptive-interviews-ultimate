@@ -14,20 +14,20 @@
 <input type="button" class="floated" onclick="location.href='/users'" value="Пользователи">
 <input type="button" class="floated" onclick="location.href='/logout'" value="Выйти из системы">
 <h2></h2>
-<input type="button" class="floated" onclick="location.href='/interviews'" value="Предстоящие">
-<input type="button" class="floated" onclick="location.href='/interviews?review=no'" value="Без отзыва">
-<input type="button" class="floated" onclick="location.href='/interviews?all=yes'" value="Все беседы">
+<input type="button" class="floated" onclick="location.href='/interviews/coming'" value="Предстоящие">
+<input type="button" class="floated" onclick="location.href='/interviews/review'" value="Без отзыва">
+<input type="button" class="floated" onclick="location.href='/interviews/all'" value="Все беседы">
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/interviews/new/add'" value="Новая беседа">
+    <input type="button" class="floated" onclick="location.href='/interviews/create'" value="Новая беседа">
 </c:if>
 <h2></h2>
-<form action="/interviews" style="display:inline;" method="GET">
+<form action="/interviews/lastName" style="display:inline;" method="GET">
     Фамилия: <input type="text" name="lastName"/>
     <input type="submit" value="Найти"/>
 </form>
 <h2></h2>
-<form action="/interviews" style="display:inline;" method="GET">
-    Дата: <input type="date" name="findDate"/>
+<form action="/interviews/listByDate" style="display:inline;" method="GET">
+    Дата: <input type="date" name="listByDate"/>
     <input type="submit" value="Найти"/>
 </form>
 <h2></h2>
@@ -66,11 +66,11 @@
             <td><c:out value="${empty interview.description ? 'НЕТ' : 'ЕСТЬ'}"/></td>
             <td><c:choose>
                 <c:when test="${pageContext.request.isUserInRole('ADMIN')}">
-                <input type="button" onclick="location.href='/interviews/${interview.id}/edit'"
+                <input type="button" onclick="location.href='/interviews/edit/${interview.id}'"
                        value="Редактировать анкету">
                 </c:when>
                 <c:otherwise>
-                <input type="button" onclick="location.href='/interviews/${interview.id}/edit'" value="Оставить отзыв">
+                <input type="button" onclick="location.href='/interviews/edit/${interview.id}'" value="Оставить отзыв">
                 </c:otherwise>
                 </c:choose>
                 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">

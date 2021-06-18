@@ -10,8 +10,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/")
 public class MainController {
-
-    @GetMapping("/")
+    @GetMapping()
     void handleFoo(HttpServletResponse response) throws IOException {
         response.sendRedirect("/employees");
     }

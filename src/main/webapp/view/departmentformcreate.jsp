@@ -11,10 +11,10 @@
     </style>
 </head>
 <body>
-<h3>Отдел</h3>
+<h3>Добавление нового отдела</h3>
 
 <form:form method="POST"
-           action="update" modelAttribute="department">
+           action="add" modelAttribute="departmentCreate">
     <table>
         <tr>
             <td><form:label path="name">Название*</form:label></td>

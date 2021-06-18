@@ -14,7 +14,7 @@
 <input type="button" class="floated" onclick="location.href='/logout'" value="Выйти из системы">
 <h2></h2>
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/departments/add'" value="Добавить отдел">
+    <input type="button" class="floated" onclick="location.href='/departments/create'" value="Добавить новый отдел">
 </c:if>
 
 <h2></h2>
@@ -46,12 +46,12 @@
             <td>${department.name}</td>
             <td>${department.supervisor}</td>
             <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-                <td><input type="button" onclick="location.href='departments/${department.id}/edit'"
+                <td><input type="button" onclick="location.href='departments/edit/${department.id}'"
                            value="Редактировать"></td>
             </c:if>
             <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-            <td><input type="button" onclick="location.href='/departments/delete/${department.id}'"
-                       value="Удалить"></td>
+                <td><input type="button" onclick="location.href='/departments/delete/${department.id}'"
+                           value="Удалить"></td>
             </c:if>
         </tr>
     </c:forEach>

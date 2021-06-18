@@ -3,19 +3,22 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
-import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequestMapping("/employees")
+@Tag(name = "Employee", description = "The Employee API")
 @Controller
 public class EmployeeController {
     @Autowired
@@ -23,25 +26,33 @@ public class EmployeeController {
     @Autowired
     private EmployeeDaoImpl employeeDao;
 
-    @GetMapping(path = "/employees")
-    public String allEmployees(Model model, HttpServletRequest request) {
-        List<Employee> employees = employeeDao.list();
+    @GetMapping()
+    public void foo(Model model) {
+        allEmployees(model);
+    }
 
-        if (request.getParameter("findLastName") != null) {
-            employees = employeeDao.listByLastName(request.getParameter("findLastName"));
-        }
-        if (request.getParameter("adaptation") != null) {
-            employees = employeeDao.listInAdaptation();
-        }
-        if (request.getParameter("all") != null) {
-            employees = employeeDao.list();
-        }
-
+    @GetMapping("/findByLastName")
+    public String findByLastName(Model model, HttpServletRequest request) {
+        List<Employee> employees = employeeDao.listByLastName(request.getParameter("lastName"));
         model.addAttribute("employees", employees);
         return "employees";
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/adaptation")
+    public String adaptation(Model model) {
+        List<Employee> employees = employeeDao.listInAdaptation();
+        model.addAttribute("employees", employees);
+        return "employees";
+    }
+
+    @GetMapping("/all")
+    public String allEmployees(Model model) {
+        List<Employee> employees = employeeDao.list();
+        model.addAttribute("employees", employees);
+        return "employees";
+    }
+
+    @GetMapping("/{id}")
     public String showEmployee(@PathVariable int id, Model model) {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
@@ -53,25 +64,28 @@ public class EmployeeController {
         return "employee";
     }
 
-    @GetMapping("/employees/add")
+    @GetMapping("/create")
     public ModelAndView getEmployeeForm(Model model) {
-        ModelAndView mav = new ModelAndView("employeeform");
-        mav.addObject("employeeForm", new EmployeeForm());
+        ModelAndView mav = new ModelAndView("employeeformcreate");
+        mav.addObject("employeeFormCreate", new EmployeeForm());
         mav.addObject("departments", departmentDao.list());
         return mav;
     }
 
-    @PostMapping("/employees/update")
-    public String addEmployee(@Valid EmployeeForm form, BindingResult result, Model model) {
+    @PostMapping("/add")
+    public String addEmployee(@ModelAttribute("employeeFormCreate") @Valid EmployeeForm form,
+                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             if (result.hasFieldErrors("employmentDate")) {
-                result.rejectValue("date1", "error.employeeForm", "Заполните обязательное поле");
+                result.rejectValue("date1", "error.employeeFormCreate",
+                        "Заполните обязательное поле");
             }
             if (result.hasFieldErrors("endOfAdaptation")) {
-                result.rejectValue("date2", "error.employeeForm", "Заполните обязательное поле");
+                result.rejectValue("date2", "error.employeeFormCreate",
+                        "Заполните обязательное поле");
             }
             model.addAttribute("departments", departmentDao.list());
-            return "employeeform";
+            return "employeeformcreate";
         }
         Employee employee = new Employee();
         employee.setFirstName(form.getFirstName());
@@ -87,33 +101,34 @@ public class EmployeeController {
         return "redirect:/employees/" + employee.getId();
     }
 
-    @GetMapping("/employees/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable(value = "id") int id) {
         employeeDao.delete(id);
         return "redirect:/employees";
     }
 
-    @GetMapping("/employees/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String showEditEmployeePage(@PathVariable(name = "id") int id, Model model) {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
             throw new EntityNotFoundException("Сотрудник не найден");
         }
         model.addAttribute("departments", departmentDao.list());
-        model.addAttribute("employeeForm", new EmployeeForm(employee));
-        return "employeeform";
+        model.addAttribute("employeeFormEdit", new EmployeeForm(employee));
+        return "employeeformedit";
     }
 
-    @PostMapping("/employees/{id}/update")
-    public String updateEmployee(@PathVariable(name = "id") int id, Model model, @Valid EmployeeForm form,
+    @PostMapping("/edit/update")
+    public String updateEmployee(@RequestParam("id") int id, Model model,
+                                 @ModelAttribute("interviewFormEdit") @Valid EmployeeForm form,
                                  BindingResult result) {
         if (result.hasErrors()) {
             if (result.hasFieldErrors("date")) {
-                result.rejectValue("date1", "error.interviewForm", "Заполните обязательное поле");
+                result.rejectValue("date1", "error.interviewFormEdit",
+                        "Заполните обязательное поле");
             }
             model.addAttribute("departments", departmentDao.list());
-            model.addAttribute("employeeForm", form);
-            return "employeeform";
+            return "employeeformedit";
         }
         Employee employee = employeeDao.getById(id);
         if (employee == null) {

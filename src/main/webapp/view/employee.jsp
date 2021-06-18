@@ -49,9 +49,9 @@
 </table>
 <h2></h2>
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/employees/${employee.id}/edit'" value="Редактировать">
+    <input type="button" class="floated" onclick="location.href='/employees/edit/${employee.id}'" value="Редактировать">
 </c:if>
-<input type="button" class="floated" onclick="location.href='/employees/${employee.id}/upload'" value="Прикрепить файл">
+<input type="button" class="floated" onclick="location.href='/employees/upload/${employee.id}'" value="Прикрепить файл">
 
 <h2>Беседы</h2>
 <table>
@@ -83,14 +83,13 @@
             <td>${interview.user.name}</td>
             <td>${interview.description}</td>
             <td><c:if test="${empty interview.description}">
-                <input type="button" onclick="location.href='/interviews/${interview.id}/edit'" value="Оставить отзыв">
+                <input type="button" onclick="location.href='/interviews/edit/${interview.id}'" value="Оставить отзыв">
             </c:if>
                 <c:if test="${not empty interview.description}">
-                    <input type="button" onclick="location.href='/interviews/${interview.id}/edit'"
+                    <input type="button" onclick="location.href='/interviews/edit/${interview.id}'"
                            value="Редактировать">
                 </c:if>
             </td>
-
         </tr>
     </c:forEach>
 </table>
