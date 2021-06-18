@@ -19,19 +19,20 @@ import javax.validation.constraints.Min;
 import java.io.IOException;
 
 @Controller
+@RequestMapping("/employees")
 public class FileController {
     @Autowired
     UploadFileDaoImpl uploadFileDao;
     @Autowired
     EmployeeDaoImpl employeeDao;
 
-    @PostMapping("/employees/{id}/upload")
+    @PostMapping("/{id}/upload")
     public String addFile(@RequestBody UploadFile uploadFile, @PathVariable @Min(1) int id) {
         uploadFileDao.add(uploadFile);
-        return "redirect:/employees/" + id;
+        return "redirect:/" + id;
     }
 
-    @GetMapping("/employees/{id}/{fileId}")
+    @GetMapping("/{id}/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(
             @PathVariable("id") int id, @PathVariable("fileId") long fileId) {
         UploadFile uploadFile = uploadFileDao.getById(fileId);
@@ -45,7 +46,7 @@ public class FileController {
                 .body(resource);
     }
 
-    @GetMapping("/employees/{id}/upload")
+    @GetMapping("/{id}/upload")
     public String uploadFileForm(@PathVariable int id, Model model) {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
@@ -55,7 +56,7 @@ public class FileController {
         return "upload";
     }
 
-    @PostMapping("/employees/{id}/uploadfile")
+    @PostMapping("/{id}/uploadfile")
     public String saveFile(@PathVariable int id, Model model, @RequestParam("file") MultipartFile file,
                            RedirectAttributes redirectAttributes) {
         Employee employee = employeeDao.getById(id);
