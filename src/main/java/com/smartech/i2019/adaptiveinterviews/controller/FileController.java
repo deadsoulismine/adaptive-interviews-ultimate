@@ -26,16 +26,15 @@ public class FileController {
     @Autowired
     EmployeeDaoImpl employeeDao;
 
-    @PostMapping("/{id}/upload")
-    public String addFile(@RequestBody UploadFile uploadFile, @PathVariable @Min(1) int id) {
+    @PostMapping("/upload")
+    public String addFile(@RequestParam("file") UploadFile uploadFile, @PathVariable @Min(1) int id) {
         uploadFileDao.add(uploadFile);
         return "redirect:/" + id;
     }
 
-    @GetMapping("/{id}/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(
-            @PathVariable("id") int id, @PathVariable("fileId") long fileId) {
-        UploadFile uploadFile = uploadFileDao.getById(fileId);
+    @GetMapping("/{fileId}/{id}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("id") int id) {
+        UploadFile uploadFile = uploadFileDao.getById(id);
         if (uploadFile == null) {
             throw new EntityNotFoundException("Файл не найден");
         }
@@ -46,7 +45,7 @@ public class FileController {
                 .body(resource);
     }
 
-    @GetMapping("/{id}/upload")
+    @GetMapping("/upload/{id}")
     public String uploadFileForm(@PathVariable int id, Model model) {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
@@ -56,8 +55,8 @@ public class FileController {
         return "upload";
     }
 
-    @PostMapping("/{id}/uploadfile")
-    public String saveFile(@PathVariable int id, Model model, @RequestParam("file") MultipartFile file,
+    @PostMapping("/upload/uploadfile/{id}")
+    public String saveFile(@PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file,
                            RedirectAttributes redirectAttributes) {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
@@ -67,7 +66,7 @@ public class FileController {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Выберите файл для загрузки");
             model.addAttribute("employee", employee);
-            return "redirect:upload";
+            return "redirect:upload/{id}";
         }
         try {
             UploadFile uploadFile = new UploadFile();
@@ -79,5 +78,11 @@ public class FileController {
             e.printStackTrace();
         }
         return "redirect:/employees/" + id;
+    }
+
+    @GetMapping("/deletefile/{fileid}/{id}")
+    public String deleteFile(@PathVariable("fileid") long fileId, @PathVariable("id") int id) {
+        uploadFileDao.delete(id);
+        return "redirect:/employees/" + fileId;
     }
 }
