@@ -1,17 +1,17 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@Controller
-@RequestMapping("/")
+@RestController
+@Tag(name="Главная страница", description="Управление корневой конечной точкой")
 public class MainController {
-    @GetMapping()
-    void handleFoo(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/employees");
+
+    @Operation(summary = "Главная страница")
+    @RequestMapping("/")
+    public String index() {
+        return "index.html";
     }
 }

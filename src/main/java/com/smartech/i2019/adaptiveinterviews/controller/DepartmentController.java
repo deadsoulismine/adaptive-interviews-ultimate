@@ -2,76 +2,63 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 
 import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
-@Controller
+@RestController
+@Tag(name="Отделы", description="Взаимодействие с отделами")
 @RequestMapping("/departments")
 public class DepartmentController {
     @Autowired
     DepartmentDaoImpl departmentDao;
 
+    @Operation(summary = "Список всех отделов")
     @GetMapping()
-    public String allDepartments(Model model) {
+    ResponseEntity<List<Department>> findAll() {
         List<Department> departments = departmentDao.list();
-        model.addAttribute("departments", departments);
-        return "departments";
+        return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
-    @GetMapping("/edit/{id}")
-    public String editDepartmentForm(@PathVariable int id, Model model) {
-        Department department = departmentDao.getById(id);
-        if (department == null) {
-            throw new EntityNotFoundException("Отдел не найден");
-        }
-
-        model.addAttribute("departmentEdit", department);
-        return "departmentformedit";
+    @Operation(summary = "Добавить отдел")
+    @PostMapping()
+    ResponseEntity<Department> newDepartment(@Valid @RequestBody Department newDepartment) {
+        departmentDao.add(newDepartment);
+        return new ResponseEntity<>(newDepartment, HttpStatus.OK);
     }
 
-    @GetMapping("/create")
-    public String departmentForm(Model model) {
-        model.addAttribute("departmentCreate", new Department());
-        return "departmentformcreate";
-    }
-
-    @PostMapping("/add")
-    public String addDepartment(@ModelAttribute("departmentCreate") @Valid Department department,
-                                BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "departmentformcreate";
-        }
-        departmentDao.add(department);
-        return "redirect:/departments";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable(value = "id") int id) {
+    @Operation(summary = "Удалить отдел")
+    @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    ResponseEntity<String> deleteDepartment(@PathVariable int id) {
         departmentDao.delete(id);
-        return "redirect:/departments";
+        return new ResponseEntity<>("Department deleted", HttpStatus.OK);
     }
 
-    @PostMapping("/edit/update")
-    public String editDepartment(@RequestParam("id") @ModelAttribute("departmentEdit") int id,
-                                 @Valid Department departmentToUpdate, BindingResult result, ModelMap model) {
+    @Operation(summary = "Найти отдел по ID")
+    @GetMapping("/{id}")
+    ResponseEntity<Department> findDepartment(@PathVariable @Min(1) int id) {
         Department department = departmentDao.getById(id);
         if (department == null) {
             throw new EntityNotFoundException("Отдел не найден");
         }
-        if (result.hasErrors()) {
-            return "departmentformedit";
-        }
-        departmentDao.update(departmentToUpdate, id);
-        return "redirect:/departments";
+        return new ResponseEntity<>(department, HttpStatus.OK);
     }
 
+    @Operation(summary = "Обновить данные отдела")
+    @PutMapping("/{id}")
+    ResponseEntity<Department> updateDepartment(@RequestBody Department newDepartment, @PathVariable int id) {
+        departmentDao.update(newDepartment, id);
+        return new ResponseEntity<>(newDepartment, HttpStatus.OK);
+    }
 
 }

@@ -1,8 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -16,7 +14,7 @@ public class Interview {
     private User user;
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return (User) Hibernate.unproxy(user);
@@ -37,7 +35,7 @@ public class Interview {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "employee", nullable = false)
     public Employee getEmployee() {
         return (Employee) Hibernate.unproxy(employee);

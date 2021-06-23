@@ -2,23 +2,22 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 
 import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.dao.UploadFileDaoImpl;
-import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
-import java.io.IOException;
+import java.util.List;
 
-@Controller
+@RestController
+@Tag(name="Файлы", description="Взаимодействие с файлами")
 @RequestMapping("/employees")
 public class FileController {
     @Autowired
@@ -26,15 +25,17 @@ public class FileController {
     @Autowired
     EmployeeDaoImpl employeeDao;
 
-    @PostMapping("/upload")
-    public String addFile(@RequestParam("file") UploadFile uploadFile, @PathVariable @Min(1) int id) {
-        uploadFileDao.add(uploadFile);
-        return "redirect:/" + id;
+    @Operation(summary = "Получить список файлов по ID пользователя")
+    @GetMapping("/files/{id}")
+    ResponseEntity<List<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
+        List<UploadFile> uploadFiles = uploadFileDao.getByEmployee(id);
+        return new ResponseEntity<>(uploadFiles, HttpStatus.OK);
     }
 
-    @GetMapping("/{fileId}/{id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("id") int id) {
-        UploadFile uploadFile = uploadFileDao.getById(id);
+    @Operation(summary = "Скачать файл")
+    @GetMapping("/{id}/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) {
+        UploadFile uploadFile = uploadFileDao.getById(fileId);
         if (uploadFile == null) {
             throw new EntityNotFoundException("Файл не найден");
         }
@@ -45,44 +46,18 @@ public class FileController {
                 .body(resource);
     }
 
-    @GetMapping("/upload/{id}")
-    public String uploadFileForm(@PathVariable int id, Model model) {
-        Employee employee = employeeDao.getById(id);
-        if (employee == null) {
-            throw new EntityNotFoundException("Сотрудник не найден");
-        }
-        model.addAttribute("employee", employee);
-        return "upload";
+    @Operation(summary = "Загрузить файл")
+    @PostMapping("/upload")
+    ResponseEntity<String> uploadFile(@RequestBody UploadFile file, @PathVariable int id) {
+        file.setEmployee(employeeDao.getById(id));
+        uploadFileDao.add(file);
+        return ResponseEntity.ok("Файл прикреплен");
     }
 
-    @PostMapping("/upload/uploadfile/{id}")
-    public String saveFile(@PathVariable("id") int id, Model model, @RequestParam("file") MultipartFile file,
-                           RedirectAttributes redirectAttributes) {
-        Employee employee = employeeDao.getById(id);
-        if (employee == null) {
-            throw new EntityNotFoundException("Сотрудник не найден");
-        }
-        model.addAttribute("employee", employee);
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Выберите файл для загрузки");
-            model.addAttribute("employee", employee);
-            return "redirect:upload/{id}";
-        }
-        try {
-            UploadFile uploadFile = new UploadFile();
-            uploadFile.setEmployee(employee);
-            uploadFile.setFileName(file.getOriginalFilename());
-            uploadFile.setData(file.getBytes());
-            uploadFileDao.add(uploadFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "redirect:/employees/" + id;
-    }
-
-    @GetMapping("/deletefile/{fileid}/{id}")
-    public String deleteFile(@PathVariable("fileid") long fileId, @PathVariable("id") int id) {
-        uploadFileDao.delete(id);
-        return "redirect:/employees/" + fileId;
+    @Operation(summary = "Удалить файл")
+    @DeleteMapping("/{id}/{fileId}")
+    ResponseEntity<String> deleteFile(@PathVariable long fileId) {
+        uploadFileDao.delete(fileId);
+        return ResponseEntity.ok("Файл прикреплен");
     }
 }

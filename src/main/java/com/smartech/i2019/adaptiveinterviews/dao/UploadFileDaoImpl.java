@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UploadFileDaoImpl implements UploadFileDao {
     private final SessionFactory sessionFactory;
@@ -44,5 +46,16 @@ public class UploadFileDaoImpl implements UploadFileDao {
         session.getTransaction().commit();
         session.close();
         return uploadFile;
+    }
+
+    @Override
+    public List<UploadFile> getByEmployee(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<UploadFile> uploadFiles = session.createQuery(
+                "FROM UploadFile " + " where employee.id = " + id).list();
+        session.getTransaction().commit();
+        session.close();
+        return uploadFiles;
     }
 }

@@ -4,7 +4,9 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -18,6 +20,7 @@ public class Employee {
     private String position;
     private String status;
     private Set<UploadFile> files = new HashSet<>();
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Interview> interviews = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)

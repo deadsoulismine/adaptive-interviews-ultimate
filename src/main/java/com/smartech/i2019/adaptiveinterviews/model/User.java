@@ -10,10 +10,10 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-
     private String name;
     private String email;
     private int id;
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Interview> interviews = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)

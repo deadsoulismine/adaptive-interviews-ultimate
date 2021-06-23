@@ -32,7 +32,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.smartech.i2019.adaptiveinterviews.model");
+        sessionFactory.setPackagesToScan("com.smartech.i2019.adaptiveinterviews");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;

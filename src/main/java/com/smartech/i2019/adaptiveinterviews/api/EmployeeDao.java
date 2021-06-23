@@ -3,7 +3,6 @@ package com.smartech.i2019.adaptiveinterviews.api;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 
-
 import java.util.List;
 import java.util.Set;
 
@@ -16,9 +15,9 @@ public interface EmployeeDao {
 
     Employee getById(int id);
 
-    List<Employee> getByLastName(String lastName);
-
     List<Employee> list();
+
+    List<Employee> getByLastName(String lastName);
 
     List<Employee> listForNewInterview();
 

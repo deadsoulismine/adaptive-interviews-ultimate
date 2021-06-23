@@ -1,10 +1,11 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -13,11 +14,15 @@ public class Department {
     private int id;
     private String supervisor;
     private String name;
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Employee> employeeSet = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    @JsonIgnore
     public Set<Employee> getEmployeeSet() {
+        Iterator iterator = employeeSet.iterator();
+        while (iterator.hasNext()) {
+            Hibernate.unproxy(iterator.next());
+        }
         return employeeSet;
     }
 

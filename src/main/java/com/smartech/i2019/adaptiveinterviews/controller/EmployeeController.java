@@ -4,89 +4,46 @@ import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RequestMapping("/employees")
-@Tag(name = "Employee", description = "The Employee API")
-@Controller
+@RestController
+@Tag(name="Сотрудники", description="Взаимодействие с сотрудниками")
 public class EmployeeController {
     @Autowired
     private DepartmentDaoImpl departmentDao;
     @Autowired
     private EmployeeDaoImpl employeeDao;
 
+    @Operation(summary = "Показать всех сотрудников")
     @GetMapping()
-    public void foo(Model model) {
-        allEmployees(model);
-    }
-
-    @GetMapping("/findByLastName")
-    public String findByLastName(Model model, HttpServletRequest request) {
-        List<Employee> employees = employeeDao.listByLastName(request.getParameter("lastName"));
-        model.addAttribute("employees", employees);
-        return "employees";
-    }
-
-    @GetMapping("/adaptation")
-    public String adaptation(Model model) {
-        List<Employee> employees = employeeDao.listInAdaptation();
-        model.addAttribute("employees", employees);
-        return "employees";
-    }
-
-    @GetMapping("/all")
-    public String allEmployees(Model model) {
+    ResponseEntity<List<Employee>> allEmployees() {
         List<Employee> employees = employeeDao.list();
-        model.addAttribute("employees", employees);
-        return "employees";
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @Operation(summary = "Найти сотрудника по ID")
     @GetMapping("/{id}")
-    public String showEmployee(@PathVariable int id, Model model) {
+    ResponseEntity<Employee> findEmployee(@PathVariable @Min(1) int id) throws EntityNotFoundException {
         Employee employee = employeeDao.getById(id);
         if (employee == null) {
             throw new EntityNotFoundException("Сотрудник не найден");
         }
-        model.addAttribute("employee", employee);
-        model.addAttribute("interviews", employee.getInterviews());
-        model.addAttribute("files", employee.getFiles());
-        return "employee";
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @GetMapping("/create")
-    public ModelAndView getEmployeeForm(Model model) {
-        ModelAndView mav = new ModelAndView("employeeformcreate");
-        mav.addObject("employeeFormCreate", new EmployeeForm());
-        mav.addObject("departments", departmentDao.list());
-        return mav;
-    }
-
+    @Operation(summary = "Добавить сотрудника")
     @PostMapping("/add")
-    public String addEmployee(@ModelAttribute("employeeFormCreate") @Valid EmployeeForm form,
-                              BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("employmentDate")) {
-                result.rejectValue("date1", "error.employeeFormCreate",
-                        "Заполните обязательное поле");
-            }
-            if (result.hasFieldErrors("endOfAdaptation")) {
-                result.rejectValue("date2", "error.employeeFormCreate",
-                        "Заполните обязательное поле");
-            }
-            model.addAttribute("departments", departmentDao.list());
-            return "employeeformcreate";
-        }
+    ResponseEntity<Employee> addEmployee(@RequestBody EmployeeForm form) {
         Employee employee = new Employee();
         employee.setFirstName(form.getFirstName());
         employee.setLastName(form.getLastName());
@@ -96,56 +53,22 @@ public class EmployeeController {
         employee.setStatus(form.getStatus());
         employee.setPosition(form.getPosition());
         employeeDao.add(employee);
-        model.addAttribute("employees", employeeDao.list());
-
-        return "redirect:/employees/" + employee.getId();
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable(value = "id") int id) {
+    @Operation(summary = "Обновить данные сотрудника")
+    @PutMapping("/{id}")
+    ResponseEntity<Employee> updateEmployee(@RequestBody Employee newEmployee, @PathVariable int id) {
+        employeeDao.update(newEmployee, id);
+        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Удалить сотрудника")
+    @DeleteMapping("/{id}")
+    ResponseEntity<String> deleteEmployee(@PathVariable int id) {
         employeeDao.delete(id);
-        return "redirect:/employees";
+        return new ResponseEntity<>("Сотрудник удален", HttpStatus.OK);
     }
-
-    @GetMapping("/edit/{id}")
-    public String showEditEmployeePage(@PathVariable(name = "id") int id, Model model) {
-        Employee employee = employeeDao.getById(id);
-        if (employee == null) {
-            throw new EntityNotFoundException("Сотрудник не найден");
-        }
-        model.addAttribute("departments", departmentDao.list());
-        model.addAttribute("employeeFormEdit", new EmployeeForm(employee));
-        return "employeeformedit";
-    }
-
-    @PostMapping("/edit/update")
-    public String updateEmployee(@RequestParam("id") int id, Model model,
-                                 @ModelAttribute("interviewFormEdit") @Valid EmployeeForm form,
-                                 BindingResult result) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("date")) {
-                result.rejectValue("date1", "error.interviewFormEdit",
-                        "Заполните обязательное поле");
-            }
-            model.addAttribute("departments", departmentDao.list());
-            return "employeeformedit";
-        }
-        Employee employee = employeeDao.getById(id);
-        if (employee == null) {
-            throw new EntityNotFoundException("Сотрудник не найден");
-        }
-        employee.setFirstName(form.getFirstName());
-        employee.setLastName(form.getLastName());
-        employee.setDepartment(departmentDao.getByName(form.getDepartment()));
-        employee.setEmploymentDate(form.getEmploymentDate());
-        employee.setEndOfAdaptation(form.getEndOfAdaptation());
-
-        employee.setStatus(form.getStatus());
-        employee.setPosition(form.getPosition());
-        employeeDao.update(employee, id);
-        return "redirect:/employees/" + id;
-    }
-
 
 }
 
