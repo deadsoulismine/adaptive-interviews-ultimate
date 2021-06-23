@@ -28,14 +28,14 @@
 <input type="button" class="floated" onclick="location.href='/users'" value="Пользователи">
 <input type="button" class="floated" onclick="location.href='/logout'" value="Выйти из системы">
 <h2></h2>
-<input type="button" class="floated" onclick="location.href='/employees?adaptation=yes'" value="В адаптации">
-<input type="button" class="floated" onclick="location.href='/employees?all=yes'" value="Все сотрудники">
+<input type="button" class="floated" onclick="location.href='/employees/adaptation'" value="В адаптации">
+<input type="button" class="floated" onclick="location.href='/employees/all'" value="Все сотрудники">
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <input type="button" class="floated" onclick="location.href='/employees/add'" value="Новый сотрудник">
+    <input type="button" class="floated" onclick="location.href='/employees/create'" value="Новый сотрудник">
 </c:if>
 <h2></h2>
-<form action="/employees" method="GET">
-    Фамилия: <input type="text" name="findLastName"/>
+<form action="/employees/findByLastName" method="GET">
+    Фамилия: <input type="text" name="lastName"/>
     <input type="submit" value="Найти"/>
 </form>
 
@@ -64,6 +64,9 @@
         <th>Статус</th>
         <th>Беседы</th>
         <th></th>
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <th></th>
+        </c:if>
     </tr>
     <tr>
         <c:forEach var="employee" items="${employees}">
@@ -79,7 +82,6 @@
             PaleGreen
     </c:otherwise>
             </c:choose>">
-
         <td>${employee.lastName}</td>
         <td>${employee.firstName}</td>
         <td>${employee.department.name}</td>
@@ -89,6 +91,9 @@
         <td>${employee.status}</td>
         <td>${fn:length(employee.interviews.toArray())}</td>
         <td><input type="button" onclick="location.href='/employees/${employee.id}'" value="Открыть"></td>
+        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+            <td><input type="button" onclick="location.href='/employees/delete/${employee.id}'" value="Удалить"></td>
+        </c:if>
     </tr>
     </c:forEach>
     </tr>

@@ -15,8 +15,7 @@
 <body>
 <h3>Сотрудник</h3>
 <form:form method="POST"
-           action="update" modelAttribute="employeeFormEdit">
-    <form:hidden path="id"/>
+           action="add" modelAttribute="employeeFormCreate">
     <table>
         <tr>
             <td><form:label path="firstName">Имя*</form:label></td>

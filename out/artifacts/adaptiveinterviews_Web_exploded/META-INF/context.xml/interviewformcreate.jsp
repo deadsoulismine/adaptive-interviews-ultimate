@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Редактирование беседы</title>
+    <title>Добавление новой беседы</title>
     <style type="text/css">
         .error {
             color: red;
@@ -21,11 +21,12 @@
     </style>
 </head>
 <body>
-<h3>Редактирование беседы</h3>
+<h3>Добавление новой беседы</h3>
 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-    <form:form method="POST" action="update" modelAttribute="interviewFormEdit">
-        <form:hidden path="id"/>
+    <form:form method="POST"
+               action="add" modelAttribute="interviewFormCreate">
         <table>
+
             <tr>
                 <td><form:label path="employeeName">Сотрудник*</form:label></td>
                 <td><form:select path="employeeName">
@@ -64,7 +65,7 @@
 </c:if>
 <c:if test="${pageContext.request.isUserInRole('USER')}">
     <form:form method="POST"
-               action="update" modelAttribute="interviewFormEdit">
+               action="add" modelAttribute="interviewFormCreate">
         <table>
 
             <tr>
