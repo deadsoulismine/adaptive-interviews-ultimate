@@ -38,7 +38,7 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     public Interview findById(long id) {
-        return interviewRepository.getById(id);
+        return interviewRepository.findById(id).orElse(null);
     }
 
     @Override

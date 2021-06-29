@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.Hibernate;
 
@@ -10,58 +11,34 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
-//@Data
+@Data
 @Table(name = "departments")
 public class Department {
-    private long id;
-    private String supervisor;
-    private String name;
-    @com.fasterxml.jackson.annotation.JsonIgnore
-    private Set<Employee> employeeSet = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    public Set<Employee> getEmployeeSet() {
-        Iterator iterator = employeeSet.iterator();
-        while (iterator.hasNext()) {
-            Hibernate.unproxy(iterator.next());
-        }
-        return employeeSet;
-    }
-
-    public void setEmployeeSet(Set<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    private long id;
     @Column(name = "supervisor")
     @NotBlank(message = "Укажите начальника отдела")
-    public String getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(String supervisor) {
-        this.supervisor = supervisor;
-    }
-
+    private String supervisor;
     @Column(name = "name")
     @NotBlank(message = "Укажите название отдела")
-    public String getName() {
-        return name;
-    }
+    private String name;
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true)
+    private Set<Employee> employeeSet = new HashSet<>();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+//    public Set<Employee> getEmployeeSet() {
+//        Iterator iterator = employeeSet.iterator();
+//        while (iterator.hasNext()) {
+//            Hibernate.unproxy(iterator.next());
+//        }
+//        return employeeSet;
+//    }
+//
+//    public void setEmployeeSet(Set<Employee> employeeSet) {
+//        this.employeeSet = employeeSet;
+//    }
 
 }

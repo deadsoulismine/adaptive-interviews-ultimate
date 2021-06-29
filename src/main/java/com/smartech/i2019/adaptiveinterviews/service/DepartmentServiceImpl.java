@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(long id) {
-        return departmentRepository.getById(id);
+        return departmentRepository.findById(id).orElse(null);
     }
 
     @Override

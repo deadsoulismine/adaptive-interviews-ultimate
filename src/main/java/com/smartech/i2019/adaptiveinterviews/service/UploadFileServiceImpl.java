@@ -25,7 +25,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 
     @Override
     public UploadFile findById(long id) {
-        return uploadFileRepository.getById(id);
+        return uploadFileRepository.findById(id).orElse(null);
     }
 
     @Override
