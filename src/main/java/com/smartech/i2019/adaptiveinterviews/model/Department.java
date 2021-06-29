@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -9,9 +10,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
+//@Data
 @Table(name = "departments")
 public class Department {
-    private int id;
+    private long id;
     private String supervisor;
     private String name;
     @com.fasterxml.jackson.annotation.JsonIgnore
@@ -34,11 +36,11 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,6 +63,5 @@ public class Department {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

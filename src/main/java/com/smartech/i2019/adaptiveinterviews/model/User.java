@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -8,11 +9,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
+//@Data
 @Table(name = "users")
 public class User {
     private String name;
     private String email;
-    private int id;
+    private long id;
     @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Interview> interviews = new HashSet<>();
 
@@ -32,12 +34,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+
+    public void setId(long id) {
         this.id = id;
     }
+
     @Column(name = "name", nullable = false)
     public String getName() {
         return name;

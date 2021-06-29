@@ -1,11 +1,13 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import lombok.Data;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
+//@Data
 @Table(name = "files")
 public class UploadFile {
     private String fileName;

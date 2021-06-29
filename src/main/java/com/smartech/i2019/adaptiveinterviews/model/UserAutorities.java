@@ -1,24 +1,26 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
 @Entity
+//@Data
 @Table(name = "users_autorities")
 public class UserAutorities {
     private String username;
     private String password;
     private String role;
     private User user;
-    private int user_id;
+    private long user_id;
 
     @Id
-    public int getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

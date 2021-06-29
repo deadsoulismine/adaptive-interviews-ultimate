@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class InterviewForm {
-    private int id;
+    private long id;
     private Employee employee;
     @NotBlank(message = "Заполните обязательное поле")
     private String employeeName;
@@ -112,11 +112,11 @@ public class InterviewForm {
         this.employeeName = employeeName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

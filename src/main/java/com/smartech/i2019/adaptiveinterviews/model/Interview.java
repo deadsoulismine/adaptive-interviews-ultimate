@@ -1,14 +1,16 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import lombok.Data;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+//@Data
 @Table(name = "interviews")
 public class Interview {
-    private int id;
+    private long id;
     private Employee employee;
     private String description;
     private User user;
@@ -27,11 +29,11 @@ public class Interview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
