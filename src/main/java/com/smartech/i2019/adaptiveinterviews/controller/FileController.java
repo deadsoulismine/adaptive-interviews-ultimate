@@ -1,7 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
-import com.smartech.i2019.adaptiveinterviews.dao.UploadFileDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
+import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,21 +21,21 @@ import java.util.List;
 @RequestMapping("/employees")
 public class FileController {
     @Autowired
-    UploadFileDaoImpl uploadFileDao;
+    UploadFileService uploadFileService;
     @Autowired
-    EmployeeDaoImpl employeeDao;
+    EmployeeService employeeService;
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
     ResponseEntity<List<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        List<UploadFile> uploadFiles = uploadFileDao.getByEmployee(id);
+        List<UploadFile> uploadFiles = uploadFileService.findByEmployee(id);
         return new ResponseEntity<>(uploadFiles, HttpStatus.OK);
     }
 
     @Operation(summary = "Скачать файл")
     @GetMapping("/{id}/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) {
-        UploadFile uploadFile = uploadFileDao.getById(fileId);
+        UploadFile uploadFile = uploadFileService.findById(fileId);
         if (uploadFile == null) {
             throw new EntityNotFoundException("Файл не найден");
         }
@@ -48,16 +48,16 @@ public class FileController {
 
     @Operation(summary = "Загрузить файл")
     @PostMapping("/upload")
-    ResponseEntity<String> uploadFile(@RequestBody UploadFile file, @PathVariable int id) {
-        file.setEmployee(employeeDao.getById(id));
-        uploadFileDao.add(file);
+    ResponseEntity<String> uploadFile(@RequestBody UploadFile file, @PathVariable Long id) {
+        file.setEmployee(employeeService.findById(id));
+        uploadFileService.add(file);
         return ResponseEntity.ok("Файл прикреплен");
     }
 
     @Operation(summary = "Удалить файл")
     @DeleteMapping("/{id}/{fileId}")
-    ResponseEntity<String> deleteFile(@PathVariable long fileId) {
-        uploadFileDao.delete(fileId);
+    ResponseEntity<String> deleteFile(@PathVariable Long fileId) {
+        uploadFileService.delete(fileId);
         return ResponseEntity.ok("Файл прикреплен");
     }
 }

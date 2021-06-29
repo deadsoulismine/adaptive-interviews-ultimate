@@ -1,6 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.dao.UserDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,19 +19,19 @@ import java.util.List;
 @Tag(name="Пользователи", description="Взаимодействие с пользователями")
 public class UserController {
     @Autowired
-    UserDaoImpl userDao;
+    UserService userService;
 
     @Operation(summary = "Список всех пользователей")
     @GetMapping()
     ResponseEntity<List<User>> findAll() {
-        List<User> users = userDao.list();
+        List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @Operation(summary = "Найти пользователя по ID")
     @GetMapping("/{id}")
-    ResponseEntity<User> findUser(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        User user = userDao.getById(id);
+    ResponseEntity<User> findUser(@PathVariable @Min(1) Long id) throws EntityNotFoundException {
+        User user = userService.findById(id);
         if (user == null) {
             throw new EntityNotFoundException();
         }
@@ -40,25 +40,24 @@ public class UserController {
 
     @Operation(summary = "Обновить данные пользователя")
     @PutMapping("/{id}")
-    ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable int id) {
-
-        userDao.update(newUser, id);
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+    ResponseEntity<User> updateUser(@RequestBody User user) {
+        userService.edit(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить пользователя")
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    ResponseEntity<String> deleteUser(@PathVariable int id) {
-        userDao.delete(id);
+    ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.delete(id);
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 
     @Operation(summary = "Добавить нового пользователя")
     @PostMapping()
-    ResponseEntity<User> newUser(@RequestBody User newUser) {
-        userDao.add(newUser);
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+    ResponseEntity<User> newUser(@RequestBody User user) {
+        userService.add(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }

@@ -1,8 +1,8 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
-import com.smartech.i2019.adaptiveinterviews.dao.InterviewDaoImpl;
-import com.smartech.i2019.adaptiveinterviews.dao.UserDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
+import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
+import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.InterviewForm;
@@ -22,23 +22,23 @@ import java.util.List;
 @Tag(name="Беседы", description="Взаимодействие с беседами")
 public class InterviewController {
     @Autowired
-    InterviewDaoImpl interviewDao;
+    InterviewService interviewService;
     @Autowired
-    EmployeeDaoImpl employeeDao;
+    EmployeeService employeeService;
     @Autowired
-    UserDaoImpl userDao;
+    UserService userService;
 
     @Operation(summary = "Список всех бесед")
     @GetMapping()
     ResponseEntity<List<Interview>> list() {
-        List<Interview> interviews = interviewDao.list();
+        List<Interview> interviews = interviewService.findAll();
         return new ResponseEntity<>(interviews, HttpStatus.OK);
     }
 
     @Operation(summary = "Найти беседу по ID")
     @GetMapping("/{id}")
-    ResponseEntity<Interview> findInterview(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        Interview interview = interviewDao.getById(id);
+    ResponseEntity<Interview> findInterview(@PathVariable @Min(1) Long id) throws EntityNotFoundException {
+        Interview interview = interviewService.findById(id);
         if (interview == null) {
             throw new EntityNotFoundException("Беседа не найдена");
         }
@@ -48,29 +48,29 @@ public class InterviewController {
     @Operation(summary = "Добавить беседу")
     @PostMapping("/add")
     ResponseEntity<Employee> addInterview(@RequestBody InterviewForm form) {
-        Employee employee = employeeDao.getByName(form.getFirstName(), form.getLastName());
+        Employee employee = employeeService.findByName(form.getFirstName(), form.getLastName());
         Interview interview = new Interview();
         interview.setDescription(form.getDescription());
         interview.setDate(form.getDate());
-        interview.setUser(userDao.getByUsername(form.getNameOfUser()));
+        interview.setUser(userService.findByUsername(form.getNameOfUser()));
         interview.setEmployee(employee);
         interview.setName(form.getName());
-        interviewDao.add(interview);
+        interviewService.add(interview);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить беседу")
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteInterview(@PathVariable int id) {
-        interviewDao.delete(id);
+    ResponseEntity<String> deleteInterview(@PathVariable Long id) {
+        interviewService.delete(id);
         return new ResponseEntity<>("Беседа удалена", HttpStatus.OK);
     }
 
     @Operation(summary = "Обновить данные беседы")
     @PutMapping("/{id}")
-    ResponseEntity<Interview> updateInterview(@RequestBody Interview newInterview, @PathVariable int id) {
-        interviewDao.update(newInterview, id);
-        return new ResponseEntity<>(newInterview, HttpStatus.OK);
+    ResponseEntity<Interview> updateInterview(@RequestBody Interview interview) {
+        interviewService.edit(interview);
+        return new ResponseEntity<>(interview, HttpStatus.OK);
     }
 
 }

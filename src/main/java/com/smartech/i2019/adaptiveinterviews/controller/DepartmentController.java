@@ -1,6 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,34 +20,34 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
     @Autowired
-    DepartmentDaoImpl departmentDao;
+    DepartmentService departmentService;
 
     @Operation(summary = "Список всех отделов")
     @GetMapping()
     ResponseEntity<List<Department>> findAll() {
-        List<Department> departments = departmentDao.list();
+        List<Department> departments = departmentService.findAll();
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
     @Operation(summary = "Добавить отдел")
     @PostMapping()
-    ResponseEntity<Department> newDepartment(@Valid @RequestBody Department newDepartment) {
-        departmentDao.add(newDepartment);
-        return new ResponseEntity<>(newDepartment, HttpStatus.OK);
+    ResponseEntity<Department> newDepartment(@Valid @RequestBody Department department) {
+        departmentService.add(department);
+        return new ResponseEntity<>(department, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить отдел")
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    ResponseEntity<String> deleteDepartment(@PathVariable int id) {
-        departmentDao.delete(id);
+    ResponseEntity<String> deleteDepartment(@PathVariable long id) {
+        departmentService.delete(id);
         return new ResponseEntity<>("Department deleted", HttpStatus.OK);
     }
 
     @Operation(summary = "Найти отдел по ID")
     @GetMapping("/{id}")
-    ResponseEntity<Department> findDepartment(@PathVariable @Min(1) int id) {
-        Department department = departmentDao.getById(id);
+    ResponseEntity<Department> findDepartment(@PathVariable @Min(1) long id) {
+        Department department = departmentService.findById(id);
         if (department == null) {
             throw new EntityNotFoundException("Отдел не найден");
         }
@@ -56,9 +56,9 @@ public class DepartmentController {
 
     @Operation(summary = "Обновить данные отдела")
     @PutMapping("/{id}")
-    ResponseEntity<Department> updateDepartment(@RequestBody Department newDepartment, @PathVariable int id) {
-        departmentDao.update(newDepartment, id);
-        return new ResponseEntity<>(newDepartment, HttpStatus.OK);
+    ResponseEntity<Department> updateDepartment(@RequestBody Department department) {
+        departmentService.edit(department);
+        return new ResponseEntity<>(department, HttpStatus.OK);
     }
 
 }

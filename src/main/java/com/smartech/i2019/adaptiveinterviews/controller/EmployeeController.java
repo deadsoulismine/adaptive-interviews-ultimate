@@ -1,7 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.dao.DepartmentDaoImpl;
-import com.smartech.i2019.adaptiveinterviews.dao.EmployeeDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
+import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,21 +20,21 @@ import java.util.List;
 @Tag(name="Сотрудники", description="Взаимодействие с сотрудниками")
 public class EmployeeController {
     @Autowired
-    private DepartmentDaoImpl departmentDao;
+    private DepartmentService departmentService;
     @Autowired
-    private EmployeeDaoImpl employeeDao;
+    private EmployeeService employeeService;
 
     @Operation(summary = "Показать всех сотрудников")
     @GetMapping()
     ResponseEntity<List<Employee>> allEmployees() {
-        List<Employee> employees = employeeDao.list();
+        List<Employee> employees = employeeService.findAll();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @Operation(summary = "Найти сотрудника по ID")
     @GetMapping("/{id}")
-    ResponseEntity<Employee> findEmployee(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        Employee employee = employeeDao.getById(id);
+    ResponseEntity<Employee> findEmployee(@PathVariable @Min(1) long id) throws EntityNotFoundException {
+        Employee employee = employeeService.findById(id);
         if (employee == null) {
             throw new EntityNotFoundException("Сотрудник не найден");
         }
@@ -47,26 +47,26 @@ public class EmployeeController {
         Employee employee = new Employee();
         employee.setFirstName(form.getFirstName());
         employee.setLastName(form.getLastName());
-        employee.setDepartment(departmentDao.getByName(form.getDepartment()));
+        employee.setDepartment(departmentService.findByName(form.getDepartment()));
         employee.setEmploymentDate(form.getEmploymentDate());
         employee.setEndOfAdaptation(form.getEndOfAdaptation());
         employee.setStatus(form.getStatus());
         employee.setPosition(form.getPosition());
-        employeeDao.add(employee);
+        employeeService.add(employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @Operation(summary = "Обновить данные сотрудника")
     @PutMapping("/{id}")
-    ResponseEntity<Employee> updateEmployee(@RequestBody Employee newEmployee, @PathVariable int id) {
-        employeeDao.update(newEmployee, id);
-        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+    ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
+        employeeService.edit(employee);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить сотрудника")
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteEmployee(@PathVariable int id) {
-        employeeDao.delete(id);
+    ResponseEntity<String> deleteEmployee(@PathVariable long id) {
+        employeeService.delete(id);
         return new ResponseEntity<>("Сотрудник удален", HttpStatus.OK);
     }
 

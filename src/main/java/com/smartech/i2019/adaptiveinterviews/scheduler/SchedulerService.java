@@ -1,6 +1,7 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.scheduler;
 
-import com.smartech.i2019.adaptiveinterviews.dao.InterviewDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.EmailService;
+import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,14 +13,14 @@ import java.util.List;
 @Service
 public class SchedulerService {
     @Autowired
-    EmailServiceImpl emailService;
+    EmailService emailService;
     @Autowired
-    InterviewDaoImpl interviewDao;
+    InterviewService interviewService;
 
     @Scheduled(cron = "0 0 9 * * *")  //каждый день в 9-00
     public void sendMailToRemindUsers() {
-        List<Interview> interviewsNextDay = interviewDao.listByDateNextDay();
-        List<Interview> interviewsSubtractDay = interviewDao.listByDateSubtractDay();
+        List<Interview> interviewsNextDay = interviewService.listByDateNextDay();
+        List<Interview> interviewsSubtractDay = interviewService.listByDateSubtractDay();
         if (!interviewsNextDay.isEmpty()) {
             try {
                 for (Interview interview : interviewsNextDay) {

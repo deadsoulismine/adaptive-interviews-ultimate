@@ -1,6 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.security;
 
-import com.smartech.i2019.adaptiveinterviews.dao.UsersAutoritiesDaoImpl;
+import com.smartech.i2019.adaptiveinterviews.api.UsersAutoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private UsersAutoritiesDaoImpl usersAutoritiesDao;
+    private UsersAutoritiesService usersAutoritiesService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserAutorities user = usersAutoritiesDao.findByUsername(username);
+        UserAutorities user = usersAutoritiesService.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
