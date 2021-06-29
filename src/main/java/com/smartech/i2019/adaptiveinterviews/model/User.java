@@ -25,17 +25,4 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private Set<Interview> interviews = new HashSet<>();
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-//    public Set<Interview> getInterviews() {
-//        Iterator iterator = interviews.iterator();
-//        while (iterator.hasNext()) {
-//            Hibernate.unproxy(iterator.next());
-//        }
-//        return interviews;
-//    }
-//
-//    public void setInterviews(Set<Interview> interviews) {
-//        this.interviews = interviews;
-//    }
-
 }

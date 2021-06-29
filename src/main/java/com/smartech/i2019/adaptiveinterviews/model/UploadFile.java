@@ -24,13 +24,4 @@ public class UploadFile {
     @JoinColumn(name = "employee_id", nullable  = false)
     private Employee employee;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "employee_id", nullable  = false)
-//    public Employee getEmployee() {
-//        return (Employee) Hibernate.unproxy(employee);
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
 }

@@ -23,16 +23,4 @@ public class UserAutorities {
     @Id
     private long user_id;
 
-
-//    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-//    @JoinColumn(name = "user_id")
-//    @MapsId
-//    public User getUser() {
-//        return (User) Hibernate.unproxy(user);
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
 }

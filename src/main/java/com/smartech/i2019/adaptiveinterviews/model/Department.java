@@ -28,17 +28,4 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true)
     private Set<Employee> employeeSet = new HashSet<>();
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-//    public Set<Employee> getEmployeeSet() {
-//        Iterator iterator = employeeSet.iterator();
-//        while (iterator.hasNext()) {
-//            Hibernate.unproxy(iterator.next());
-//        }
-//        return employeeSet;
-//    }
-//
-//    public void setEmployeeSet(Set<Employee> employeeSet) {
-//        this.employeeSet = employeeSet;
-//    }
-
 }

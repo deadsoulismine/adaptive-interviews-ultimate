@@ -28,24 +28,4 @@ public class Interview {
     @Column(name = "date", nullable = false)
     private Date date;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    public User getUser() {
-//        return (User) Hibernate.unproxy(user);
-//    }
-
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
-//
-//    @ManyToOne
-//    @JoinColumn(name = "employee", nullable = false)
-//    public Employee getEmployee() {
-//        return (Employee) Hibernate.unproxy(employee);
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
 }

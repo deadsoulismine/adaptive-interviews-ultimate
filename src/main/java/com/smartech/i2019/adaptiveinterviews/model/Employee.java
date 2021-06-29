@@ -38,41 +38,6 @@ public class Employee {
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     private Set<Interview> interviews = new HashSet<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
-//    public Set<Interview> getInterviews() {
-//        Iterator iterator = interviews.iterator();
-//        while (iterator.hasNext()) {
-//            Hibernate.unproxy(iterator.next());
-//        }
-//        return interviews;
-//    }
-//
-//    public void setInterviews(Set<Interview> interviews) {
-//        this.interviews = interviews;
-//    }
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
-//    public Set<UploadFile> getFiles() {
-//        Iterator iterator = files.iterator();
-//        while (iterator.hasNext()) {
-//            Hibernate.unproxy(iterator.next());
-//        }
-//        return files;
-//    }
-//
-//    public void setFiles(Set<UploadFile> files) {
-//        this.files = files;
-//    }
-
-//    public Department getDepartment() {
-//        return (Department) Hibernate.unproxy(department);
-//    }
-//
-//    public void setDepartment(Department department) {
-//        this.department = department;
-//    }
-
 
 }
 
