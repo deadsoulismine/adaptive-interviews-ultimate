@@ -6,10 +6,7 @@ import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 
 public class EmployeeForm {
-    public EmployeeForm() {
-    }
-
-    private int id;
+    private long id;
     @NotBlank(message = "Заполните обязательное поле")
     private String firstName;
     @NotBlank(message = "Заполните обязательное поле")
@@ -23,8 +20,10 @@ public class EmployeeForm {
     private String position;
     private String status;
 
+    public EmployeeForm() {
+    }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
