@@ -15,20 +15,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @Tag(name="Файлы", description="Взаимодействие с файлами")
 @RequestMapping("/employees")
 public class FileController {
     @Autowired
-    UploadFileService uploadFileService;
+    private UploadFileService uploadFileService;
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
-    ResponseEntity<List<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        List<UploadFile> uploadFiles = uploadFileService.findByEmployee(id);
+    ResponseEntity<Set<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
+        Set<UploadFile> uploadFiles = employeeService.getUploadFiles(id);
         return new ResponseEntity<>(uploadFiles, HttpStatus.OK);
     }
 

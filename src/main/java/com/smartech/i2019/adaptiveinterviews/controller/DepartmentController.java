@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
     @Autowired
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @Operation(summary = "Список всех отделов")
     @GetMapping()
@@ -31,7 +31,7 @@ public class DepartmentController {
 
     @Operation(summary = "Добавить отдел")
     @PostMapping()
-    ResponseEntity<Department> newDepartment(@Valid @RequestBody Department department) {
+    ResponseEntity<Department> addDepartment(@Valid @RequestBody Department department) {
         departmentService.add(department);
         return new ResponseEntity<>(department, HttpStatus.OK);
     }

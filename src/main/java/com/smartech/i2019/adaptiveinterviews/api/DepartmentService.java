@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    List<Department> findAll();
-
     void add(Department department);
 
     void delete(long id);
+
+    List<Department> findAll();
 
     Department findById(long id);
 

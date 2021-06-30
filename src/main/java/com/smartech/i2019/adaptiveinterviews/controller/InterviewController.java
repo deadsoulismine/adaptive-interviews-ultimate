@@ -22,11 +22,11 @@ import java.util.List;
 @Tag(name="Беседы", description="Взаимодействие с беседами")
 public class InterviewController {
     @Autowired
-    InterviewService interviewService;
+    private InterviewService interviewService;
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Operation(summary = "Список всех бесед")
     @GetMapping()
@@ -52,7 +52,7 @@ public class InterviewController {
         Interview interview = new Interview();
         interview.setDescription(form.getDescription());
         interview.setDate(form.getDate());
-        interview.setUser(userService.findByUsername(form.getNameOfUser()));
+        interview.setUser(userService.findByName(form.getNameOfUser()));
         interview.setEmployee(employee);
         interview.setName(form.getName());
         interviewService.add(interview);

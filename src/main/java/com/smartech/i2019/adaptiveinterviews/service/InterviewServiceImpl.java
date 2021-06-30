@@ -3,17 +3,23 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.repository.InterviewRepository;
+import com.smartech.i2019.adaptiveinterviews.specification.InterviewSpecification;
 import com.smartech.i2019.adaptiveinterviews.util.Dates;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
 
 @Service
-public class InterviewServiceImpl implements InterviewService {
+public class    InterviewServiceImpl implements InterviewService {
     @Autowired
-    InterviewRepository interviewRepository;
+    private InterviewRepository interviewRepository;
+    @Autowired
+    private InterviewSpecification interviewSpecification;
+    @Autowired
+    private Dates date;
 
     @Override
     public void add(Interview interview) {
@@ -23,7 +29,6 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     public void edit(Interview interview) {
         interviewRepository.saveAndFlush(interview);
-
     }
 
     @Override
@@ -42,40 +47,30 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
-    public List<Interview> listByEmployee(long id) {
-        return interviewRepository.getEmployees(id);
-    }
-
-    @Override
     public List<Interview> listByDateNextDay() {
-        Dates date = new Dates();
-        return interviewRepository.findByDate(date.getSqlNextDay());
+        return interviewRepository.findAll(interviewSpecification.hasDate(date.getSqlNextDay()));
     }
 
     @Override
     public List<Interview> listByDateSubtractDay() {
-        Dates date = new Dates();
-        return interviewRepository.findByDate(date.getSqlSubtractDay());
+        return interviewRepository.findAll(interviewSpecification.hasDate(date.getSqlSubtractDay()));
     }
 
     @Override
     public List<Interview> listByDate(Date date) {
-        return interviewRepository.findByDate(date);
+        return interviewRepository.findAll(interviewSpecification.hasDate(date));
     }
 
     @Override
     public List<Interview> listTodayAndAfter() {
-        Dates date = new Dates();
-        return interviewRepository.findAllByDateGreaterThanEqualAndDescriptionEquals(date.getSqlToday(), "");
+        return interviewRepository.findAll(Specification.where(
+                interviewSpecification.hasDate(date.getSqlNextDay()).and(
+                        interviewSpecification.hasDescription(""))));
     }
 
     @Override
     public List<Interview> listWithoutReview() {
-        return interviewRepository.findAllByDescriptionEquals("");
+        return interviewRepository.findAll(interviewSpecification.hasDescription(""));
     }
 
-    @Override
-    public Dates getDates() {
-        return null;
-    }
 }

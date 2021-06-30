@@ -12,5 +12,5 @@ public interface UploadFileService {
 
     UploadFile findById(long id);
 
-    List<UploadFile> findByEmployee(long id);
+    List<UploadFile> findAll();
 }

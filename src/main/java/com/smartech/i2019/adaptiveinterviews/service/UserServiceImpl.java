@@ -3,6 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.repository.UserRepository;
+import com.smartech.i2019.adaptiveinterviews.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private UserSpecification userSpecification;
 
     @Override
     public void add(User user) {
@@ -29,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String name) {
-        return userRepository.findByName(name);
+    public User findByName(String name) {
+        return userRepository.findOne(userSpecification.hasName(name)).orElse(null);
     }
 
     @Override

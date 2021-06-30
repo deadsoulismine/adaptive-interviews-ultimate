@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class UploadFileServiceImpl implements UploadFileService {
     @Autowired
-    UploadFileRepository uploadFileRepository;
+    private UploadFileRepository uploadFileRepository;
 
     @Override
     public void add(UploadFile file) {
@@ -29,7 +29,8 @@ public class UploadFileServiceImpl implements UploadFileService {
     }
 
     @Override
-    public List<UploadFile> findByEmployee(long id) {
-        return uploadFileRepository.findByEmployee(id);
+    public List<UploadFile> findAll() {
+        return uploadFileRepository.findAll();
     }
+
 }

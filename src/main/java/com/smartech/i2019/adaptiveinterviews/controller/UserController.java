@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name="Пользователи", description="Взаимодействие с пользователями")
 public class UserController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Operation(summary = "Список всех пользователей")
     @GetMapping()

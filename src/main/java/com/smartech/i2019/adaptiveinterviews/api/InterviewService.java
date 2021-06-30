@@ -18,18 +18,14 @@ public interface InterviewService {
 
     Interview findById(long id);
 
-    List<Interview> listByEmployee(long id);
-
     List<Interview> listByDateNextDay();
 
     List<Interview> listByDateSubtractDay();
-
-    List<Interview> listByDate(Date date);
 
     List<Interview> listTodayAndAfter();
 
     List<Interview> listWithoutReview();
 
-    Dates getDates();
+    List<Interview> listByDate(Date date);
 
 }
