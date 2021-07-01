@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     @Operation(summary = "Найти сотрудника по ID")
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     ResponseEntity<Employee> findEmployee(@PathVariable @Min(1) long id) throws EntityNotFoundException {
         Employee employee = employeeService.findById(id);
         if (employee == null) {
@@ -57,14 +57,14 @@ public class EmployeeController {
     }
 
     @Operation(summary = "Обновить данные сотрудника")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
         employeeService.edit(employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить сотрудника")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     ResponseEntity<String> deleteEmployee(@PathVariable long id) {
         employeeService.delete(id);
         return new ResponseEntity<>("Сотрудник удален", HttpStatus.OK);

@@ -36,7 +36,7 @@ public class InterviewController {
     }
 
     @Operation(summary = "Найти беседу по ID")
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     ResponseEntity<Interview> findInterview(@PathVariable @Min(1) Long id) throws EntityNotFoundException {
         Interview interview = interviewService.findById(id);
         if (interview == null) {
@@ -60,14 +60,14 @@ public class InterviewController {
     }
 
     @Operation(summary = "Удалить беседу")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     ResponseEntity<String> deleteInterview(@PathVariable Long id) {
         interviewService.delete(id);
         return new ResponseEntity<>("Беседа удалена", HttpStatus.OK);
     }
 
     @Operation(summary = "Обновить данные беседы")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     ResponseEntity<Interview> updateInterview(@RequestBody Interview interview) {
         interviewService.edit(interview);
         return new ResponseEntity<>(interview, HttpStatus.OK);

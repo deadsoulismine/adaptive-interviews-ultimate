@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @Operation(summary = "Найти пользователя по ID")
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     ResponseEntity<User> findUser(@PathVariable @Min(1) Long id) throws EntityNotFoundException {
         User user = userService.findById(id);
         if (user == null) {
@@ -39,14 +39,14 @@ public class UserController {
     }
 
     @Operation(summary = "Обновить данные пользователя")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.edit(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить пользователя")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Secured("ROLE_ADMIN")
     ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.delete(id);
@@ -54,8 +54,8 @@ public class UserController {
     }
 
     @Operation(summary = "Добавить нового пользователя")
-    @PostMapping()
-    ResponseEntity<User> newUser(@RequestBody User user) {
+    @PostMapping("/add")
+    ResponseEntity<User> addUser(@RequestBody User user) {
         userService.add(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

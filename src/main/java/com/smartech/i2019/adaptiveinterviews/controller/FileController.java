@@ -34,7 +34,7 @@ public class FileController {
     }
 
     @Operation(summary = "Скачать файл")
-    @GetMapping("/{id}/{fileId}")
+    @GetMapping("/download/{id}/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) {
         UploadFile uploadFile = uploadFileService.findById(fileId);
         if (uploadFile == null) {
@@ -56,7 +56,7 @@ public class FileController {
     }
 
     @Operation(summary = "Удалить файл")
-    @DeleteMapping("/{id}/{fileId}")
+    @DeleteMapping("/delete/{id}/{fileId}")
     ResponseEntity<String> deleteFile(@PathVariable Long fileId) {
         uploadFileService.delete(fileId);
         return ResponseEntity.ok("Файл прикреплен");

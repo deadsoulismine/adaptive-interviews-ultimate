@@ -30,14 +30,14 @@ public class DepartmentController {
     }
 
     @Operation(summary = "Добавить отдел")
-    @PostMapping()
+    @PostMapping("/add")
     ResponseEntity<Department> addDepartment(@Valid @RequestBody Department department) {
         departmentService.add(department);
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить отдел")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Secured("ROLE_ADMIN")
     ResponseEntity<String> deleteDepartment(@PathVariable long id) {
         departmentService.delete(id);
@@ -45,7 +45,7 @@ public class DepartmentController {
     }
 
     @Operation(summary = "Найти отдел по ID")
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     ResponseEntity<Department> findDepartment(@PathVariable @Min(1) long id) {
         Department department = departmentService.findById(id);
         if (department == null) {
@@ -55,7 +55,7 @@ public class DepartmentController {
     }
 
     @Operation(summary = "Обновить данные отдела")
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     ResponseEntity<Department> updateDepartment(@RequestBody Department department) {
         departmentService.edit(department);
         return new ResponseEntity<>(department, HttpStatus.OK);
