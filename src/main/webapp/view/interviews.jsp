@@ -64,7 +64,8 @@
             <td>${interview.employee.firstName} ${interview.employee.lastName}</td>
             <td>${interview.user.name}</td>
             <td><c:out value="${empty interview.description ? 'НЕТ' : 'ЕСТЬ'}"/></td>
-            <td><c:choose>
+            <td>
+                <c:choose>
                 <c:when test="${pageContext.request.isUserInRole('ADMIN')}">
                 <input type="button" onclick="location.href='/interviews/edit/${interview.id}'"
                        value="Редактировать анкету">
@@ -74,9 +75,9 @@
                 </c:otherwise>
                 </c:choose>
                 <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-                    <td><input type="button" onclick="location.href='/interviews/delete/${interview.id}'"
-                               value="Удалить"></td>
-                </c:if>
+            <td><input type="button" onclick="location.href='/interviews/delete/${interview.id}'"
+                       value="Удалить"></td>
+            </c:if>
             </td>
         </tr>
     </c:forEach>

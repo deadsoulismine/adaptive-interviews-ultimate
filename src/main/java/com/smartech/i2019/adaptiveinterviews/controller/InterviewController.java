@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/interviews")
-@Tag(name="Беседы", description="Взаимодействие с беседами")
+@Tag(name = "Беседы", description = "Взаимодействие с беседами")
 public class InterviewController {
     @Autowired
     private InterviewService interviewService;

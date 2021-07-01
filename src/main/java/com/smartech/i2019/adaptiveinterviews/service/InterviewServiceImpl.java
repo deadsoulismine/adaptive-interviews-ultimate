@@ -13,7 +13,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class    InterviewServiceImpl implements InterviewService {
+public class InterviewServiceImpl implements InterviewService {
     @Autowired
     private InterviewRepository interviewRepository;
     @Autowired

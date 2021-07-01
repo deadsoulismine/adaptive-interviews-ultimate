@@ -1,8 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;

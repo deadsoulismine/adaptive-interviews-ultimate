@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@Tag(name="Пользователи", description="Взаимодействие с пользователями")
+@Tag(name = "Пользователи", description = "Взаимодействие с пользователями")
 public class UserController {
     @Autowired
     private UserService userService;

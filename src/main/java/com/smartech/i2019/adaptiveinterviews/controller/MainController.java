@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Tag(name="Главная страница", description="Управление корневой конечной точкой")
+@Tag(name = "Главная страница", description = "Управление корневой конечной точкой")
 public class MainController {
 
     @Operation(summary = "Главная страница")

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RequestMapping("/employees")
 @RestController
-@Tag(name="Сотрудники", description="Взаимодействие с сотрудниками")
+@Tag(name = "Сотрудники", description = "Взаимодействие с сотрудниками")
 public class EmployeeController {
     @Autowired
     private DepartmentService departmentService;

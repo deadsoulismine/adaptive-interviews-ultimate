@@ -1,7 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.api;
 
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
-import com.smartech.i2019.adaptiveinterviews.util.Dates;
 
 import java.sql.Date;
 import java.util.List;

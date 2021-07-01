@@ -1,8 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -17,11 +15,11 @@ public class UploadFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Lob
-    @Type(type="org.hibernate.type.BinaryType")
+    @Type(type = "org.hibernate.type.BinaryType")
     @Column(name = "file_data", nullable = false)
     private byte[] data;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable  = false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
 }

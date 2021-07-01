@@ -16,7 +16,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@Tag(name="Отделы", description="Взаимодействие с отделами")
+@Tag(name = "Отделы", description = "Взаимодействие с отделами")
 @RequestMapping("/departments")
 public class DepartmentController {
     @Autowired

@@ -1,7 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.specification;
 
 import com.smartech.i2019.adaptiveinterviews.model.Department;
-import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 

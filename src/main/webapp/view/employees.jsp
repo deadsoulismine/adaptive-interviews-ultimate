@@ -92,7 +92,7 @@
         <td>${fn:length(employee.interviews.toArray())}</td>
         <td><input type="button" onclick="location.href='/employees/${employee.id}'" value="Открыть"></td>
         <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-        <td><input type="button" onclick="location.href='/employees/delete/${employee.id}'" value="Удалить"></td>
+            <td><input type="button" onclick="location.href='/employees/delete/${employee.id}'" value="Удалить"></td>
         </c:if>
     </tr>
     </c:forEach>

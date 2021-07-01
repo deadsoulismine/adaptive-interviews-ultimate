@@ -121,11 +121,11 @@
             <td>${file.fileName}</td>
             <td><input type="button" class="floated" onclick="location.href='/employees/${employee.id}/${file.id}'"
                        value="Скачать файл"></td>
-        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
-            <td><input type="button" class="floated"
-                       onclick="location.href='/employees/deletefile/${employee.id}/${file.id}'"
-                       value="Удалить файл"></td>
-        </c:if>
+            <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                <td><input type="button" class="floated"
+                           onclick="location.href='/employees/deletefile/${employee.id}/${file.id}'"
+                           value="Удалить файл"></td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

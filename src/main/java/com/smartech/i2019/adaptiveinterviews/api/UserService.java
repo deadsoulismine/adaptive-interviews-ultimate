@@ -5,15 +5,15 @@ import com.smartech.i2019.adaptiveinterviews.model.User;
 import java.util.List;
 
 public interface UserService {
-     void add(User user);
+    void add(User user);
 
-     void edit(User user);
+    void edit(User user);
 
-     void delete(long id);
+    void delete(long id);
 
-     List<User> findAll();
+    List<User> findAll();
 
-     User findById(long id);
+    User findById(long id);
 
-     User findByName(String name);
+    User findByName(String name);
 }
