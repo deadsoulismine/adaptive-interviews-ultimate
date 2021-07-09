@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
+//initial
 public class AdaptiveinterviewsApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdaptiveinterviewsApplication.class, args);
