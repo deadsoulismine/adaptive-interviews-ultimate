@@ -1,4 +1,4 @@
-package com.smartech.i2019.adaptiveinterviews.specification;
+package com.smartech.i2019.adaptiveinterviews.util.specification;
 
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import org.springframework.data.jpa.domain.Specification;

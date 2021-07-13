@@ -15,8 +15,8 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)

@@ -3,7 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.repository.UserRepository;
-import com.smartech.i2019.adaptiveinterviews.specification.UserSpecification;
+import com.smartech.i2019.adaptiveinterviews.util.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

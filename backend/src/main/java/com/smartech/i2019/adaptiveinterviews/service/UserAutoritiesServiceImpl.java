@@ -3,7 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.UsersAutoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
 import com.smartech.i2019.adaptiveinterviews.repository.UsersAutoritiesRepository;
-import com.smartech.i2019.adaptiveinterviews.specification.UserAutoritiesSpecification;
+import com.smartech.i2019.adaptiveinterviews.util.specification.UserAutoritiesSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,6 @@ public class UserAutoritiesServiceImpl implements UsersAutoritiesService {
 
     @Override
     public UserAutorities findByUsername(String username) {
-        return usersAutoritiesRepository.findOne(
-                userAutoritiesSpecification.hasUsername(username)).orElse(null);
+        return usersAutoritiesRepository.findOne(userAutoritiesSpecification.hasUsername(username)).orElse(null);
     }
 }

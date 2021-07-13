@@ -5,7 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import com.smartech.i2019.adaptiveinterviews.repository.EmployeeRepository;
-import com.smartech.i2019.adaptiveinterviews.specification.EmployeeSpecification;
+import com.smartech.i2019.adaptiveinterviews.util.specification.EmployeeSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
