@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.util.aspect;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,12 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
+@Slf4j
 @Aspect
 @Component
-public class LogAspect {
-    private Logger logger = Logger.getLogger(LogAspect.class.getName());
+public class AspectLogger {
+    private Logger logger = Logger.getLogger(AspectLogger.class.getName());
 
-    @Pointcut("execution(* *(..))")
+    @Pointcut("execution(public * com.smartech.i2019.adaptiveinterviews.service.*.*(..))")
     public void methodExecuting() {
     }
 
@@ -28,12 +30,6 @@ public class LogAspect {
                     "] call from class [" + point.getSourceLocation().getWithinType().getSimpleName() + "]");
         }
     }
-//
-//    @After("methodExecuting()")
-//    public void logMethodCall(JoinPoint jp) {
-//        String methodName = jp.getSignature().getName();
-//        String className = jp.getSourceLocation().getWithinType().getSimpleName();
-//        logger.log(Level.INFO, "Method [" + methodName + "] call from class [" + className + "]");
-//    }
+
 
 }
