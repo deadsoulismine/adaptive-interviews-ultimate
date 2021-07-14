@@ -4,17 +4,16 @@ import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import com.smartech.i2019.adaptiveinterviews.repository.DepartmentRepository;
 import com.smartech.i2019.adaptiveinterviews.util.specification.DepartmentSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
-    @Autowired
-    private DepartmentRepository departmentRepository;
-    @Autowired
-    private DepartmentSpecification departmentSpecification;
+    private final DepartmentRepository departmentRepository;
+    private final DepartmentSpecification departmentSpecification;
 
     @Override
     public List<Department> findAll() {

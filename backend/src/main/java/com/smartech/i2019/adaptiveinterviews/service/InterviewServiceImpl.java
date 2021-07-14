@@ -5,7 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.repository.InterviewRepository;
 import com.smartech.i2019.adaptiveinterviews.util.Dates;
 import com.smartech.i2019.adaptiveinterviews.util.specification.InterviewSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +13,11 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class InterviewServiceImpl implements InterviewService {
-    @Autowired
-    private InterviewRepository interviewRepository;
-    @Autowired
-    private InterviewSpecification interviewSpecification;
-    @Autowired
-    private Dates date;
+    private final InterviewRepository interviewRepository;
+    private final InterviewSpecification interviewSpecification;
+    private final Dates date;
 
     @Override
     public void add(Interview interview) {

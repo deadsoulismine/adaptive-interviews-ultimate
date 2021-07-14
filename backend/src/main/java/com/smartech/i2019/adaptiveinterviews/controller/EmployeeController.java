@@ -6,7 +6,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,10 @@ import java.util.List;
 @RequestMapping("/employees")
 @RestController
 @Tag(name = "Сотрудники", description = "Взаимодействие с сотрудниками")
+@RequiredArgsConstructor
 public class EmployeeController {
-    @Autowired
-    private DepartmentService departmentService;
-    @Autowired
-    private EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final EmployeeService employeeService;
 
     @GetMapping("/test")
     public String hello() {

@@ -8,7 +8,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.InterviewForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +20,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/interviews")
 @Tag(name = "Беседы", description = "Взаимодействие с беседами")
+@RequiredArgsConstructor
 public class InterviewController {
-    @Autowired
-    private InterviewService interviewService;
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private UserService userService;
+    private final InterviewService interviewService;
+    private final EmployeeService employeeService;
+    private final UserService userService;
 
     @Operation(summary = "Список всех бесед")
     @GetMapping()

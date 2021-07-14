@@ -4,7 +4,7 @@ import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -18,9 +18,9 @@ import java.util.List;
 @RestController
 @Tag(name = "Отделы", description = "Взаимодействие с отделами")
 @RequestMapping("/departments")
+@RequiredArgsConstructor
 public class DepartmentController {
-    @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Operation(summary = "Список всех отделов")
     @GetMapping()

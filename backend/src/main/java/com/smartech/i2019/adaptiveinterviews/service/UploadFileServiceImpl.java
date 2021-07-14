@@ -3,15 +3,15 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import com.smartech.i2019.adaptiveinterviews.repository.UploadFileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UploadFileServiceImpl implements UploadFileService {
-    @Autowired
-    private UploadFileRepository uploadFileRepository;
+    private final UploadFileRepository uploadFileRepository;
 
     @Override
     public void add(UploadFile file) {

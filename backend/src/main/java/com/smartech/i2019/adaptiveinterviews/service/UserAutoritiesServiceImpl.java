@@ -4,17 +4,16 @@ import com.smartech.i2019.adaptiveinterviews.api.UsersAutoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
 import com.smartech.i2019.adaptiveinterviews.repository.UsersAutoritiesRepository;
 import com.smartech.i2019.adaptiveinterviews.util.specification.UserAutoritiesSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserAutoritiesServiceImpl implements UsersAutoritiesService {
-    @Autowired
-    private UsersAutoritiesRepository usersAutoritiesRepository;
-    @Autowired
-    private UserAutoritiesSpecification userAutoritiesSpecification;
+    private final UsersAutoritiesRepository usersAutoritiesRepository;
+    private final UserAutoritiesSpecification userAutoritiesSpecification;
 
     @Override
     public void add(UserAutorities user) {

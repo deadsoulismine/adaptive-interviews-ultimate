@@ -4,7 +4,7 @@ import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -17,9 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Tag(name = "Пользователи", description = "Взаимодействие с пользователями")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Operation(summary = "Список всех пользователей")
     @GetMapping()

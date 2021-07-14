@@ -1,7 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.service;
 
 import com.smartech.i2019.adaptiveinterviews.api.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,10 +12,10 @@ import java.util.Date;
 import java.util.Locale;
 
 @Service
+@RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM", new Locale("ru"));
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     public void sendRemindInterviewEmail(String to, String user, String employee, Date date) {
 

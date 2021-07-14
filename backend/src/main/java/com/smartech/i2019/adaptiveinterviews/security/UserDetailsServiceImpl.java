@@ -2,7 +2,7 @@ package com.smartech.i2019.adaptiveinterviews.security;
 
 import com.smartech.i2019.adaptiveinterviews.api.UsersAutoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private UsersAutoritiesService usersAutoritiesService;
+    private final UsersAutoritiesService usersAutoritiesService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {

@@ -6,7 +6,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import com.smartech.i2019.adaptiveinterviews.repository.EmployeeRepository;
 import com.smartech.i2019.adaptiveinterviews.util.specification.EmployeeSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +15,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private EmployeeSpecification employeeSpecification;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeSpecification employeeSpecification;
 
     @Override
     public void add(Employee employee) {

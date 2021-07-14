@@ -3,7 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.scheduler;
 import com.smartech.i2019.adaptiveinterviews.api.EmailService;
 import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SchedulerService {
-    @Autowired
-    EmailService emailService;
-    @Autowired
-    InterviewService interviewService;
+    private final EmailService emailService;
+    private final InterviewService interviewService;
 
     @Scheduled(cron = "0 0 11 * * *")  //каждый день в 9-00
     public void sendMailToRemindUsers() {

@@ -5,7 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,11 +19,10 @@ import java.util.Set;
 @RestController
 @Tag(name = "Файлы", description = "Взаимодействие с файлами")
 @RequestMapping("/employees")
+@RequiredArgsConstructor
 public class FileController {
-    @Autowired
-    private UploadFileService uploadFileService;
-    @Autowired
-    private EmployeeService employeeService;
+    private final UploadFileService uploadFileService;
+    private final EmployeeService employeeService;
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
