@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -21,6 +22,7 @@ public class Employee {
     private String lastName;
     @ManyToOne
     @JoinColumn(name = "department")
+    @ToString.Exclude
     private Department department;
     @Column(name = "employment_date", nullable = false)
     private Date employmentDate;
@@ -31,9 +33,11 @@ public class Employee {
     @Column(name = "status")
     private String status;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
+    @ToString.Exclude
     private Set<UploadFile> files = new HashSet<>();
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
+    @ToString.Exclude
     private Set<Interview> interviews = new HashSet<>();
 
 }

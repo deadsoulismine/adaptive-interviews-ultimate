@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class User {
     private long id;
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @ToString.Exclude
     private Set<Interview> interviews = new HashSet<>();
 
 }

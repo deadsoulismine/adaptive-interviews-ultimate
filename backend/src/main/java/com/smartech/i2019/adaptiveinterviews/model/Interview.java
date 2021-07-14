@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,11 +18,13 @@ public class Interview {
     private String name;
     @ManyToOne
     @JoinColumn(name = "employee", nullable = false)
+    @ToString.Exclude
     private Employee employee;
     @Column(name = "description")
     private String description;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
     @Column(name = "date", nullable = false)
     private Date date;

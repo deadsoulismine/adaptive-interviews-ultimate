@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ public class UserAutorities {
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @MapsId
+    @ToString.Exclude
     private User user;
     @Id
     private long user_id;

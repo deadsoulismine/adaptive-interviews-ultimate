@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class Department {
     private String name;
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true)
+    @ToString.Exclude
     private Set<Employee> employeeSet = new HashSet<>();
 
 }
