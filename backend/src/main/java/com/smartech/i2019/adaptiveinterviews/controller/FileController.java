@@ -16,9 +16,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.Set;
 
+@CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
 @Tag(name = "Файлы", description = "Взаимодействие с файлами")
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 @RequiredArgsConstructor
 public class FileController {
     private final UploadFileService uploadFileService;
@@ -46,7 +47,7 @@ public class FileController {
     }
 
     @Operation(summary = "Загрузить файл")
-    @PostMapping("/upload")
+    @PostMapping("/upload/{id}")
     ResponseEntity<String> uploadFile(@RequestBody UploadFile file, @PathVariable Long id) {
         file.setEmployee(employeeService.findById(id));
         uploadFileService.add(file);

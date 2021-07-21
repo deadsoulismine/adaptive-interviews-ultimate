@@ -11,14 +11,16 @@ import java.util.Set;
 @Data
 @Table(name = "users")
 public class User {
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "email", nullable = false)
-    private String email;
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "email", nullable = false)
+    private String email;
+    @Column(name = "position", nullable = false)
+    private String position;
     @com.fasterxml.jackson.annotation.JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     @ToString.Exclude

@@ -14,8 +14,9 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag(name = "Пользователи", description = "Взаимодействие с пользователями")
 @RequiredArgsConstructor
 public class UserController {

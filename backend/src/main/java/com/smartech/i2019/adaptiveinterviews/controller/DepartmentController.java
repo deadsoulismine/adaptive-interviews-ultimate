@@ -15,9 +15,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
 @Tag(name = "Отделы", description = "Взаимодействие с отделами")
-@RequestMapping("/departments")
+@RequestMapping("/api/departments")
 @RequiredArgsConstructor
 public class DepartmentController {
     private final DepartmentService departmentService;

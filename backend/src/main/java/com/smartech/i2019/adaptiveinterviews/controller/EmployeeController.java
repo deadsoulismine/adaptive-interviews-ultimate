@@ -15,18 +15,14 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
 
-@RequestMapping("/employees")
+@CrossOrigin(origins = {"http://localhost:8081"})
+@RequestMapping("/api/employees")
 @RestController
 @Tag(name = "Сотрудники", description = "Взаимодействие с сотрудниками")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final DepartmentService departmentService;
     private final EmployeeService employeeService;
-
-    @GetMapping("/test")
-    public String hello() {
-        return "Full Stack Java with Spring Boot & VueJS!";
-    }
 
     @Operation(summary = "Показать всех сотрудников")
     @GetMapping()
