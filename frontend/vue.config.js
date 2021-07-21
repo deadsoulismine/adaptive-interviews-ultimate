@@ -1,11 +1,10 @@
 // vue.config.js
 module.exports = {
-    // proxy all webpack dev-server requests starting with /api
-    // to our Spring Boot backend (localhost:8088) using http-proxy-middleware
+    runtimeCompiler: true,
     // see https://cli.vuejs.org/config/#devserver-proxy
     devServer: {
         proxy: {
-            '/': {
+            '/api': {
                 target: 'http://localhost:8080', // this configuration needs to correspond to the Spring Boot backends' application.properties server.port
                 ws: true,
                 changeOrigin: true
@@ -15,5 +14,6 @@ module.exports = {
     // Change build paths to make them Maven compatible
     // see https://cli.vuejs.org/config/
     outputDir: 'target/dist',
-    assetsDir: 'static'
+    assetsDir: 'static',
 };
+

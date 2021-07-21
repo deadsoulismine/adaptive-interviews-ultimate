@@ -1,0 +1,188 @@
+<template>
+  <a-form
+      :form="form"
+      class="interview-form"
+      @submit="handleSubmit"
+  >
+    <a-form-item
+        v-bind="formItemLayout"
+        label="Дата"
+    >
+      <a-date-picker
+          v-decorator="['date', {
+            rules: [{ required: true, message: 'Пожалуйста укажите дату!' }],
+          }]"
+          disabledTime
+          format="YYYY-MM-DD"
+          placeholder="Выберите дату"></a-date-picker>
+    </a-form-item>
+    <a-form-item
+        v-bind="formItemLayout"
+        label="Сотрудник"
+    >
+      <a-select
+          v-decorator="[
+          'employee', {
+            rules: [{ required: true, message: 'Пожалуйста выберите сотрудника!' }],
+          }]"
+          placeholder="Выберите сотрудника"
+      >
+        <!--        <a-select-option v-for="employee in employees" :key="employee.id"-->
+        <!--                         v-if="employee.status==='Проходит адаптацию'">{{employee.firstName}} {{employee.lastName}}-->
+        <!--        </a-select-option>-->
+      </a-select>
+    </a-form-item>
+    <a-form-item
+        v-bind="formItemLayout"
+        label="Название"
+    >
+      <a-select
+          v-decorator="[
+          'name', {
+            rules: [{ required: true, message: 'Пожалуйста выберите беседу!' }],
+          }]"
+          placeholder="Выберите беседу"
+      >
+        <a-select-option value="1 беседа">1 беседа</a-select-option>
+        <a-select-option value="2 беседа">2 беседа</a-select-option>
+        <a-select-option value="3 беседа">3 беседа</a-select-option>
+        <a-select-option value="4 беседа">4 беседа</a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item
+        v-bind="formItemLayout"
+        label="Пользователи"
+    >
+      <a-select
+          v-decorator="[
+          'users', {
+            rules: [{ required: true, message: 'Пожалуйста выберите пользователей!' }],
+          }]"
+          :value="selectedUsers"
+          mode="multiple"
+          placeholder="Выберите пользователей"
+          style="width: 100%"
+          @change="handleChange"
+      >
+        <!--        <a-select-option v-for="user in users" :key="user.id">{{user.name}}</a-select-option>-->
+      </a-select>
+    </a-form-item>
+
+    <a-form-item v-bind="tailFormItemLayout">
+      <a-button
+          html-type="submit"
+          type="primary"
+      >
+        Отправить
+      </a-button>
+      <router-link :to="{ name: 'Interviews'}" tag="a-button">Отменить</router-link>
+    </a-form-item>
+  </a-form>
+</template>
+
+<script>
+import axios from 'axios'
+import moment from 'moment';
+
+moment.locale('ru');
+
+
+export default {
+  data() {
+    return {
+      dateFormat: 'YYYY/MM/DD',
+      formItemLayout: {
+        labelCol: {
+          xs: {span: 24},
+          sm: {span: 8},
+        },
+        wrapperCol: {
+          xs: {span: 24},
+          sm: {span: 16},
+        },
+      },
+      tailFormItemLayout: {
+        wrapperCol: {
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        },
+      },
+      interview: {
+        description: null,
+      },
+      errors: [],
+      users: [],
+      employees: [],
+      id: '',
+      selectedUsers: [],
+    }
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this);
+  },
+  created: function () {
+    this.getUsers();
+    this.getEmployees();
+
+  },
+  // computed: {
+  //   filteredOptions() {
+  //     return users.filter(o => !this.selectedUsers.includes(o));
+  //   }
+  // },
+
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFieldsAndScroll((err, values) => {
+        if (!err) {
+          let uri = '/interviews/add';
+          this.interview.name = values.name;
+          this.interview.users = this.selectedUsers;
+          this.interview.date = moment(values.date).format('YYYY-MM-DD');
+          this.interview.employeeId = values.employee;
+          const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+          axios.post(uri, this.interview, {headers: header}).then(response => {
+            this.interviews = response.data;
+            this.$router.push({name: 'InterviewsTable'});
+          });
+        }
+      })
+    },
+    handleChange(selectedUsers) {
+      this.selectedUsers = selectedUsers
+    },
+    getUsers() {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.get('/users', {headers: header})
+          .then(response => {
+            this.users = response.data
+          })
+    },
+    getEmployees() {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.get('/employees', {headers: header})
+          .then(response => {
+            this.employees = response.data
+          })
+    },
+    formatDate: function (date) {
+      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    },
+  },
+}
+</script>
+
+<style>
+.interview-form {
+  margin-left: 5%;
+  margin-top: 50px;
+  max-width: 500px;
+}
+</style>
