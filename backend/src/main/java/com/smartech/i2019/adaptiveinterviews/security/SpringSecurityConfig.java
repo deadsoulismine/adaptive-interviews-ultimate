@@ -1,7 +1,8 @@
 package com.smartech.i2019.adaptiveinterviews.security;
 
+import com.smartech.i2019.adaptiveinterviews.filter.CorsFilter;
+import com.smartech.i2019.adaptiveinterviews.filter.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +11,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +22,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtRequestFilter jwtRequestFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final CorsFilter corsFilter;
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
@@ -38,19 +45,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(@NotNull HttpSecurity http) throws Exception {
-
-        http.csrf().disable();
-        http.authorizeRequests().antMatchers("login", "/logout").permitAll();
-        http.authorizeRequests().antMatchers("/employees/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/interviews/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/users/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/departments/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().and().formLogin()
-                .defaultSuccessUrl("/employees")
-                .failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/login");
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        //fix security
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/**").permitAll().
+                anyRequest().authenticated().and().
+                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
     }
+
 }
