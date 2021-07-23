@@ -4,7 +4,6 @@
       class="department-form"
       @submit="handleSubmit"
   >
-
     <a-form-item
         v-bind="formItemLayout"
         label="Название"
@@ -37,7 +36,6 @@
           @blur="handleConfirmBlur"
       />
     </a-form-item>
-
     <a-form-item v-bind="tailFormItemLayout">
       <a-button
           html-type="submit"
@@ -95,7 +93,7 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/departments/add';
+          let uri = '/api/departments/add';
           this.department.name = values.name;
           this.department.supervisor = values.supervisor;
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};

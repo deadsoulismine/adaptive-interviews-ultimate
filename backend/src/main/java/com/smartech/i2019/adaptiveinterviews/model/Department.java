@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -22,7 +23,7 @@ public class Department {
     @Column(name = "name")
     @NotBlank(message = "Укажите название отдела")
     private String name;
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true)
     @ToString.Exclude
     private Set<Employee> employeeSet = new HashSet<>();

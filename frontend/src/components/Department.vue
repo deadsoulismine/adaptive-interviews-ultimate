@@ -15,8 +15,9 @@
           <p v-if="errors.length"></p>
           <b>Пожалуйста исправьте указанные ошибки:</b>
           <ul>
-
-            <!--            <li v-for="error in errors">{{ error }}</li>-->
+            <li v-for="error in errors" :key="error">
+              {{ error }}
+            </li>
           </ul>
           <table>
             <tr>
@@ -75,7 +76,7 @@ export default {
     },
     getDepartment: function () {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/departments/' + this.$route.params.id, {headers: header})
+      axios.get('/api/departments/find/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.department = response.data
           })
@@ -83,14 +84,15 @@ export default {
     formatDate: function (date) {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     },
-    // updateDepartment() {
-    //   const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-    //   let uri = '/departments/' + this.department.id;
-    //   if (!this.errors.length)
-    //     axios.put(uri, this.department, {headers: header}).then((response) => {
-    //       this.$router.push({name: 'Departments'});
-    //     });
-    // }
+    updateDepartment() {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      let uri = '/api/departments/update/' + this.$route.params.id;
+      if (!this.errors.length)
+        axios.put(uri, this.department, {headers: header}).then((response) => {
+          this.$router.push({name: 'Departments'});
+          console.log(response)
+        });
+    }
   },
   created() {
     this.getDepartment()

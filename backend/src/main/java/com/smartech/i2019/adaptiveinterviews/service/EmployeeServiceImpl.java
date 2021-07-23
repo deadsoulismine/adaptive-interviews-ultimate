@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Set<UploadFile> getUploadFiles(long id) {
+    public List<UploadFile> getUploadFiles(long id) {
         return Objects.requireNonNull(employeeRepository.findById(id).orElse(null)).getFiles();
     }
 

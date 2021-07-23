@@ -9,17 +9,24 @@
         <tr>
           <th align="left" scope="col">Название</th>
           <th align="left" scope="col">Руководитель</th>
-          <i
-              class="fas fa-sort-alpha-down float-right"></i>
-          <!--          <router-link v-if="isAdmin()" :to="{ name: 'Department' , params: {id : department.id}}" tag="a-button">-->
-          <!--            <a-icon type="highlight"/>Редактировать-->
-          <!--          </router-link>-->
         </tr>
         </thead>
         <tbody>
         <tr v-for="department in departments" :key="department.id">
           <td>{{ department.name }}</td>
           <td>{{ department.supervisor }}</td>
+          <td>
+            <router-link v-if="isAdmin()" :to="{ name: 'Department' , params: {id : department.id}}" tag="a-button">
+              <a-icon type="highlight"/>
+              Редактировать
+            </router-link>
+          </td>
+          <td>
+            <a-button v-if="isAdmin()" id="" class="" v-on:click="deleteDepartment(department.id)">
+              <a-icon type="delete"/>
+              Удалить
+            </a-button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -31,6 +38,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -52,6 +60,14 @@ export default {
           .catch(error => {
             console.log('ERROR: ' + error.response.data)
           })
+    },
+    deleteDepartment: function (id) {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.delete('/api/departments/delete/' + id, {headers: header})
+          .then((response) => {
+            console.log(response)
+            this.$router.go(0);
+          });
     },
     isAdmin() {
       return this.$store.getters.isAdmin;

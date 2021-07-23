@@ -42,14 +42,15 @@ export default {
             this.interview = response.data
           })
     },
+
     formatDate: function (date) {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     },
     updateInterview() {
-      let uri = '/api/interviews/' + this.$route.params.id;
+      let uri = '/api/interviews/update/' + this.$route.params.id;
       axios.put(uri, this.interview).then((response) => {
+        this.$router.push({name: 'Interviews'});
         console.log(response)
-        this.$router.push({name: 'InterviewsTable'});
       });
     }
   }

@@ -9,27 +9,30 @@
         label="Дата"
     >
       <a-date-picker
-          v-decorator="['date', {
-            rules: [{ required: true, message: 'Пожалуйста укажите дату!' }],
-          }]"
+          v-decorator="['date', {rules: [{ required: true, message: 'Пожалуйста укажите дату!'
+                                        }],
+                                }
+                       ]"
           disabledTime
           format="YYYY-MM-DD"
-          placeholder="Выберите дату"></a-date-picker>
+          placeholder="Выберите дату">
+
+      </a-date-picker>
     </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Сотрудник"
-    >
+    <a-form-item v-bind="formItemLayout" label="Сотрудник">
       <a-select
           v-decorator="[
           'employee', {
             rules: [{ required: true, message: 'Пожалуйста выберите сотрудника!' }],
           }]"
+
           placeholder="Выберите сотрудника"
       >
-        <!--        <a-select-option v-for="employee in employees" :key="employee.id"-->
-        <!--                         v-if="employee.status==='Проходит адаптацию'">{{employee.firstName}} {{employee.lastName}}-->
-        <!--        </a-select-option>-->
+        <!--        v-if="employee.status==='Проходит адаптацию'"-->
+        <a-select-option v-for="employee in employees" :key="employee.id">
+          {{ employee.firstName }}
+          {{ employee.lastName }}
+        </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item
@@ -64,15 +67,14 @@
           style="width: 100%"
           @change="handleChange"
       >
-        <!--        <a-select-option v-for="user in users" :key="user.id">{{user.name}}</a-select-option>-->
+        <a-select-option v-for="user in users" :key="user.id">
+          {{ user.name }}
+        </a-select-option>
       </a-select>
     </a-form-item>
 
     <a-form-item v-bind="tailFormItemLayout">
-      <a-button
-          html-type="submit"
-          type="primary"
-      >
+      <a-button html-type="submit" type="primary">
         Отправить
       </a-button>
       <router-link :to="{ name: 'Interviews'}" tag="a-button">Отменить</router-link>
@@ -142,7 +144,7 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/interviews/add';
+          let uri = '/api/interviews/add';
           this.interview.name = values.name;
           this.interview.users = this.selectedUsers;
           this.interview.date = moment(values.date).format('YYYY-MM-DD');
@@ -160,14 +162,14 @@ export default {
     },
     getUsers() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/users', {headers: header})
+      axios.get('/api/users', {headers: header})
           .then(response => {
             this.users = response.data
           })
     },
     getEmployees() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/employees', {headers: header})
+      axios.get('/api/employees', {headers: header})
           .then(response => {
             this.employees = response.data
           })

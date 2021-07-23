@@ -171,7 +171,7 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/employees/add';
+          let uri = '/api/employees/add';
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
           this.employee.firstName = values.firstname;
           this.employee.lastName = values.lastname;
@@ -192,7 +192,7 @@ export default {
     },
     getDepartments() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/departments', {headers: header})
+      axios.get('/api/departments', {headers: header})
           .then(response => {
             this.departments = response.data
           })

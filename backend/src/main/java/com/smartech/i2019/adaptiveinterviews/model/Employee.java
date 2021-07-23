@@ -1,11 +1,14 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,10 +23,6 @@ public class Employee {
     private String firstName;
     @Column(name = "lastname", nullable = false)
     private String lastName;
-    @ManyToOne
-    @JoinColumn(name = "department")
-    @ToString.Exclude
-    private Department department;
     @Column(name = "employment_date", nullable = false)
     private Date employmentDate;
     @Column(name = "end_of_adaptation")
@@ -32,13 +31,17 @@ public class Employee {
     private String position;
     @Column(name = "status")
     private String status;
+    @ManyToOne
+    @JoinColumn(name = "department")
+    @ToString.Exclude
+    private Department department;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     @ToString.Exclude
-    private Set<UploadFile> files = new HashSet<>();
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    private List<UploadFile> files = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     @ToString.Exclude
     private Set<Interview> interviews = new HashSet<>();
-
 }
 

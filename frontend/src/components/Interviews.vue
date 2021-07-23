@@ -33,19 +33,25 @@
             </td>
             <td>
               <div v-if="interview.description === ''">
-                <router-link v-if="isAuthenticated()" :to="{ name: 'Interview', params: { id: interview.id }}"
-                             tag="a-button">
+                <router-link v-if="isAuthenticated()"
+                             :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
                   <a-icon type="edit"/>
                   Оставить отзыв
                 </router-link>
               </div>
               <div v-if="interview.description !== ''">
-                <router-link v-if="isAuthenticated()" :to="{ name: 'Interview', params: { id: interview.id }}"
-                             tag="a-button">
+                <router-link v-if="isAuthenticated()"
+                             :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
                   <a-icon type="highlight"/>
                   Редактировать
                 </router-link>
               </div>
+            </td>
+            <td>
+              <a-button v-if="isAdmin()" id="" class="" v-on:click="deleteInterview(interview.id)">
+                <a-icon type="delete"/>
+                Удалить
+              </a-button>
             </td>
           </tr>
           </tbody>
@@ -98,6 +104,9 @@ export default {
       this.startDate = dateStrings[0];
       this.endDate = dateStrings[1];
     },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    },
     sort: function (s) {
       if (s === this.currentSortDir) {
         this.currentSortDir = 'desc';
@@ -114,6 +123,14 @@ export default {
     },
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    deleteInterview: function (id) {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.delete('/api/interviews/delete/' + id, {headers: header})
+          .then((response) => {
+            console.log(response)
+            this.$router.go(0);
+          });
     },
   },
   computed: {

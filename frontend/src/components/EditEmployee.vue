@@ -4,19 +4,15 @@
       <div class="card-header">
       </div>
       <div class="card-body">
-        <form
-            id="app"
-            method="put"
-            novalidate="true"
-            @submit="checkForm"
-            v-on:submit.prevent="editEmployee"
-        >
-          <!--          <p v-if="errors.length">-->
-          <!--            <b>Пожалуйста исправьте указанные ошибки:</b>-->
-          <!--          <ul>-->
-          <!--            <li v-for="error in errors">{{ error }}</li>-->
-          <!--          </ul>-->
-          <!--          </p>-->
+        <form id="app" method="put" novalidate="true" @submit="checkForm" @submit.prevent="editEmployee">
+          <p v-if="errors.length"></p>
+          <b>Пожалуйста исправьте указанные ошибки:</b>
+          <ul>
+            <li v-for="error in errors" :key="error">
+              {{ error }}
+            </li>
+          </ul>
+
           <table>
             <tr>
               <td><label>Имя*:</label></td>
@@ -37,8 +33,11 @@
             <tr>
               <td><label>Отдел*:</label></td>
               <td><select v-model="employee.department">
-                <!--                <option v-for="department in departments">{{department.name}}</option>-->
-              </select></td>
+                <option v-for="department in departments" :key="department.id">
+                  {{ department.name }}
+                </option>
+              </select>
+              </td>
             </tr>
             <tr>
               <td><label>Должность*:</label></td>
@@ -57,7 +56,6 @@
                 <a-button
                     html-type="submit"
                     type="primary"
-
                 >Отправить
                 </a-button>
               </td>
@@ -92,14 +90,14 @@ export default {
   methods: {
     getDepartments() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/departments', {headers: header})
+      axios.get('/api/departments', {headers: header})
           .then(response => {
             this.departments = response.data
           })
     },
     getEmployee() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/employees/' + this.$route.params.id, {headers: header})
+      axios.get('/api/employees/find/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.employee = response.data;
             this.employee.department = response.data.department.name;
@@ -135,7 +133,7 @@ export default {
     },
     editEmployee() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      let uri = '/employees/' + this.employee.id;
+      let uri = '/api/employees/update/' + this.employee.id;
       if (!this.errors.length)
         axios.put(uri, this.employee, {headers: header}).then((response) => {
           this.$router.push({name: 'Employee', params: {id: response.data.id}});

@@ -2,14 +2,14 @@
   <div class="container">
     <a-row :gutter="16">
       <a-col :span="8">
-        <a-card :bordered=false :title="employee.firstName + '  ' + employee.lastName">
+        <a-card :bordered=true :title="employee.firstName + '  ' + employee.lastName">
           <p>Отдел: {{ employee.department.name }}</p>
           <p>Начальник отдела: {{ employee.department.supervisor }}</p>
           <p>Должность: {{ employee.position }}</p>
           <p>Статус: {{ employee.status }}</p>
           <p>
-            <router-link v-if="this.$store.getters.isAdmin" :to="{ name: 'EditEmployee', params: { id: employee.id }}"
-                         tag="a-button">
+            <router-link v-if="this.$store.getters.isAdmin"
+                         :to="{ name: 'EditEmployee', params: { id: employee.id }}" tag="a-button">
               <a-icon type="highlight"/>
               Редактировать
             </router-link>
@@ -32,74 +32,41 @@
         </a-card>
       </a-col>
     </a-row>
+    <p></p>
 
-    <a-table v-if="interviews.length > 0" :dataSource="interviews" class="int-table" style="width: 100%">
-      <template v-slot:title style="color: #1890ff">
-          <span>
-            Беседы
-          </span>
-      </template>
-      <a-table-column key="date" dataIndex="date">
-        <template v-slot:title>
-          <span>
-            Дата
-          </span>
-        </template>
-      </a-table-column>
-      <a-table-column key="name" dataIndex="name" title="Беседа"/>
-      <a-table-column key="users" dataIndex="users" title="Пользователи">
-        <template v-slot:users>
-        <span>
-          <a-tag v-for="user in users" :key="user.name" color="blue">
-            {{ user.name }}
-          </a-tag>
-        </span>
-        </template>
-      </a-table-column>
-      <a-table-column key="description" dataIndex="description" title="Отзыв" width="800px"/>
-      <a-table-column key="action" title="Действие">
-        <template v-slot:interview>
-        <span>
-          <router-link v-if="isAuthenticated()" :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
-            <a-icon type="edit"/>
-          </router-link>
-        </span>
-        </template>
-      </a-table-column>
-    </a-table>
-
-    <a-table v-if="files.length > 0" :dataSource="files" style="width: 100%">
-      <template v-slot:title style="color: #1890ff">
-        <span>
-          Файлы
-        </span>
-      </template>
-      <a-table-column key="fileName" dataIndex="fileName">
-        <template v-slot:title>
-          <span>
-          </span>
-        </template>
-      </a-table-column>
-      <a-table-column key="action1" align="right" title="">
-        <template v-slot:file>
-        <span>
+    <table v-if="this.files.length > 0" class="table table-striped table-bordered" style="width:100%">
+      <thead width="400px">
+      <tr>
+        <th align="left" scope="col">Файл</th>
+        <i class="fas fa-sort-alpha-down float-right"></i>
+        <th align="right" scope="col">Скачать</th>
+        <i class="fas fa-sort-alpha-down float-right"></i>
+        <th align="right" scope="col">Удалить</th>
+        <i class="fas fa-sort-alpha-down float-right"></i>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="file in files" :key="file.id">
+        <td>{{ file.fileName }}</td>
+        <i class="fas fa-sort-alpha-down float-right"></i>
+        <td>
           <a-button v-if="isAuthenticated()" id="1" class="" v-on:click="getFile(file.id)">
-            <a-icon type="file-text"/> Скачать
+            <a-icon type="file-text"/>
+            Скачать
           </a-button>
-        </span>
-        </template>
-      </a-table-column>
-      <a-table-column key="action2" align="right" title="">
-        <template v-slot:file>
-        <span>
+        </td>
+        <i class="fas fa-sort-alpha-down float-right"></i>
+        <td>
           <a-button v-if="isAdmin()" id="" class="" v-on:click="deleteFile(file.id)">
-            <a-icon type="file-text"/>Удалить
+            <a-icon type="delete"/>
+            Удалить
           </a-button>
-        </span>
-        </template>
-      </a-table-column>
-    </a-table>
-
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p></p>
     <input id="file" ref="file" placeholder="Выберите файл" type="file" v-on:change="onChangeFileUpload()"/>
     <a-button v-on:click="submitForm()">
       <a-icon type="upload"/>
@@ -115,16 +82,29 @@ import moment from 'moment';
 export default {
   name: 'Employee',
   data: () => ({
+    files: [],
     interviews: [],
     employee: [],
-    files: [],
     message: {},
+    columns: [{
+      title: 'action',
+      key: 'action',
+      // id="1" class="" v-on:click="getFile(file.id)" v-if="isAuthenticated()
+      render: () => (
+          <a-button>
+            <a-icon type="file-text"/>
+            Скачать
+          </a-button>
+      )
+    }
+    ]
+
   }),
   methods: {
     getFile: function (id) {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
       axios({
-        url: '/api/employees/' + this.$route.params.id + '/' + id,
+        url: '/api/employees/download/' + this.$route.params.id + '/' + id,
         method: 'GET',
         responseType: 'blob',
         headers: header,
@@ -142,14 +122,11 @@ export default {
     },
     deleteFile: function (id) {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios({
-        url: '/api/employees/' + this.$route.params.id + '/' + id,
-        method: 'DELETE',
-        headers: header,
-      }).then((response) => {
-        console.log(response)
-        this.$router.go(0);
-      });
+      axios.delete('/api/employees/delete/' + this.$route.params.id + '/' + id, {headers: header})
+          .then((response) => {
+            console.log(response)
+            this.$router.go(0);
+          });
 
     },
     formatDate: function (date) {
@@ -187,7 +164,7 @@ export default {
   },
   beforeCreate() {
     const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-    axios.get('/api/employees/' + this.$route.params.id + '/interviews', {headers: header})
+    axios.get('/api/employees/interviews/' + this.$route.params.id, {headers: header})
         .then(response => {
           this.interviews = response.data;
           this.interviews.sort((a, b) => {
@@ -212,5 +189,4 @@ export default {
 </script>
 
 <style>
-
 </style>

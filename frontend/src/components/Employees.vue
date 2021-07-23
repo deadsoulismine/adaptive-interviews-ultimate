@@ -54,13 +54,13 @@
             <td>
               <router-link :to="{ name: 'Employee', params: { id: employee.id }}" tag="a-button">
                 <a-icon type="search"/>
-                Инфо
+                Подробнее
               </router-link>
             </td>
             <td>
               <a-button class="btn btn-danger pull-right" data-toggle="modal" type="button"
                         @click="deleteData(result, employee.id)">
-                <a-icon type="fire"/>
+                <a-icon type="delete"/>
                 Удалить
               </a-button>
             </td>
@@ -164,6 +164,7 @@ export default {
       axios.delete('api/employees/delete/' + id)
           .then(response => {
             console.log(response)
+            this.$router.go(0);
           })
     }
   },

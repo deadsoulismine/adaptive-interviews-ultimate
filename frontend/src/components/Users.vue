@@ -9,10 +9,7 @@
         <tr>
           <th align="left" scope="col">Имя</th>
           <th align="left" scope="col">Должность</th>
-          <i
-              class="fas fa-sort-alpha-down float-right"></i>
-          <th align="left" scope="col">E-mail <i
-              class="fas fa-sort-alpha-down float-right"></i></th>
+          <th align="left" scope="col">E-mail</th>
           <th></th>
         </tr>
         </thead>
@@ -21,21 +18,32 @@
           <td>{{ user.name }}</td>
           <td>{{ user.position }}</td>
           <td>{{ user.email }}</td>
+          <td>
+            <a-button v-if="isAdmin()" id="" class="" @click="deleteUser(user.id)">
+              <a-icon type="delete"/>
+              Удалить
+            </a-button>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
+    <p></p>
     <div class="container">
       <router-link v-if="this.$store.getters.isAdmin" :to="{ name: 'CreateUser'}" tag="a-button">
         <a-icon type="user-add"/>
         Новый пользователь
       </router-link>
-      <router-link v-if="this.$store.getters.isAuthenticated" :to="{ name: 'EditUser'}" tag="a-button">
+      <router-link v-if="this.$store.getters.isAuthenticated"
+                   :to="{ name: 'EditUser', params: { id: this.$store.getters.getId }}"
+                   tag="a-button">
+        <a-icon type="edit"/>
         Редактировать профиль
       </router-link>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -58,8 +66,21 @@ export default {
           .catch(error => {
             console.log('ERROR: ' + error.response.data)
           })
-    }
+    },
+    deleteUser: function (id) {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.delete('/api/users/delete/' + id, {headers: header})
+          .then((response) => {
+            console.log(response)
+            this.$router.go(0);
+          });
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    },
   },
+
+
   mounted() {
     this.loadUsers();
     this.username = this.$store.getters.getUsername;

@@ -28,5 +28,5 @@ public interface EmployeeService {
 
     Set<Interview> getInterviews(long id);
 
-    Set<UploadFile> getUploadFiles(long id);
+    List<UploadFile> getUploadFiles(long id);
 }

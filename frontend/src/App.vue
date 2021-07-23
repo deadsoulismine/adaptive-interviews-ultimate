@@ -34,8 +34,8 @@
         </a-menu-item>
 
         <a-menu-item v-if="(this.$store.getters.isAuthenticated)" key="logout">
-          <a-icon type="logout"/>
           <a v-if="this.$store.getters.isAuthenticated" class="nav-link text-light" href="#" v-on:click="logout">
+            <a-icon type="logout"/>
             Выйти
           </a>
         </a-menu-item>

@@ -11,14 +11,14 @@
             method="put"
             novalidate="true"
             @submit="checkForm"
-            v-on:submit.prevent="addUser"
+            v-on:submit.prevent="editUser"
         >
-          <!--          <p v-if="errors.length">-->
-          <!--            <b>Пожалуйста исправьте указанные ошибки:</b>-->
-          <!--          <ul>-->
-          <!--            <li v-for="error in errors">{{ error }}</li>-->
-          <!--          </ul>-->
-          <!--          </p>-->
+          <p v-if="errors.length"></p>
+          <b>Пожалуйста исправьте указанные ошибки:</b>
+          <ul>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
+          </ul>
+
           <table>
             <tr>
               <td><label>Имя*:</label></td>
@@ -47,7 +47,9 @@
                 </a-button>
               </td>
               <td>
-                <router-link :to="{ name: 'Users'}" tag="a-button">Отменить</router-link>
+                <router-link :to="{ name: 'Users'}" tag="a-button">
+                  Отменить
+                </router-link>
               </td>
             </tr>
           </table>
@@ -85,7 +87,7 @@ export default {
     },
     getThisUser() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/users/find/', {headers: header})
+      axios.get('/api/users/find/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.user = response.data
           }).catch(err => {
@@ -118,7 +120,7 @@ export default {
       }
       e.preventDefault();
     },
-    addUser() {
+    editUser() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
       let uri = '/users/edit/' + this.user.id;
       if (!this.errors.length)

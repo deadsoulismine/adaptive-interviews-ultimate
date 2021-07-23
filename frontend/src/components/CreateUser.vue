@@ -181,14 +181,14 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/users/add';
+          let uri = '/api/users/add';
           this.user.name = values.firstname + ' ' + values.lastname;
           this.user.email = values.email;
           this.user.password = values.password;
           this.user.position = values.position;
           this.user.username = values.username;
           axios.post(uri, this.user).then((response) => {
-            this.$data.user = response.data();
+            this.$data.user = response.data;
             this.$router.push({name: 'Login'});
           });
         }

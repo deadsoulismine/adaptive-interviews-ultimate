@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Data
 @Table(name = "users_autorities")
 public class UserAutorities {
+    @Id
+    private long user_id;
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
@@ -20,7 +22,6 @@ public class UserAutorities {
     @MapsId
     @ToString.Exclude
     private User user;
-    @Id
-    private long user_id;
+
 
 }

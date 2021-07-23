@@ -27,6 +27,9 @@ const getters = {
     },
     getToken: state => {
         return state.jwtToken;
+    },
+    getId: state => {
+        return state.id;
     }
 };
 

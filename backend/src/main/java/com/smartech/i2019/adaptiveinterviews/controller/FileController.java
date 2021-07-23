@@ -2,6 +2,7 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 
 import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
+import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,10 +12,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
-import java.util.Set;
+import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
@@ -27,8 +30,8 @@ public class FileController {
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
-    ResponseEntity<Set<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        Set<UploadFile> uploadFiles = employeeService.getUploadFiles(id);
+    ResponseEntity<List<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
+        List<UploadFile> uploadFiles = employeeService.getUploadFiles(id);
         return new ResponseEntity<>(uploadFiles, HttpStatus.OK);
     }
 
@@ -48,9 +51,17 @@ public class FileController {
 
     @Operation(summary = "Загрузить файл")
     @PostMapping("/upload/{id}")
-    ResponseEntity<String> uploadFile(@RequestBody UploadFile file, @PathVariable Long id) {
-        file.setEmployee(employeeService.findById(id));
-        uploadFileService.add(file);
+    public ResponseEntity<String> uploadFile(@PathVariable int id, @RequestParam("file") MultipartFile file) {
+        Employee employee = employeeService.findById(id);
+        try {
+            UploadFile uploadFile = new UploadFile();
+            uploadFile.setEmployee(employee);
+            uploadFile.setFileName(file.getOriginalFilename());
+            uploadFile.setData(file.getBytes());
+            uploadFileService.add(uploadFile);
+        } catch (IOException e) {
+            return null;
+        }
         return ResponseEntity.ok("Файл прикреплен");
     }
 

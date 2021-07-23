@@ -3,6 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
+import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.util.EmployeeForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RequestMapping("/api/employees")
@@ -29,6 +31,13 @@ public class EmployeeController {
     ResponseEntity<List<Employee>> allEmployees() {
         List<Employee> employees = employeeService.findAll();
         return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Получить список бесед по ID пользователя")
+    @GetMapping("/interviews/{id}")
+    ResponseEntity<Set<Interview>> getInterviews(@PathVariable @Min(1) long id) throws EntityNotFoundException {
+        Set<Interview> interviews = employeeService.getInterviews(id);
+        return new ResponseEntity<>(interviews, HttpStatus.OK);
     }
 
     @Operation(summary = "Найти сотрудника по ID")
@@ -58,7 +67,15 @@ public class EmployeeController {
 
     @Operation(summary = "Обновить данные сотрудника")
     @PutMapping("/update/{id}")
-    ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
+    ResponseEntity<Employee> updateEmployee(@RequestBody EmployeeForm form, @PathVariable int id) {
+        Employee employee = employeeService.findById(id);
+        employee.setFirstName(form.getFirstName());
+        employee.setLastName(form.getLastName());
+        employee.setDepartment(departmentService.findByName(form.getDepartment()));
+        employee.setEmploymentDate(form.getEmploymentDate());
+        employee.setEndOfAdaptation(form.getEndOfAdaptation());
+        employee.setStatus(form.getStatus());
+        employee.setPosition(form.getPosition());
         employeeService.edit(employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }

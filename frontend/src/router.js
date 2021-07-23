@@ -15,6 +15,7 @@ import CreateUser from "@/components/CreateUser";
 import CreateEmployee from "@/components/CreateEmployee";
 import EditEmployee from "@/components/EditEmployee";
 import CreateDepartment from "@/components/CreateDepartment";
+import Test from "@/components/Test";
 
 Vue.use(Router)
 
@@ -91,12 +92,16 @@ export default new Router({
             name: 'EditEmployee',
             component: EditEmployee
         },
-
         {
             path: '/departments/add',
             name: 'CreateDepartment',
             component: CreateDepartment
         },
+        {
+            path: '/test',
+            name: 'Test',
+            component: Test
+        }
     ]
 })
 
