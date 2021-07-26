@@ -83,7 +83,8 @@ export default {
                 this.$store.dispatch('login', {
                   'jwtToken': response.data.jwtToken,
                   'roles': response.data.authorities,
-                  'name': response.data.username
+                  'name': response.data.username,
+                  'id': response.data.id
                 });
                 this.$router.push('employees')
 

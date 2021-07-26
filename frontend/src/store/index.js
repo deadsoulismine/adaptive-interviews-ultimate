@@ -9,7 +9,8 @@ const state = {
     jwtToken: localStorage.getItem('user-jwtToken') || '',
     role: localStorage.getItem('user-role') || '',
     username: localStorage.getItem('user-name') || '',
-    authorities: localStorage.getItem('authorities') || '',
+    id: localStorage.getItem('user-id' || ''),
+    authorities: localStorage.getItem('authorities') || ''
 };
 
 const getters = {
@@ -38,9 +39,11 @@ const mutations = {
         localStorage.setItem('user-jwtToken', user.jwtToken);
         localStorage.setItem('user-name', user.name);
         localStorage.setItem('user-authorities', user.roles);
+        localStorage.setItem('user-id', user.id);
         state.jwtToken = user.jwtToken;
         state.name = user.name;
         state.authorities = user.roles;
+        state.id = user.id;
         let isUser = false;
         let isAdmin = false;
         for (let i = 0; i < user.roles.length; i++) {
@@ -64,10 +67,12 @@ const mutations = {
         state.role = '';
         state.name = '';
         state.authorities = [];
+        state.id = '';
         localStorage.removeItem('user-jwtToken');
         localStorage.removeItem('user-role');
         localStorage.removeItem('user-name');
         localStorage.removeItem('user-authorities');
+        localStorage.removeItem('user-id');
     },
     reset(state) {
         Object.keys(state).forEach(key => {
