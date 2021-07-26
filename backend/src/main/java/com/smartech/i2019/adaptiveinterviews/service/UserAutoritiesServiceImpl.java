@@ -36,6 +36,11 @@ public class UserAutoritiesServiceImpl implements UsersAutoritiesService {
     }
 
     @Override
+    public UserAutorities findByUserId(Long id) {
+        return usersAutoritiesRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public UserAutorities findByUsername(String username) {
         return usersAutoritiesRepository.findOne(userAutoritiesSpecification.hasUsername(username)).orElse(null);
     }

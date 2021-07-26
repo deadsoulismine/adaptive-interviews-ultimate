@@ -12,9 +12,11 @@ public class JwtResponse implements Serializable {
     private static final long serialVersionUID = -8091879091924046844L;
     private final String jwtToken;
     private final String username;
+    private final Long id;
     private final Collection<GrantedAuthority> authorities;
 
-    public JwtResponse(String jwtToken, UserDetails userDetails) {
+    public JwtResponse(String jwtToken, UserDetails userDetails, Long id) {
+        this.id = id;
         this.jwtToken = jwtToken;
         username = userDetails.getUsername();
         authorities = (Collection<GrantedAuthority>) userDetails.getAuthorities();

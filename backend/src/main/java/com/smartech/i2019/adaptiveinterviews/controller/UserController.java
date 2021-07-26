@@ -1,13 +1,17 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
+import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
+import com.smartech.i2019.adaptiveinterviews.service.UserAutoritiesServiceImpl;
+import com.smartech.i2019.adaptiveinterviews.service.UserServiceImpl;
+import com.smartech.i2019.adaptiveinterviews.util.UserForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,7 +24,9 @@ import java.util.List;
 @Tag(name = "Пользователи", description = "Взаимодействие с пользователями")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
+    private final UserAutoritiesServiceImpl userAutoritiesService;
+    private final PasswordEncoder passwordEncoder;
 
     @Operation(summary = "Список всех пользователей")
     @GetMapping()
@@ -41,9 +47,20 @@ public class UserController {
 
     @Operation(summary = "Обновить данные пользователя")
     @PutMapping("/update/{id}")
-    ResponseEntity<User> updateUser(@RequestBody User user) {
-        userService.edit(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    ResponseEntity updateUser(@RequestBody UserForm newUser, @PathVariable Long id) {
+        User userToUpdate = userService.findById(id);
+        UserAutorities autoritiesToUpdate = userAutoritiesService.findByUserId(id);
+
+        userToUpdate.setName(newUser.getName());
+        userToUpdate.setEmail(newUser.getEmail());
+        userToUpdate.setPosition(newUser.getPosition());
+        userService.edit(userToUpdate);
+
+//        autoritiesToUpdate.setRole(newUser.getRole());
+        autoritiesToUpdate.setUsername(newUser.getUsername());
+        autoritiesToUpdate.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        userAutoritiesService.edit(autoritiesToUpdate);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить пользователя")
@@ -56,8 +73,18 @@ public class UserController {
 
     @Operation(summary = "Добавить нового пользователя")
     @PostMapping("/add")
-    ResponseEntity<User> addUser(@RequestBody User user) {
+    ResponseEntity<User> newUser(@RequestBody UserForm form) {
+        User user = new User();
+        UserAutorities userAutorities = new UserAutorities();
+        user.setName(form.getName());
+        user.setEmail(form.getEmail());
+        user.setPosition(form.getPosition());
+        userAutorities.setPassword(passwordEncoder.encode(form.getPassword()));
+        userAutorities.setUsername(form.getUsername());
+        userAutorities.setRole("USER");
+        userAutorities.setUser(user);
         userService.add(user);
+        userAutoritiesService.add(userAutorities);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

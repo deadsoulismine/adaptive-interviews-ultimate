@@ -14,10 +14,12 @@ public class UserForm {
     @Email(message = "Некорректный email адрес")
     private String email;
     @NotBlank(message = "Заполните обязательное поле")
+    private String position;
+    @NotBlank(message = "Заполните обязательное поле")
     private String username;
     @NotBlank(message = "Заполните обязательное поле")
     private String password;
     private UserAutorities userAutorities;
-    private String role;
+//    private String role;
 }
 
