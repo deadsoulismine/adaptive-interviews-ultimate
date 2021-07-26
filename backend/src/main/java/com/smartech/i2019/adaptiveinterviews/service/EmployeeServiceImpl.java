@@ -43,7 +43,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findByName(String firstName, String lastName) {
         return (Employee) employeeRepository.findAll(Specification.where(
-                employeeSpecification.hasFirstName(firstName).and(employeeSpecification.hasLastName(lastName))));
+                employeeSpecification.hasFirstName(firstName).and(
+                        employeeSpecification.hasLastName(lastName))));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.util.InterviewForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
@@ -47,13 +50,17 @@ public class InterviewController {
     @Operation(summary = "Добавить беседу")
     @PostMapping("/add")
     ResponseEntity<Employee> addInterview(@RequestBody InterviewForm form) {
-        Employee employee = employeeService.findByName(form.getFirstName(), form.getLastName());
         Interview interview = new Interview();
-        interview.setDescription(form.getDescription());
-        interview.setDate(form.getDate());
-        interview.setUser(userService.findByName(form.getNameOfUser()));
-        interview.setEmployee(employee);
         interview.setName(form.getName());
+        interview.setDate(form.getDate());
+        Set<User> users = new HashSet<>();
+        for (int userIndex : form.getUsers()) {
+            users.add(userService.findById(userIndex));
+        }
+        interview.setUsers(users);
+        Employee employee = employeeService.findById(form.getId());
+        interview.setEmployee(employee);
+        interview.setDescription("");
         interviewService.add(interview);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }

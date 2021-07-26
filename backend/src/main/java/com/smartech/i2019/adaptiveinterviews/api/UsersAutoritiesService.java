@@ -14,6 +14,8 @@ public interface UsersAutoritiesService {
 
     List<UserAutorities> findAll();
 
+    UserAutorities findByUserId(Long id);
+
     UserAutorities findByUsername(String username);
 
 }

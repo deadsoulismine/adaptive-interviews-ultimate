@@ -1,5 +1,6 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -21,8 +22,11 @@ public class User {
     private String email;
     @Column(name = "position", nullable = false)
     private String position;
-    @com.fasterxml.jackson.annotation.JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(name = "users_interviews",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "interview_id"))
+    @JsonIgnore
     @ToString.Exclude
     private Set<Interview> interviews = new HashSet<>();
 
