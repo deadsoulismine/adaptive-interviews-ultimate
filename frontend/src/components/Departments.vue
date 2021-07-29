@@ -30,8 +30,7 @@
         </tr>
         </tbody>
       </table>
-
-      <router-link v-if="this.$store.getters.isAuthenticated" :to="{ name: 'CreateDepartment'}" tag="a-button">
+      <router-link v-if="isAdmin()" :to="{ name: 'CreateDepartment'}" tag="a-button">
         <a-icon type="cluster"/>
         Новый отдел
       </router-link>

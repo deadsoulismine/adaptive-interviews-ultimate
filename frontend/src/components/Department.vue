@@ -12,8 +12,9 @@
             @submit="checkForm"
             v-on:submit.prevent="updateDepartment"
         >
-          <p v-if="errors.length"></p>
-          <b>Пожалуйста исправьте указанные ошибки:</b>
+          <p v-if="errors.length > 0">
+            <b>Пожалуйста исправьте указанные ошибки:</b>
+          </p>
           <ul>
             <li v-for="error in errors" :key="error">
               {{ error }}
