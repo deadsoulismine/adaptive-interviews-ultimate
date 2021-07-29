@@ -56,18 +56,18 @@ public class UserController {
         userToUpdate.setPosition(newUser.getPosition());
         userService.edit(userToUpdate);
 
-//        autoritiesToUpdate.setRole(newUser.getRole());
+        autoritiesToUpdate.setRole(newUser.getRole());
         autoritiesToUpdate.setUsername(newUser.getUsername());
         autoritiesToUpdate.setPassword(passwordEncoder.encode(newUser.getPassword()));
         userAutoritiesService.edit(autoritiesToUpdate);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(autoritiesToUpdate, HttpStatus.OK);
     }
 
     @Operation(summary = "Удалить пользователя")
     @DeleteMapping("/delete/{id}")
     @Secured("ROLE_ADMIN")
     ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        userService.delete(id);
+        userAutoritiesService.delete(userAutoritiesService.findByUserId(id).getId());
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 

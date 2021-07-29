@@ -4,42 +4,28 @@
       class="register-form"
       @submit="handleSubmit"
   >
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Имя"
-    >
-      <a-input
-          v-decorator="[
-          'firstname',
-          {
+    <a-form-item v-bind="formItemLayout" label="Имя">
+      <a-input v-decorator="[
+          'firstname', {
             rules: [{
               required: true, message: 'Пожалуйста введите ваше имя!',
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
+               @blur="handleConfirmBlur"
       />
     </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Фамилия"
-    >
-      <a-input
-          v-decorator="[
-          'lastname',
-          {
+    <a-form-item v-bind="formItemLayout" label="Фамилия">
+      <a-input v-decorator="['lastname', {
             rules: [{
               required: true, message: 'Пожалуйста введите вашу фамилию!',
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
+               @blur="handleConfirmBlur"
       />
     </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="E-mail"
-    >
+    <a-form-item v-bind="formItemLayout" label="E-mail">
       <a-input
           v-decorator="[
           'email',
@@ -69,21 +55,8 @@
           @blur="handleConfirmBlur"
       />
     </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-    >
-      <!--      <span>-->
-      <template v-slot:babel>
-        Логин
-      </template>
-      <a-tooltip title="Используется только для входа">
-        <a-icon type="question-circle-o"/>
-      </a-tooltip>
-      <!--      </span>-->
-      <a-input
-          v-decorator="[
-          'username',
-          {
+    <a-form-item v-bind="formItemLayout" label="Логин">
+      <a-input v-decorator="['username', {
             rules: [{ required: true, message: 'Пожалуйста введите ваш логин', whitespace: true }]
           }
         ]"
@@ -133,6 +106,11 @@
           type="primary"
       >
         Зарегистрироваться
+      </a-button>
+      <a-button>
+        <router-link :to="{ name: 'Users'}">
+          Отменить
+        </router-link>
       </a-button>
     </a-form-item>
   </a-form>
@@ -189,7 +167,11 @@ export default {
           this.user.username = values.username;
           axios.post(uri, this.user).then((response) => {
             this.$data.user = response.data;
-            this.$router.push({name: 'Login'});
+            if (!this.$store.getters.isAuthenticated) {
+              this.$router.push({name: 'Login'});
+            } else {
+              this.$router.push({name: 'Users'});
+            }
           });
         }
       })

@@ -11,14 +11,14 @@
             method="put"
             novalidate="true"
             @submit="checkForm"
-            v-on:submit.prevent="editUser"
+            @submit.prevent="editUser"
         >
-          <p v-if="errors.length"></p>
-          <b>Пожалуйста исправьте указанные ошибки:</b>
+          <p v-if="errors.length > 0">
+            <b>Пожалуйста исправьте указанные ошибки:</b>
+          </p>
           <ul>
             <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
-
           <table>
             <tr>
               <td><label>Имя*:</label></td>
@@ -40,6 +40,18 @@
               <td><label>Пароль*:</label></td>
               <td><input v-model="user.password" class="form-control" type="text"/></td>
             </tr>
+            <tr v-if="this.$store.getters.isAdmin">
+              <td><label>Уровень доступа*:</label></td>
+              <td>
+                <select v-model="user.role">
+                  <option disabled value="">Выберите один из вариантов</option>
+                  <option value="ADMIN">Администратор</option>
+                  <option value="USER">Пользователь</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <br>
             <tr>
               <td>
                 <a-button html-type="submit" type="primary">
@@ -65,17 +77,23 @@ import moment from 'moment';
 export default {
   data() {
     return {
+      selected: this.$store.getters.getRole,
       user: {
         password: '',
         role: '',
+
       },
       errors: [],
       users: [],
     }
+
   },
   created: function () {
     this.getUsers();
     this.getThisUser();
+  },
+  mounted() {
+
   },
   methods: {
     getUsers() {
@@ -91,8 +109,8 @@ export default {
           .then(response => {
             this.user = response.data
           }).catch(err => {
-        this.$router.push('/users')
         console.log(err)
+        this.$router.push('/users')
       })
     },
     formatDate: function (date) {
@@ -115,6 +133,9 @@ export default {
       if (!this.user.password) {
         this.errors.push('Введите пароль');
       }
+      if (!this.user.role) {
+        this.errors.push('Выберите уровень доступа');
+      }
       if (!this.errors.length) {
         return true;
       }
@@ -122,13 +143,34 @@ export default {
     },
     editUser() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      let uri = '/users/edit/' + this.user.id;
-      if (!this.errors.length)
-        axios.put(uri, this.user, {headers: header}).then((response) => {
-          this.$data.users = response.data();
-          this.$router.push({name: 'Users'});
-        });
-    }
-  },
+      let url = '/api/users/update/' + this.user.id;
+      if (!this.errors.length) {
+        axios.put(url, this.user, {headers: header})
+            .then((response) => {
+              console.log(response)
+              if (this.user.id === this.$store.getters.getId) {
+                axios.post(`/api/authenticate`, {'username': this.user.username, 'password': this.user.password})
+                    .then(response => {
+                      console.log(response)
+                      this.$store.dispatch('login', {
+                        'jwtToken': response.data.jwtToken,
+                        'roles': response.data.authorities,
+                        'name': response.data.username,
+                        'id': response.data.id
+                      });
+                      this.$router.push({name: 'Users'});
+                    })
+              }
+              this.$router.push({name: 'Users'});
+            });
+      }
+    },
+    role() {
+      if (this.$store.getters.getRole === 'ADMIN') {
+        this.selected = "123"
+      }
+    },
+  }
 }
+
 </script>

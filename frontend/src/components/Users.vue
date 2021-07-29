@@ -11,6 +11,7 @@
           <th align="left" scope="col">Должность</th>
           <th align="left" scope="col">E-mail</th>
           <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,16 @@
           <td>{{ user.name }}</td>
           <td>{{ user.position }}</td>
           <td>{{ user.email }}</td>
+          <td>
+            <!--                         v-if="this.$store.getters.isAuthenticated"-->
+            <router-link v-if="isAdmin()"
+
+                         :to="{ name: 'EditUser', params: { id: user.id }}"
+                         tag="a-button">
+              <a-icon type="edit"/>
+              Редактировать
+            </router-link>
+          </td>
           <td>
             <a-button v-if="isAdmin()" id="" class="" @click="deleteUser(user.id)">
               <a-icon type="delete"/>
@@ -38,7 +49,7 @@
                    :to="{ name: 'EditUser', params: { id: this.$store.getters.getId }}"
                    tag="a-button">
         <a-icon type="edit"/>
-        Редактировать профиль
+        Редактировать свой профиль
       </router-link>
     </div>
   </div>

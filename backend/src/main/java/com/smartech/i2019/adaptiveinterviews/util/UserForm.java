@@ -20,6 +20,7 @@ public class UserForm {
     @NotBlank(message = "Заполните обязательное поле")
     private String password;
     private UserAutorities userAutorities;
-//    private String role;
+    private String role;
 }
+
 

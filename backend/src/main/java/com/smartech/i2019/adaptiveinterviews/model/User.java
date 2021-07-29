@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,12 +22,11 @@ public class User {
     private String email;
     @Column(name = "position", nullable = false)
     private String position;
-    @ManyToMany
     @JoinTable(name = "users_interviews",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interview_id"))
-    @JsonIgnore
     @ToString.Exclude
-    private Set<Interview> interviews = new HashSet<>();
-
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JsonIgnore
+    private List<Interview> interviews = new ArrayList<>();
 }
