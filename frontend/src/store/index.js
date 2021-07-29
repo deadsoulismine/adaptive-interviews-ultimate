@@ -6,10 +6,10 @@ import initialState from "ant-design-vue/lib/vc-slick/src/initial-state";
 Vue.use(Vuex);
 
 const state = {
+    id: localStorage.getItem('user-id' || ''),
+    name: localStorage.getItem('user-name') || '',
     jwtToken: localStorage.getItem('user-jwtToken') || '',
     role: localStorage.getItem('user-role') || '',
-    username: localStorage.getItem('user-name') || '',
-    id: localStorage.getItem('user-id' || ''),
     authorities: localStorage.getItem('authorities') || ''
 };
 
@@ -31,6 +31,9 @@ const getters = {
     },
     getId: state => {
         return state.id;
+    },
+    getRole: state => {
+        return state.role;
     }
 };
 
@@ -74,11 +77,15 @@ const mutations = {
         localStorage.removeItem('user-authorities');
         localStorage.removeItem('user-id');
     },
+    edit: (state, user) => {
+        state.name = user.name;
+        localStorage.setItem('user-name', user.name);
+    },
     reset(state) {
         Object.keys(state).forEach(key => {
             Object.assign(state[key], initialState[key])
         })
-    }
+    },
 };
 
 const actions = {
@@ -87,6 +94,9 @@ const actions = {
     },
     logout: (context) => {
         context.commit('auth_logout');
+    },
+    edit: (context, user) => {
+        context.commit('edit', user)
     }
 };
 

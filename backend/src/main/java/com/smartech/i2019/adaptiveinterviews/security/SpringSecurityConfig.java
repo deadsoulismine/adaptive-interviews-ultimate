@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,6 +26,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtRequestFilter jwtRequestFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final CorsFilter corsFilter;
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
@@ -45,12 +60,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity webSecurity) {
+        webSecurity.ignoring().antMatchers(AUTH_WHITELIST);
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        //fix security
-        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/**").permitAll().
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/api/users/add").permitAll();
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/api/authenticate").permitAll().
                 anyRequest().authenticated().and().
-                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().
-                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
     }

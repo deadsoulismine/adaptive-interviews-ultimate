@@ -7,6 +7,7 @@ import com.smartech.i2019.adaptiveinterviews.util.specification.UserAutoritiesSp
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PreRemove;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class UserAutoritiesServiceImpl implements UsersAutoritiesService {
     }
 
     @Override
+    @PreRemove
     public void delete(long id) {
         usersAutoritiesRepository.deleteById(id);
     }

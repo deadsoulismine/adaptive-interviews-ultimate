@@ -33,7 +33,7 @@ public class JwtAuthenticationController {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        final Long id = userAutoritiesService.findByUsername(authenticationRequest.getUsername()).getUser_id();
+        final Long id = userAutoritiesService.findByUsername(authenticationRequest.getUsername()).getUser().getId();
         return ResponseEntity.ok(new JwtResponse(token, userDetails, id));
     }
 

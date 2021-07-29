@@ -80,14 +80,14 @@ export default {
         if (!err) {
           axios.post(`/api/authenticate`, {'username': values.username, 'password': values.password})
               .then(response => {
+                console.log(response)
                 this.$store.dispatch('login', {
                   'jwtToken': response.data.jwtToken,
                   'roles': response.data.authorities,
                   'name': response.data.username,
                   'id': response.data.id
                 });
-                this.$router.push('employees')
-
+                this.$router.push('Employees')
               }).catch(error => {
             localStorage.removeItem('user-jwtToken');
             this.$data.alertMessage = "Вы указали неверный логин или пароль"
