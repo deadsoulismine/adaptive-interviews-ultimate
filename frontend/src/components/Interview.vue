@@ -15,7 +15,7 @@
             </label>
           </div>
           <div className="form-group">
-            <input className="btn btn-primary" type="submit" value="Ок"/>
+            <input className="btn btn-primary" type="submit" value="Сохранить"/>
           </div>
         </form>
       </div>
@@ -37,7 +37,8 @@ export default {
   },
   methods: {
     getInterview() {
-      axios.get('/api/interviews/find/' + this.$route.params.id)
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.get('/api/interviews/find/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.interview = response.data
           })
@@ -47,10 +48,11 @@ export default {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     },
     updateInterview() {
-      let uri = '/api/interviews/update/' + this.$route.params.id;
-      axios.put(uri, this.interview).then((response) => {
-        this.$router.push({name: 'Interviews'});
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      let url = '/api/interviews/update/' + this.$route.params.id;
+      axios.put(url, this.interview, {headers: header}).then((response) => {
         console.log(response)
+        this.$router.push({name: 'Interviews'});
       });
     }
   }

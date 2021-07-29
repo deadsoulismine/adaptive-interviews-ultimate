@@ -1,8 +1,8 @@
 package com.smartech.i2019.adaptiveinterviews.util;
 
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
-import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -14,19 +14,21 @@ import java.util.Set;
 @Data
 public class InterviewForm {
     private long id;
-    private Employee employee;
+    private int employeeId;
     @NotBlank(message = "Заполните обязательное поле")
     private String employeeName;
-    private String description;
     @NotNull(message = "Заполните обязательное поле")
     private Date date;
     @NotBlank(message = "Заполните обязательное поле")
     private String name;
     @NotBlank(message = "Заполните обязательное поле")
     private String nameOfUser;
-    @NotEmpty(message = "Выберите пользователей")
-    private Set<Integer> users = new HashSet<>();
-    private Interview interview;
     private String firstName;
     private String lastName;
+    private String description;
+    @ToString.Exclude
+    private Employee employee;
+    @NotEmpty(message = "Выберите пользователей")
+    @ToString.Exclude
+    private Set<Integer> users = new HashSet<>();
 }

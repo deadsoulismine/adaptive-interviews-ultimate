@@ -1,16 +1,20 @@
 package com.smartech.i2019.adaptiveinterviews.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name = "interviews")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id",
+        scope = Long.class)
 public class Interview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,20 +22,19 @@ public class Interview {
     private long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "employee", nullable = false)
-    @ToString.Exclude
-    private Employee employee;
     @Column(name = "description")
     private String description;
     @Column(name = "date", nullable = false)
     private Date date;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_interviews",
             joinColumns = @JoinColumn(name = "interview_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @ToString.Exclude
-    @JsonIgnore
-    private Set<User> users;
+    private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    @ToString.Exclude
+    private Employee employee;
 
 }

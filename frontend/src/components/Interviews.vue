@@ -23,13 +23,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(interview) in (sortedActivity, filteredList)" :key="interview.id"
+          <tr v-for="interview in (sortedActivity, filteredList)" :key="interview.id"
               :style="{ background: interview.description === '' ? 'lightsalmon' : 'lightgreen' }">
             <td>{{ formatDate(interview.date) }}</td>
             <td>{{ interview.name }}</td>
             <td>{{ interview.employee.firstName }} {{ interview.employee.lastName }}</td>
             <td>
-              <a-tag v-for="user in interview.users" :key="user.name" color="blue">{{ user.name }}</a-tag>
+              <a-tag v-for="user in interview.users" :key="user" color="blue">
+                {{ user.name }}
+              </a-tag>
             </td>
             <td>
               <div v-if="interview.description === ''">
@@ -43,7 +45,7 @@
                 <router-link v-if="isAuthenticated()"
                              :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
                   <a-icon type="highlight"/>
-                  Редактировать
+                  Изменить отзыв
                 </router-link>
               </div>
             </td>

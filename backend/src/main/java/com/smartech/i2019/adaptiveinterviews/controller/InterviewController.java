@@ -11,14 +11,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
@@ -34,6 +34,7 @@ public class InterviewController {
     @GetMapping()
     ResponseEntity<List<Interview>> list() {
         List<Interview> interviews = interviewService.findAll();
+
         return new ResponseEntity<>(interviews, HttpStatus.OK);
     }
 
@@ -53,14 +54,15 @@ public class InterviewController {
         Interview interview = new Interview();
         interview.setName(form.getName());
         interview.setDate(form.getDate());
-        Set<User> users = new HashSet<>();
+        interview.setDescription("");
+        List<User> users = new ArrayList<>();
         for (int userIndex : form.getUsers()) {
             users.add(userService.findById(userIndex));
         }
         interview.setUsers(users);
-        Employee employee = employeeService.findById(form.getId());
+        Employee employee = employeeService.findById(form.getEmployeeId());
         interview.setEmployee(employee);
-        interview.setDescription("");
+        interviewService.edit(interview);
         interviewService.add(interview);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
@@ -73,7 +75,12 @@ public class InterviewController {
     }
 
     @Operation(summary = "Обновить данные беседы")
-    @PutMapping("/update/{id}")
+//    @PutMapping("/update/{id}")
+    @RequestMapping(
+            value = "/update/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Interview> updateInterview(@RequestBody Interview interview) {
         interviewService.edit(interview);
         return new ResponseEntity<>(interview, HttpStatus.OK);

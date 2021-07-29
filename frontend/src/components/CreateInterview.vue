@@ -16,7 +16,6 @@
           disabledTime
           format="YYYY-MM-DD"
           placeholder="Выберите дату">
-
       </a-date-picker>
     </a-form-item>
     <a-form-item v-bind="formItemLayout" label="Сотрудник">
@@ -28,10 +27,11 @@
 
           placeholder="Выберите сотрудника"
       >
-        <!--        v-if="employee.status==='Проходит адаптацию'"-->
         <a-select-option v-for="employee in employees" :key="employee.id">
-          {{ employee.firstName }}
-          {{ employee.lastName }}
+          <template v-if="employee.status==='Проходит адаптацию'">
+            {{ employee.firstName }}
+            {{ employee.lastName }}
+          </template>
         </a-select-option>
       </a-select>
     </a-form-item>
@@ -133,26 +133,26 @@ export default {
     this.getEmployees();
 
   },
-  // computed: {
-  //   filteredOptions() {
-  //     return users.filter(o => !this.selectedUsers.includes(o));
-  //   }
-  // },
+  computed: {
+    filteredOptions() {
+      return this.users.filter(o => !this.selectedUsers.includes(o));
+    }
+  },
 
   methods: {
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/api/interviews/add';
+          let url = '/api/interviews/add';
           this.interview.name = values.name;
           this.interview.users = this.selectedUsers;
           this.interview.date = moment(values.date).format('YYYY-MM-DD');
           this.interview.employeeId = values.employee;
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-          axios.post(uri, this.interview, {headers: header}).then(response => {
+          axios.post(url, this.interview, {headers: header}).then(response => {
             this.interviews = response.data;
-            this.$router.push({name: 'InterviewsTable'});
+            this.$router.push({name: 'Interviews'});
           });
         }
       })
