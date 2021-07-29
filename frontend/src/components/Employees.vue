@@ -42,8 +42,10 @@
           </tr>
           </thead>
           <tbody>
-          <!--              :class="getClass(`${employee.status}`)"-->
-          <tr v-for="employee in (sortedActivity, filteredList)" :key="employee.status">
+
+          <tr v-for="employee in (sortedActivity, filteredList)"
+              :key="employee.status"
+              :class="getClass(`${employee.status}`)">
             <td>{{ employee.firstName }}</td>
             <td>{{ employee.lastName }}</td>
             <td>{{ employee.department.name }}</td>
@@ -57,7 +59,7 @@
                 Подробнее
               </router-link>
             </td>
-            <td>
+            <td v-if="isAdmin()">
               <a-button class="btn btn-danger pull-right" data-toggle="modal" type="button"
                         @click="deleteData(result, employee.id)">
                 <a-icon type="delete"/>
@@ -80,7 +82,7 @@
       </a-button>
       <h4></h4>
       <div>
-        <router-link v-if="this.$store.getters.isAdmin" :to="{ name: 'CreateEmployee'}" tag="a-button">
+        <router-link v-if="isAdmin()" :to="{ name: 'CreateEmployee'}" tag="a-button">
           <a-icon type="user-add"/>
           Новый сотрудник
         </router-link>
@@ -166,6 +168,9 @@ export default {
             console.log(response)
             this.$router.go(0);
           })
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin
     }
   },
   computed: {

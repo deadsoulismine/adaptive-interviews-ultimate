@@ -2,14 +2,13 @@ package com.smartech.i2019.adaptiveinterviews.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -42,6 +41,7 @@ public class Employee {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", orphanRemoval = true)
     @ToString.Exclude
-    private Set<Interview> interviews = new HashSet<>();
+    @EqualsAndHashCode.Exclude
+    private List<Interview> interviews = new ArrayList<>();
 }
 

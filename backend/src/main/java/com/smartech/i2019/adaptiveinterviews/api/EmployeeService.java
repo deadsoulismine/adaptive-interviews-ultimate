@@ -5,7 +5,6 @@ import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 
 import java.util.List;
-import java.util.Set;
 
 public interface EmployeeService {
     void add(Employee employee);
@@ -26,7 +25,7 @@ public interface EmployeeService {
 
     List<Employee> listByLastName(String lastName);
 
-    Set<Interview> getInterviews(long id);
+    List<Interview> getInterviews(long id);
 
     List<UploadFile> getUploadFiles(long id);
 }

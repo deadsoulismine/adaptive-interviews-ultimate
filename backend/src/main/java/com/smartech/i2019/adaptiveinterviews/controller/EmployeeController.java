@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RequestMapping("/api/employees")
@@ -35,8 +34,8 @@ public class EmployeeController {
 
     @Operation(summary = "Получить список бесед по ID пользователя")
     @GetMapping("/interviews/{id}")
-    ResponseEntity<Set<Interview>> getInterviews(@PathVariable @Min(1) long id) throws EntityNotFoundException {
-        Set<Interview> interviews = employeeService.getInterviews(id);
+    ResponseEntity<List<Interview>> getInterviews(@PathVariable @Min(1) long id) throws EntityNotFoundException {
+        List<Interview> interviews = employeeService.getInterviews(id);
         return new ResponseEntity<>(interviews, HttpStatus.OK);
     }
 

@@ -41,9 +41,8 @@
         <i class="fas fa-sort-alpha-down float-right"></i>
         <th align="right" scope="col">Скачать</th>
         <i class="fas fa-sort-alpha-down float-right"></i>
-        <th align="right" scope="col">Удалить</th>
+        <th v-if="isAdmin()" align="right" scope="col">Удалить</th>
         <i class="fas fa-sort-alpha-down float-right"></i>
-        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -57,8 +56,8 @@
           </a-button>
         </td>
         <i class="fas fa-sort-alpha-down float-right"></i>
-        <td>
-          <a-button v-if="isAdmin()" id="" class="" v-on:click="deleteFile(file.id)">
+        <td v-if="isAdmin()">
+          <a-button id="" class="" v-on:click="deleteFile(file.id)">
             <a-icon type="delete"/>
             Удалить
           </a-button>
@@ -72,6 +71,11 @@
       <a-icon type="upload"/>
       Прикрепить
     </a-button>
+    <br>
+    <p></p>
+    <router-link :to="{ name: 'Employees'}" tag="a-button">
+      Назад
+    </router-link>
   </div>
 </template>
 
@@ -89,7 +93,6 @@ export default {
     columns: [{
       title: 'action',
       key: 'action',
-      // id="1" class="" v-on:click="getFile(file.id)" v-if="isAuthenticated()
       render: () => (
           <a-button>
             <a-icon type="file-text"/>
@@ -189,4 +192,28 @@ export default {
 </script>
 
 <style>
+.table-responsive {
+}
+
+.first {
+  background-color: lightsalmon
+}
+
+.second {
+  background-color: lightgreen
+}
+
+.third {
+  background-color: #dfbd00;
+}
+
+th {
+  cursor: pointer;
+  width: 500px !important;
+  white-space: nowrap;
+}
+
+tr {
+  white-space: nowrap;
+}
 </style>

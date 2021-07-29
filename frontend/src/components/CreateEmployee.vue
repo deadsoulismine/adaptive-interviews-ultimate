@@ -115,7 +115,7 @@
       >
         Добавить сотрудника
       </a-button>
-      <router-link :to="{ name: 'EmployeesTable'}" tag="a-button">Отменить</router-link>
+      <router-link :to="{ name: 'Employees'}" tag="a-button">Отменить</router-link>
     </a-form-item>
   </a-form>
 </template>

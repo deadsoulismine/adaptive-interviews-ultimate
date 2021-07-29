@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -68,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Set<Interview> getInterviews(long id) {
+    public List<Interview> getInterviews(long id) {
         return Objects.requireNonNull(employeeRepository.findById(id).orElse(null)).getInterviews();
     }
 
