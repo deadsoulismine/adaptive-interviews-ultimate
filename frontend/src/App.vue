@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <div align="center">
       <a-menu mode="horizontal">
         <a-menu-item key="employees">
           <router-link to="/employees">
@@ -67,10 +67,10 @@ export default {
 
 <style>
 html {
-  background: #f8f9fa !important;
+  background: lightgray !important;
   min-height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 body {
@@ -80,6 +80,38 @@ body {
 p, h1, h2, h3, h4, h5 {
   overflow-wrap: normal;
   white-space: normal;
+}
+
+th {
+  cursor: pointer;
+  width: 500px !important;
+  white-space: nowrap;
+  padding: 15px;
+  background: lightgray;
+  border: black;
+}
+
+tr {
+  white-space: nowrap;
+}
+
+td {
+  padding: 5px;
+}
+
+.table-responsive {
+}
+
+.first {
+  background-color: lightsalmon
+}
+
+.second {
+  background-color: lightgreen
+}
+
+.third {
+  background-color: #dfbd00;
 }
 
 </style>

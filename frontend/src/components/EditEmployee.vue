@@ -32,11 +32,12 @@
             </tr>
             <tr>
               <td><label>Отдел*:</label></td>
-              <td><select v-model="employee.department">
-                <option v-for="department in departments" :key="department.id">
-                  {{ department.name }}
-                </option>
-              </select>
+              <td>
+                <select v-model="employee.department">
+                  <option v-for="department in departments" :key="department.id">
+                    {{ department.name }}
+                  </option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -80,7 +81,6 @@ export default {
       employee: [],
       errors: [],
       departments: [],
-
     }
   },
   created: function () {

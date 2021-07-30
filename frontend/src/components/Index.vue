@@ -1,8 +1,7 @@
 <template>
-  <div class="hello">
+  <div align="center" class="hello">
     <h2>Добро пожаловать в "Адаптивные беседы"</h2>
-    <!--    <h2 v-if="this.$store.getters.isAuthenticated">, {{ this.$store.state.username }}!</h2>-->
-    <h2 v-if="!this.$store.getters.isAuthenticated">Для продолжения работы</h2>
+    <h2 v-if="!this.$store.getters.isAuthenticated">Для продолжения работы:</h2>
     <router-link v-if="!this.$store.getters.isAuthenticated" tag="a-button" to="/login">
       Войдите или зарегистрируйтесь
     </router-link>

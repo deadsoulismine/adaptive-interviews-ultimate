@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Router from 'vue-router'
-import HelloWorld from "@/components/HelloWorld";
+import Index from "@/components/Index";
 import Login from "@/components/Login";
 import Employee from '@/components/Employee'
-import Interview from '@/components/Interview'
-import Department from '@/components/Department'
+import EditInterview from '@/components/EditInterview'
+import Department from '@/components/EditDepartment'
 import Users from '@/components/Users'
 import Interviews from '@/components/Interviews'
 import Departments from '@/components/Departments'
@@ -29,8 +29,8 @@ export default new Router({
         },
         {
             path: '/',
-            name: 'HelloWorld',
-            component: HelloWorld
+            name: 'Index',
+            component: Index
         },
         {
             path: '/login',
@@ -43,9 +43,9 @@ export default new Router({
             component: Employee
         },
         {
-            path: '/interviews/:id',
-            name: 'Interview',
-            component: Interview
+            path: '/interviews/edit/:id',
+            name: 'EditInterview',
+            component: EditInterview
         },
         {
             path: '/departments/:id',

@@ -3,6 +3,7 @@
     <div class="card">
       <div class="card-header">
         <a-avatar icon="user" size="large"/>
+        <br><br>
         <h4>Здравствуйте, {{ user.name }}</h4>
       </div>
       <div class="card-body">

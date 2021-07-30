@@ -1,19 +1,21 @@
 <template>
-
-  <a-form
-      id="components-form-demo-normal-login"
-      :form="form"
-      class="login-form"
-      @submit="handleSubmit"
-  >
-    <b-alert
-        :show="dismissCountDown"
-        dismissible
-        variant="danger"
-        @dismissed="dismissCountDown=0"
-        @dismiss-count-down="countDownChanged"
-    > {{ alertMessage }}
-    </b-alert>
+  <div align="center">
+    <a-form
+        id="components-form-demo-normal-login"
+        :form="form"
+        class="login-form"
+        @submit="handleSubmit"
+        align="center"
+    >
+      <h1 align="center">Авторизация</h1>
+      <b-alert
+          :show="dismissCountDown"
+          dismissible
+          variant="danger"
+          @dismissed="dismissCountDown=0"
+          @dismiss-count-down="countDownChanged"
+      > {{ alertMessage }} <br><br>
+      </b-alert>
     <a-form-item>
       <a-input
           v-decorator="[
@@ -54,7 +56,8 @@
       Или
       <router-link :to="{ name: 'CreateUser'}">зарегистрируйтесь!</router-link>
     </a-form-item>
-  </a-form>
+    </a-form>
+  </div>
 </template>
 
 <script>

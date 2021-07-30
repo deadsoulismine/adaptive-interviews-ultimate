@@ -4,6 +4,7 @@
       class="interview-form"
       @submit="handleSubmit"
   >
+    <h1 align="center">Создание новой беседы</h1>
     <a-form-item
         v-bind="formItemLayout"
         label="Дата"

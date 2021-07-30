@@ -4,6 +4,7 @@
       class="employee-form"
       @submit="handleSubmit"
   >
+    <h1 align="center">Создание нового сотрудника</h1>
     <a-form-item
         v-bind="formItemLayout"
         label="Имя"

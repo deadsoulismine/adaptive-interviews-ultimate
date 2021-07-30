@@ -1,15 +1,17 @@
 <template>
-  <a-form
-      :form="form"
-      class="department-form"
-      @submit="handleSubmit"
-  >
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Название"
+  <div class="main">
+    <a-form
+        :form="form"
+        class="department-form"
+        @submit="handleSubmit"
     >
-      <a-input
-          v-decorator="[
+      <h1 align="center">Создание нового отдела</h1>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Название"
+      >
+        <a-input
+            v-decorator="[
           'name',
           {
             rules: [{
@@ -17,15 +19,15 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Руководитель"
-    >
-      <a-input
-          v-decorator="[
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Руководитель"
+      >
+        <a-input
+            v-decorator="[
           'supervisor',
           {
             rules: [{
@@ -33,19 +35,20 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button
-          html-type="submit"
-          type="primary"
-      >
-        Отправить
-      </a-button>
-      <router-link :to="{ name: 'Departments'}" tag="a-button">Отменить</router-link>
-    </a-form-item>
-  </a-form>
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item v-bind="tailFormItemLayout">
+        <a-button
+            html-type="submit"
+            type="primary"
+        >
+          Отправить
+        </a-button>
+        <router-link :to="{ name: 'Departments'}" tag="a-button">Отменить</router-link>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>

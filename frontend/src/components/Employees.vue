@@ -1,28 +1,24 @@
 <template>
-  <div>
+  <div align="center" class="main">
     <router-link v-if="!this.$store.getters.isAuthenticated" tag="a-button" to="/login">Войдите или зарегистрируйтесь
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="col-md-12">
       <div>
-        <div :style="{ borderBottom: '1px solid #E9E9E9' }">
-          <a-checkbox
-              :checked="checkAll"
-              :indeterminate="indeterminate"
-              @change="onCheckAllChange"
-          >
-            Все сотрудники
+        <a-checkbox
+            :checked="checkAll"
+            :indeterminate="indeterminate"
+            @change="onCheckAllChange"
+        >
+          Все сотрудники
           </a-checkbox>
-        </div>
-        <br/>
         <a-checkbox-group v-model="checkedList" :options="plainOptions" @change="onChange"/>
+        <a-input v-model="search" class="form-control" placeholder="Найти сотрудника" style="max-width: 300px"
+                 type="text"></a-input>
       </div>
-      <br/>
-      <div style="max-width: 300px">
-        <a-input v-model="search" class="form-control" placeholder="Найти сотрудника" type="text"></a-input>
-      </div>
+      <br>
       <div class="table-responsive">
-        <table class="table table-striped table-bordered" style="width:100%">
-          <thead width="400px">
+        <table class="table table-striped table-bordered" style="width:50%">
+          <thead align="center" width="200px">
           <tr>
             <th align="left" scope="col">Имя</th>
             <th align="left" scope="col" @click="sort('lastName')">&#8597;Фамилия <i
@@ -39,10 +35,10 @@
                 class="fas fa-sort-alpha-down float-right"></i>
             </th>
             <th></th>
+            <th v-if="isAdmin()"></th>
           </tr>
           </thead>
-          <tbody>
-
+          <tbody align="center">
           <tr v-for="employee in (sortedActivity, filteredList)"
               :key="employee.status"
               :class="getClass(`${employee.status}`)">
@@ -70,6 +66,8 @@
           </tbody>
         </table>
       </div>
+      <br>
+
       <a-button class="float-left btn btn-outline-info btn-sm" type="primary" @click="prevPage">
         <i class="fas fa-arrow-left"></i>
         <a-icon type="step-backward"/>
@@ -80,13 +78,10 @@
         <a-icon type="step-forward"/>
         <i class="fas fa-arrow-right"></i>
       </a-button>
-      <h4></h4>
-      <div>
-        <router-link v-if="isAdmin()" :to="{ name: 'CreateEmployee'}" tag="a-button">
-          <a-icon type="user-add"/>
-          Новый сотрудник
-        </router-link>
-      </div>
+      <router-link v-if="isAdmin()" :to="{ name: 'CreateEmployee'}" tag="a-button">
+        <a-icon type="user-add"/>
+        Новый сотрудник
+      </router-link>
     </div>
   </div>
 </template>
@@ -214,28 +209,5 @@ export default {
 </script>
 
 <style>
-.table-responsive {
-}
 
-.first {
-  background-color: lightsalmon
-}
-
-.second {
-  background-color: lightgreen
-}
-
-.third {
-  background-color: #dfbd00;
-}
-
-th {
-  cursor: pointer;
-  width: 500px !important;
-  white-space: nowrap;
-}
-
-tr {
-  white-space: nowrap;
-}
 </style>

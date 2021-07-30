@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <div align="center">
     <router-link v-if="!this.$store.getters.isAuthenticated" tag="a-button" to="/login">
       Войдите или зарегистрируйтесь
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="container">
-      <table class="table table-striped table-bordered" style="width:100%">
+      <table border="1" class="table table-striped table-bordered" style="width:50%">
         <thead width="400px">
-        <tr>
-          <th align="left" scope="col">Название</th>
-          <th align="left" scope="col">Руководитель</th>
+        <tr align="center">
+          <th scope="col">Название</th>
+          <th scope="col">Руководитель</th>
+          <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="department in departments" :key="department.id">
+        <tr v-for="department in departments" :key="department.id" align="center">
           <td>{{ department.name }}</td>
           <td>{{ department.supervisor }}</td>
           <td>
@@ -30,6 +32,7 @@
         </tr>
         </tbody>
       </table>
+      <br>
       <router-link v-if="isAdmin()" :to="{ name: 'CreateDepartment'}" tag="a-button">
         <a-icon type="cluster"/>
         Новый отдел

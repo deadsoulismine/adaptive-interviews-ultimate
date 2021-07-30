@@ -192,28 +192,5 @@ export default {
 </script>
 
 <style>
-.table-responsive {
-}
 
-.first {
-  background-color: lightsalmon
-}
-
-.second {
-  background-color: lightgreen
-}
-
-.third {
-  background-color: #dfbd00;
-}
-
-th {
-  cursor: pointer;
-  width: 500px !important;
-  white-space: nowrap;
-}
-
-tr {
-  white-space: nowrap;
-}
 </style>

@@ -1,33 +1,37 @@
 <template>
-  <a-form
-      :form="form"
-      class="register-form"
-      @submit="handleSubmit"
-  >
-    <a-form-item v-bind="formItemLayout" label="Имя">
-      <a-input v-decorator="[
+  <div align="center">
+    <a-form
+        :form="form"
+        class="register-form"
+        @submit="handleSubmit"
+        align="center"
+    >
+      <h1 v-if="!this.$store.getters.isAuthenticated" align="center">Регистрация</h1>
+      <h1 v-if="this.$store.getters.isAuthenticated" align="center">Создание нового пользователя</h1>
+      <a-form-item v-bind="formItemLayout" label="Имя">
+        <a-input v-decorator="[
           'firstname', {
             rules: [{
               required: true, message: 'Пожалуйста введите ваше имя!',
             }],
           }
         ]"
-               @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Фамилия">
-      <a-input v-decorator="['lastname', {
+                 @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Фамилия">
+        <a-input v-decorator="['lastname', {
             rules: [{
               required: true, message: 'Пожалуйста введите вашу фамилию!',
             }],
           }
         ]"
-               @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="E-mail">
-      <a-input
-          v-decorator="[
+                 @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="E-mail">
+        <a-input
+            v-decorator="[
           'email',
           {
             rules: [{
@@ -37,14 +41,14 @@
             }]
           }
         ]"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Должность"
-    >
-      <a-input
-          v-decorator="[
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Должность"
+      >
+        <a-input
+            v-decorator="[
           'position',
           {
             rules: [{
@@ -52,22 +56,22 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Логин">
-      <a-input v-decorator="['username', {
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Логин">
+        <a-input v-decorator="['username', {
             rules: [{ required: true, message: 'Пожалуйста введите ваш логин', whitespace: true }]
           }
         ]"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Пароль"
-    >
-      <a-input
-          v-decorator="[
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Пароль"
+      >
+        <a-input
+            v-decorator="[
           'password',
           {
             rules: [{
@@ -77,15 +81,15 @@
             }],
           }
         ]"
-          type="password"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Подтвердите пароль"
-    >
-      <a-input
-          v-decorator="[
+            type="password"
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Подтвердите пароль"
+      >
+        <a-input
+            v-decorator="[
           'confirm',
           {
             rules: [{
@@ -95,25 +99,26 @@
             }],
           }
         ]"
-          type="password"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
+            type="password"
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
 
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button
-          html-type="submit"
-          type="primary"
-      >
-        Зарегистрироваться
-      </a-button>
-      <a-button>
-        <router-link :to="{ name: 'Users'}">
-          Отменить
-        </router-link>
-      </a-button>
-    </a-form-item>
-  </a-form>
+      <a-form-item v-bind="tailFormItemLayout">
+        <a-button
+            html-type="submit"
+            type="primary"
+        >
+          Зарегистрироваться
+        </a-button>
+        <a-button>
+          <router-link :to="{ name: 'Users'}">
+            Отменить
+          </router-link>
+        </a-button>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>

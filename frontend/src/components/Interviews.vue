@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div align="center">
     <router-link v-if="!this.$store.getters.isAuthenticated" tag="a-button" to="/login">Войдите или зарегистрируйтесь
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="col-md-12">
-      <div style="max-width: 334px">
-        <a-input v-model="search" class="form-control" placeholder="Найти беседу" type="text"></a-input>
-      </div>
+      <a-input v-model="search" class="form-control" placeholder="Найти беседу" style="max-width: 334px"
+               type="text"></a-input>
       <a-range-picker :ranges="{ Сегодня: [moment(), moment()], 'Текущий месяц': [moment(), moment().endOf('month')] }"
                       @change="onChange"
       />
+      <br>
+      <br>
       <div class="table-responsive">
-        <table class="table table-striped table-bordered" style="width:100%">
-          <thead>
+        <table class="table table-striped table-bordered" style="width:50%">
+          <thead align="center">
           <tr>
             <th align="left" scope="col" @click="sort('asc')">&#8597;Дата <i
                 class="fas fa-sort-alpha-down float-right"></i></th>
@@ -20,9 +21,10 @@
                 class="fas fa-sort-alpha-down float-right"></i></th>
             <th align="left" scope="col">Пользователи</th>
             <th></th>
+            <th></th>
           </tr>
           </thead>
-          <tbody>
+          <tbody align="center">
           <tr v-for="interview in (sortedActivity, filteredList)" :key="interview.id"
               :style="{ background: interview.description === '' ? 'lightsalmon' : 'lightgreen' }">
             <td>{{ formatDate(interview.date) }}</td>
@@ -36,16 +38,16 @@
             <td>
               <div v-if="interview.description === ''">
                 <router-link v-if="isAuthenticated()"
-                             :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
+                             :to="{ name: 'EditInterview', params: { id: interview.id }}" tag="a-button">
                   <a-icon type="edit"/>
-                  Оставить отзыв
+                  Оставить отзыв/Редактировать
                 </router-link>
               </div>
               <div v-if="interview.description !== ''">
                 <router-link v-if="isAuthenticated()"
-                             :to="{ name: 'Interview', params: { id: interview.id }}" tag="a-button">
+                             :to="{ name: 'EditInterview', params: { id: interview.id }}" tag="a-button">
                   <a-icon type="highlight"/>
-                  Изменить отзыв
+                  Изменить отзыв/Редактировать
                 </router-link>
               </div>
             </td>
@@ -59,6 +61,7 @@
           </tbody>
         </table>
       </div>
+      <br>
       <a-button class="float-left btn btn-outline-info btn-sm" type="primary" @click="prevPage"><i
           class="fas fa-arrow-left"></i>
         <a-icon type="step-backward"/>
@@ -70,13 +73,10 @@
         <i
             class="fas fa-arrow-right"></i>
       </a-button>
-      <h4></h4>
-      <div>
-        <router-link v-if="this.$store.getters.isAdmin" :to="{ name: 'CreateInterview'}" tag="a-button">
-          <a-icon type="aliwangwang"/>
-          Новая беседа
-        </router-link>
-      </div>
+      <router-link v-if="this.$store.getters.isAdmin" :to="{ name: 'CreateInterview'}" tag="a-button">
+        <a-icon type="aliwangwang"/>
+        Новая беседа
+      </router-link>
     </div>
   </div>
 </template>
@@ -181,13 +181,4 @@ export default {
 
 <style>
 
-th {
-  cursor: pointer;
-  width: 500px !important;
-  white-space: nowrap;
-}
-
-tr {
-  white-space: nowrap;
-}
 </style>
