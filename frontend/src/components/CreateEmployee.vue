@@ -1,16 +1,17 @@
 <template>
-  <a-form
-      :form="form"
-      class="employee-form"
-      @submit="handleSubmit"
-  >
-    <h1 align="center">Создание нового сотрудника</h1>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Имя"
+  <div align="center">
+    <a-form
+        :form="form"
+        class="employee-form"
+        @submit="handleSubmit"
     >
-      <a-input
-          v-decorator="[
+      <h1 align="center">Создание нового сотрудника</h1>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Имя"
+      >
+        <a-input
+            v-decorator="[
           'firstname',
           {
             rules: [{
@@ -18,15 +19,16 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Фамилия"
-    >
-      <a-input
-          v-decorator="[
+            placeholder="Введите имя"
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Фамилия"
+      >
+        <a-input
+            v-decorator="[
           'lastname',
           {
             rules: [{
@@ -34,55 +36,60 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Дата приема на работу"
-    >
-      <a-date-picker
-          v-decorator="['employmentDate', {
+            placeholder="Введите фамилию"
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          align="left"
+          label="Дата приема на работу"
+      >
+        <a-date-picker
+            v-decorator="['employmentDate', {
             rules: [{ required: true, message: 'Пожалуйста укажите дату приема на работу!' }],
           }]"
-          disabledTime
-          format="YYYY-MM-DD"
-          placeholder="Выберите дату"></a-date-picker>
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Окончание адаптации"
-    >
-      <a-date-picker
-          v-decorator="['endOfAdaptation', {
+            disabledTime
+            format="YYYY-MM-DD"
+            placeholder="Выберите дату">
+
+        </a-date-picker>
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          align="left"
+          label="Окончание адаптации"
+      >
+        <a-date-picker
+            v-decorator="['endOfAdaptation', {
             rules: [{ required: true, message: 'Пожалуйста укажите дату предпологаемого окончания адапьтации!' }],
           }]"
-          disabledTime
-          format="YYYY-MM-DD"
-          placeholder="Выберите дату"></a-date-picker>
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Отдел"
-    >
-      <a-select
-          v-decorator="[
+            disabledTime
+            format="YYYY-MM-DD"
+            placeholder="Выберите дату"></a-date-picker>
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Отдел"
+      >
+        <a-select
+            v-decorator="[
           'department', {
             rules: [{ required: true, message: 'Пожалуйста выберите отдел!' }],
           }]"
-          placeholder="Выберите отдел"
+            placeholder="Выберите отдел"
+        >
+          <a-select-option v-for="department in departments" :key="department.name">
+            {{ department.name }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Должность"
       >
-        <a-select-option v-for="department in departments" :key="department.name">
-          {{ department.name }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Должность"
-    >
-      <a-input
-          v-decorator="[
+        <a-input
+            v-decorator="[
           'position',
           {
             rules: [{
@@ -90,35 +97,37 @@
             }],
           }
         ]"
-          @blur="handleConfirmBlur"
-      />
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Статус"
-    >
-      <a-select
-          v-decorator="[
+            placeholder="Введите должность"
+            @blur="handleConfirmBlur"
+        />
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Статус"
+      >
+        <a-select
+            v-decorator="[
           'status', {
             rules: [{ required: true, message: 'Пожалуйста укажите статус сотрудника!' }],
           }]"
-          placeholder="Выберите статус"
-      >
-        <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
-        <a-select-option value="Адаптация завершена">Адаптация завершена</a-select-option>
-        <a-select-option value="Уволен">Уволен</a-select-option>
-      </a-select>
-    </a-form-item>
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button
-          html-type="submit"
-          type="primary"
-      >
-        Добавить сотрудника
-      </a-button>
-      <router-link :to="{ name: 'Employees'}" tag="a-button">Отменить</router-link>
-    </a-form-item>
-  </a-form>
+            placeholder="Выберите статус"
+        >
+          <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
+          <a-select-option value="Адаптация завершена">Адаптация завершена</a-select-option>
+          <a-select-option value="Уволен">Уволен</a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item v-bind="tailFormItemLayout">
+        <a-button
+            html-type="submit"
+            type="primary"
+        >
+          Добавить сотрудника
+        </a-button>
+        <router-link :to="{ name: 'Employees'}" tag="a-button">Отменить</router-link>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>

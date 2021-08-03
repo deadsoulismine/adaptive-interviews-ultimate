@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div align="center" class="main">
     <a-form
         :form="form"
         class="department-form"
@@ -19,6 +19,7 @@
             }],
           }
         ]"
+            placeholder="Введите название отдела"
             @blur="handleConfirmBlur"
         />
       </a-form-item>
@@ -35,6 +36,7 @@
             }],
           }
         ]"
+            placeholder="Введите руководителя отдела"
             @blur="handleConfirmBlur"
         />
       </a-form-item>

@@ -4,40 +4,42 @@
       Войдите или зарегистрируйтесь
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="container">
-      <table border="1" class="table table-striped table-bordered" style="width:50%">
-        <thead width="400px">
-        <tr align="center">
-          <th align="left" scope="col">Имя</th>
-          <th align="left" scope="col">Должность</th>
-          <th align="left" scope="col">E-mail</th>
-          <th></th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="user in users" :key="user.id" align="center">
-          <td>{{ user.name }}</td>
-          <td>{{ user.position }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <!--                         v-if="this.$store.getters.isAuthenticated"-->
-            <router-link v-if="isAdmin()"
+      <div class="table-responsive">
+        <table border="1" class="table table-striped table-bordered" style="width:50%">
+          <thead width="400px">
+          <tr align="center">
+            <th align="left" scope="col">Имя</th>
+            <th align="left" scope="col">Должность</th>
+            <th align="left" scope="col">E-mail</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="user in users" :key="user.id" align="center">
+            <td>{{ user.name }}</td>
+            <td>{{ user.position }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <!--                         v-if="this.$store.getters.isAuthenticated"-->
+              <router-link v-if="isAdmin()"
 
-                         :to="{ name: 'EditUser', params: { id: user.id }}"
-                         tag="a-button">
-              <a-icon type="edit"/>
-              Редактировать
-            </router-link>
-          </td>
-          <td>
-            <a-button v-if="isAdmin()" id="" class="" @click="deleteUser(user.id)">
-              <a-icon type="delete"/>
-              Удалить
-            </a-button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+                           :to="{ name: 'EditUser', params: { id: user.id }}"
+                           tag="a-button">
+                <a-icon type="edit"/>
+                Редактировать
+              </router-link>
+            </td>
+            <td>
+              <a-button v-if="isAdmin()" id="" class="" @click="deleteUser(user.id)">
+                <a-icon type="delete"/>
+                Удалить
+              </a-button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <p></p>
     <div class="container">

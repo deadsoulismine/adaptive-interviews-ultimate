@@ -1,86 +1,79 @@
 <template>
-  <a-form
-      :form="form"
-      class="interview-form"
-      @submit="handleSubmit"
-  >
-    <h1 align="center">Создание новой беседы</h1>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Дата"
+  <div align="center">
+    <a-form
+        :form="form"
+        class="interview-form"
+        @submit="handleSubmit"
     >
-      <a-date-picker
-          v-decorator="['date', {rules: [{ required: true, message: 'Пожалуйста укажите дату!'
+      <h1 align="center">Создание новой беседы</h1>
+      <a-form-item
+          v-bind="formItemLayout"
+          align="left"
+          label="Дата"
+      >
+        <a-date-picker
+            v-decorator="['date', {rules: [{ required: true, message: 'Пожалуйста укажите дату!'
                                         }],
                                 }
                        ]"
-          disabledTime
-          format="YYYY-MM-DD"
-          placeholder="Выберите дату">
-      </a-date-picker>
-    </a-form-item>
-    <a-form-item v-bind="formItemLayout" label="Сотрудник">
-      <a-select
-          v-decorator="[
+            disabledTime
+            format="YYYY-MM-DD"
+            placeholder="Выберите дату">
+        </a-date-picker>
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Сотрудник">
+        <a-select
+            v-decorator="[
           'employee', {
             rules: [{ required: true, message: 'Пожалуйста выберите сотрудника!' }],
           }]"
 
-          placeholder="Выберите сотрудника"
+            placeholder="Выберите сотрудника"
+        >
+          <a-select-option v-for="employee in employees" :key="employee.id">
+            <template v-if="employee.status==='Проходит адаптацию'">
+              {{ employee.firstName }}
+              {{ employee.lastName }}
+            </template>
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item v-bind="formItemLayout" label="Название">
+        <a-input v-model="name"
+                 v-decorator="['title', { rules:
+                 [{ required: true, message: 'Пожалуйста введите название!' }],
+         }]"
+                 placeholder="Введите название"/>
+      </a-form-item>
+      <a-form-item
+          v-bind="formItemLayout"
+          label="Пользователи"
       >
-        <a-select-option v-for="employee in employees" :key="employee.id">
-          <template v-if="employee.status==='Проходит адаптацию'">
-            {{ employee.firstName }}
-            {{ employee.lastName }}
-          </template>
-        </a-select-option>
-      </a-select>
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Название"
-    >
-      <a-select
-          v-decorator="[
-          'name', {
-            rules: [{ required: true, message: 'Пожалуйста выберите беседу!' }],
-          }]"
-          placeholder="Выберите беседу"
-      >
-        <a-select-option value="1 беседа">1 беседа</a-select-option>
-        <a-select-option value="2 беседа">2 беседа</a-select-option>
-        <a-select-option value="3 беседа">3 беседа</a-select-option>
-        <a-select-option value="4 беседа">4 беседа</a-select-option>
-      </a-select>
-    </a-form-item>
-    <a-form-item
-        v-bind="formItemLayout"
-        label="Пользователи"
-    >
-      <a-select
-          v-decorator="[
+        <a-select
+            v-decorator="[
           'users', {
             rules: [{ required: true, message: 'Пожалуйста выберите пользователей!' }],
           }]"
-          :value="selectedUsers"
-          mode="multiple"
-          placeholder="Выберите пользователей"
-          style="width: 100%"
-          @change="handleChange"
-      >
-        <a-select-option v-for="user in users" :key="user.id">
-          {{ user.name }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
+            :value="selectedUsers"
+            mode="multiple"
+            placeholder="Выберите пользователей"
+            style="width: 100%"
+            @change="handleChange"
+        >
+          <a-select-option v-for="user in users" :key="user.id">
+            {{ user.name }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
 
-    <a-form-item v-bind="tailFormItemLayout">
-      <a-button html-type="submit" type="primary">
-        Отправить
-      </a-button>
-      <router-link :to="{ name: 'Interviews'}" tag="a-button">Отменить</router-link>
-    </a-form-item>
-  </a-form>
+      <a-form-item v-bind="tailFormItemLayout">
+        <a-button html-type="submit" type="primary">
+          Отправить
+        </a-button>
+        <router-link :to="{ name: 'Interviews'}" tag="a-button">Отменить</router-link>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>
@@ -146,7 +139,7 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           let url = '/api/interviews/add';
-          this.interview.name = values.name;
+          this.interview.name = this.name;
           this.interview.users = this.selectedUsers;
           this.interview.date = moment(values.date).format('YYYY-MM-DD');
           this.interview.employeeId = values.employee;

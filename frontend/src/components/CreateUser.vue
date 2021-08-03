@@ -2,9 +2,9 @@
   <div align="center">
     <a-form
         :form="form"
+        align="center"
         class="register-form"
         @submit="handleSubmit"
-        align="center"
     >
       <h1 v-if="!this.$store.getters.isAuthenticated" align="center">Регистрация</h1>
       <h1 v-if="this.$store.getters.isAuthenticated" align="center">Создание нового пользователя</h1>
@@ -16,6 +16,7 @@
             }],
           }
         ]"
+                 placeholder="Введите имя"
                  @blur="handleConfirmBlur"
         />
       </a-form-item>
@@ -26,6 +27,7 @@
             }],
           }
         ]"
+                 placeholder="Введите фамилию"
                  @blur="handleConfirmBlur"
         />
       </a-form-item>
@@ -41,6 +43,7 @@
             }]
           }
         ]"
+            placeholder="Введите e-mail"
         />
       </a-form-item>
       <a-form-item
@@ -56,6 +59,7 @@
             }],
           }
         ]"
+            placeholder="Введите должность"
             @blur="handleConfirmBlur"
         />
       </a-form-item>
@@ -64,6 +68,7 @@
             rules: [{ required: true, message: 'Пожалуйста введите ваш логин', whitespace: true }]
           }
         ]"
+                 placeholder="Введите логин"
         />
       </a-form-item>
       <a-form-item
@@ -81,6 +86,7 @@
             }],
           }
         ]"
+            placeholder="Введите пароль"
             type="password"
         />
       </a-form-item>
@@ -99,6 +105,7 @@
             }],
           }
         ]"
+            placeholder="Подтвердите пароль"
             type="password"
             @blur="handleConfirmBlur"
         />

@@ -10,7 +10,7 @@
             @change="onCheckAllChange"
         >
           Все сотрудники
-          </a-checkbox>
+        </a-checkbox>
         <a-checkbox-group v-model="checkedList" :options="plainOptions" @change="onChange"/>
         <a-input v-model="search" class="form-control" placeholder="Найти сотрудника" style="max-width: 300px"
                  type="text"></a-input>
@@ -86,7 +86,6 @@
   </div>
 </template>
 
-
 <script>
 
 import moment from 'moment';
@@ -101,8 +100,6 @@ export default {
     indeterminate: true,
     checkAll: false,
     plainOptions,
-    statusList: ['Проходит адаптацию', 'Адаптация завершена', 'Уволен'],
-    statuses: [],
     employees: [],
     currentSort: 'lastName',
     currentSortDir: 'asc',

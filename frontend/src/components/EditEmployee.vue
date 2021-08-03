@@ -1,71 +1,86 @@
 <template>
-  <div class="container">
+  <div align="center" class="container">
     <div class="card">
       <div class="card-header">
       </div>
       <div class="card-body">
         <form id="app" method="put" novalidate="true" @submit="checkForm" @submit.prevent="editEmployee">
-          <p v-if="errors.length"></p>
-          <b>Пожалуйста исправьте указанные ошибки:</b>
-          <ul>
-            <li v-for="error in errors" :key="error">
-              {{ error }}
-            </li>
-          </ul>
+          <div v-if="errors.length">
+            <p></p>
+            <b>Пожалуйста исправьте указанные ошибки:</b>
+            <ul>
+              <li v-for="error in errors" :key="error">
+                {{ error }}
+              </li>
+            </ul>
+          </div>
 
           <table>
             <tr>
               <td><label>Имя*:</label></td>
-              <td><input v-model="employee.firstName" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="employee.firstName" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Фамилия*:</label></td>
-              <td><input v-model="employee.lastName" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="employee.lastName" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Дата приема на работу*:</label></td>
-              <td><input v-model="employee.employmentDate" class="form-control" type="date"/></td>
+              <td>
+                <a-input v-model="employee.employmentDate" class="form-control" type="date"/>
+              </td>
             </tr>
             <tr>
               <td><label>Предпологаемый конец адаптации*:</label></td>
-              <td><input v-model="employee.endOfAdaptation" class="form-control" type="date"/></td>
+              <td>
+                <a-input v-model="employee.endOfAdaptation" class="form-control" type="date"/>
+              </td>
             </tr>
             <tr>
               <td><label>Отдел*:</label></td>
               <td>
-                <select v-model="employee.department">
-                  <option v-for="department in departments" :key="department.id">
+                <a-select v-model="employee.department">
+                  <a-select-option
+                      v-for="department in departments"
+                      :key="department.id"
+                      :value="department">
                     {{ department.name }}
-                  </option>
-                </select>
+                  </a-select-option>
+                </a-select>
+
               </td>
             </tr>
             <tr>
               <td><label>Должность*:</label></td>
-              <td><input v-model="employee.position" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="employee.position" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Статус*:</label></td>
-              <td><select v-model="employee.status">
-                <option>Проходит адаптацию</option>
-                <option>Адаптация завершена</option>
-                <option>Уволен</option>
-              </select></td>
+              <td>
+                <a-select v-model="employee.status">
+                  <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
+                  <a-select-option value="Адаптация завершена">Адаптация завершена</a-select-option>
+                  <a-select-option value="Уволен">Уволен</a-select-option>
+                </a-select>
+              </td>
             </tr>
             <tr>
-              <td>
-                <a-button
-                    html-type="submit"
-                    type="primary"
-                >Отправить
-                </a-button>
-              </td>
-              <td>
-                <router-link :to="{ name: 'Employee',params: { id: this.employee.id }}" tag="a-button">Отменить
-                </router-link>
-              </td>
             </tr>
           </table>
+          <br>
+          <a-button
+              html-type="submit"
+              type="primary"
+          >Отправить
+          </a-button>
+          <router-link :to="{ name: 'Employee',params: { id: this.employee.id }}" tag="a-button">Отменить
+          </router-link>
         </form>
       </div>
     </div>

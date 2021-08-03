@@ -3,9 +3,9 @@
     <a-form
         id="components-form-demo-normal-login"
         :form="form"
+        align="center"
         class="login-form"
         @submit="handleSubmit"
-        align="center"
     >
       <h1 align="center">Авторизация</h1>
       <b-alert
@@ -16,46 +16,46 @@
           @dismiss-count-down="countDownChanged"
       > {{ alertMessage }} <br><br>
       </b-alert>
-    <a-form-item>
-      <a-input
-          v-decorator="[
+      <a-form-item>
+        <a-input
+            v-decorator="[
           'username',
           { rules: [{ required: true, message: 'Пожалуйста введите ваш логин!' }] }
         ]"
-          placeholder="Логин"
-      >
-        <template v-slot:prefix
-                  style="color: rgba(0,0,0,.25)"
-                  type="user"
-        />
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-input
-          v-decorator="[
+            placeholder="Логин"
+        >
+          <template v-slot:prefix
+                    style="color: rgba(0,0,0,.25)"
+                    type="user"
+          />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-input
+            v-decorator="[
           'password',
           { rules: [{ required: true, message: 'Пожалуйста введите ваш пароль!' }] }
         ]"
-          placeholder="Пароль"
-          type="password"
-      >
-        <template v-slot:prefix
-                  style="color: rgba(0,0,0,.25)"
-                  type="lock"
-        />
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-button
-          class="login-form-button"
-          html-type="submit"
-          type="primary"
-      >
-        Войти
-      </a-button>
-      Или
-      <router-link :to="{ name: 'CreateUser'}">зарегистрируйтесь!</router-link>
-    </a-form-item>
+            placeholder="Пароль"
+            type="password"
+        >
+          <template v-slot:prefix
+                    style="color: rgba(0,0,0,.25)"
+                    type="lock"
+          />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-button
+            class="login-form-button"
+            html-type="submit"
+            type="primary"
+        >
+          Войти
+        </a-button>
+        Или
+        <router-link :to="{ name: 'CreateUser'}">зарегистрируйтесь!</router-link>
+      </a-form-item>
     </a-form>
   </div>
 </template>

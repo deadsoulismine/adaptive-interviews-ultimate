@@ -1,8 +1,7 @@
 <template>
-  <div class="container">
+  <div align="center" class="container">
     <div class="card">
       <div class="card-header">
-        <h4>Новая беседа</h4>
       </div>
       <div class="card-body">
         <form
@@ -23,11 +22,15 @@
           <table>
             <tr>
               <td><label>Название*:</label></td>
-              <td><input v-model="department.name" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="department.name" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Руководитель*:</label></td>
-              <td><input v-model="department.supervisor" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="department.supervisor" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>

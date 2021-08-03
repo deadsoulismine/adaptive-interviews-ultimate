@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div align="center" class="container">
     <div class="card">
       <div class="card-header">
         <a-avatar icon="user" size="large"/>
@@ -23,49 +23,59 @@
           <table>
             <tr>
               <td><label>Имя*:</label></td>
-              <td><input v-model="user.name" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="user.name" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Должность*:</label></td>
-              <td><input v-model="user.position" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="user.position" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Email*:</label></td>
-              <td><input v-model="user.email" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="user.email" class="form-control" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Логин*:</label></td>
-              <td><input v-model="user.username" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="user.username"
+                         class="form-control"
+                         placeholder="Введите новый логин"
+                         type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label>Пароль*:</label></td>
-              <td><input v-model="user.password" class="form-control" type="text"/></td>
+              <td>
+                <a-input v-model="user.password"
+                         class="form-control"
+                         placeholder="Введите новый пароль"
+                         type="text"/>
+              </td>
             </tr>
             <tr v-if="this.$store.getters.isAdmin">
               <td><label>Уровень доступа*:</label></td>
               <td>
-                <select v-model="user.role">
-                  <option disabled value="">Выберите один из вариантов</option>
-                  <option value="ADMIN">Администратор</option>
-                  <option value="USER">Пользователь</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <br>
-            <tr>
-              <td>
-                <a-button html-type="submit" type="primary">
-                  Отправить
-                </a-button>
-              </td>
-              <td>
-                <router-link :to="{ name: 'Users'}" tag="a-button">
-                  Отменить
-                </router-link>
+                <a-select v-model="user.role"
+                          placeholder="Выберите один из вариантов"
+                          style="width: 250px; height: 40px">
+                  <a-select-option value="ADMIN">Администратор</a-select-option>
+                  <a-select-option value="USER">Пользователь</a-select-option>
+                </a-select>
               </td>
             </tr>
           </table>
+          <br>
+          <a-button html-type="submit" type="primary">
+            Отправить
+          </a-button>
+          <router-link :to="{ name: 'Users'}" tag="a-button">
+            Отменить
+          </router-link>
         </form>
       </div>
     </div>
@@ -79,11 +89,7 @@ export default {
   data() {
     return {
       selected: this.$store.getters.getRole,
-      user: {
-        password: '',
-        role: '',
-
-      },
+      user: [],
       errors: [],
       users: [],
     }
@@ -164,11 +170,6 @@ export default {
               }
               this.$router.push({name: 'Users'});
             });
-      }
-    },
-    role() {
-      if (this.$store.getters.getRole === 'ADMIN') {
-        this.selected = "123"
       }
     },
   }
