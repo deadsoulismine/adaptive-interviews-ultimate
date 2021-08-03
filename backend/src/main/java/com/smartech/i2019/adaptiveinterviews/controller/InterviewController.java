@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +52,6 @@ public class InterviewController {
     ResponseEntity<Employee> addInterview(@RequestBody InterviewForm form) {
         Interview interview = new Interview();
         interview.setName(form.getName());
-        interview.setDate(form.getDate());
         interview.setDescription("");
         List<User> users = new ArrayList<>();
         for (int userIndex : form.getUsers()) {
@@ -75,12 +73,7 @@ public class InterviewController {
     }
 
     @Operation(summary = "Обновить данные беседы")
-//    @PutMapping("/update/{id}")
-    @RequestMapping(
-            value = "/update/{id}",
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping("/update/{id}")
     ResponseEntity<Interview> updateInterview(@RequestBody Interview interview) {
         interviewService.edit(interview);
         return new ResponseEntity<>(interview, HttpStatus.OK);
