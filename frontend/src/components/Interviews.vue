@@ -97,20 +97,19 @@ import moment from 'moment';
 moment.locale('ru');
 
 const plainOptions = ['Есть отзыв', 'Нет отзыва', 'Будущие', 'Прошедшие'];
-const defaultCheckedList = ['Будущие'];
+const defaultCheckedList = ['Будущие', 'Нет отзыва'];
 
 export default {
   data: () => ({
     checkedList: defaultCheckedList,
+    plainOptions,
     indeterminate: true,
     checkAll: false,
-    plainOptions,
     dateFormat: 'YYYY/MM/DD',
     interviews: [],
     currentSort: 'date',
     currentSortDir: 'desc',
     search: '',
-    searchSelection: '',
     pageSize: 20,
     currentPage: 1,
     startDate: '',
@@ -131,17 +130,17 @@ export default {
     interviewMapping(interviews) {
       interviews.forEach((interview) => {
         if (interview.description === '') {
-          interview.checkDescription = 'Нет отзыва'
+          interview.checkDescriptionIsEmpty = 'Нет отзыва'
         } else {
-          interview.checkDescription = 'Есть отзыв'
+          interview.checkDescriptionIsNotEmpty = 'Есть отзыв'
         }
         let today = new Date()
         let dateSet = interview.date.toString().split('-')
         let interviewDate = new Date(dateSet[0], dateSet[1] - 1, dateSet[2])
         if (today <= interviewDate) {
-          interview.checkDate = 'Будущие'
+          interview.checkDateIsComing = 'Будущие'
         } else {
-          interview.checkDate = 'Прошедшие'
+          interview.checkDateIsPast = 'Прошедшие'
         }
       })
     },
@@ -213,7 +212,10 @@ export default {
     },
     filterCheckbox() {
       return this.interviews.filter(function (interview) {
-        return this.checkedList.includes(interview.checkDescription) || this.checkedList.includes(interview.checkDate)
+        return this.checkedList.includes(interview.checkDescriptionIsNotEmpty) ||
+            this.checkedList.includes(interview.checkDescriptionIsEmpty) ||
+            this.checkedList.includes(interview.checkDateIsComing) ||
+            this.checkedList.includes(interview.checkDateIsPast)
       }, this)
     },
   },
@@ -227,9 +229,7 @@ export default {
         })
   },
 }
-
 </script>
 
 <style>
-
 </style>
