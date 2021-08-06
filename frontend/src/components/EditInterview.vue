@@ -136,7 +136,6 @@ export default {
       employees: [],
       users: [],
       selectedUsers: [],
-      id: '',
     }
   },
   beforeCreate() {

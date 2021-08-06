@@ -109,11 +109,9 @@ export default {
       interview: {
         description: null,
       },
-      errors: [],
       users: [],
       selectedUsers: [],
       employees: [],
-      id: '',
     }
   },
   beforeCreate() {
@@ -123,9 +121,6 @@ export default {
     this.getUsers();
     this.getEmployees();
   },
-  computed: {
-  },
-
   methods: {
     handleSubmit(e) {
       e.preventDefault();
