@@ -14,8 +14,7 @@
         <a-date-picker
             v-decorator="['date', {rules: [{ required: true, message: 'Пожалуйста укажите дату!'
                                         }],
-                                }
-                       ]"
+                                }]"
             disabledTime
             format="YYYY-MM-DD"
             placeholder="Выберите дату">
@@ -27,13 +26,11 @@
           'employee', {
             rules: [{ required: true, message: 'Пожалуйста выберите сотрудника!' }],
           }]"
-
             placeholder="Выберите сотрудника"
         >
           <a-select-option v-for="employee in employees" :key="employee.id">
             <template v-if="employee.status==='Проходит адаптацию'">
-              {{ employee.firstName }}
-              {{ employee.lastName }}
+              {{ employee.firstName }} {{ employee.lastName }}
             </template>
           </a-select-option>
         </a-select>
@@ -50,17 +47,17 @@
           label="Пользователи"
       >
         <a-select
-            v-decorator="[
-          'users', {
-            rules: [{ required: true, message: 'Пожалуйста выберите пользователей!' }],
-          }]"
             :value="selectedUsers"
+            v-decorator="['users', {
+              rules: [{ required: true, message: 'Пожалуйста выберите пользователей!' }],
+            }]"
             mode="multiple"
             placeholder="Выберите пользователей"
             style="width: 100%"
             @change="handleChange"
         >
-          <a-select-option v-for="user in users" :key="user.id">
+          <a-select-option v-for="user in users"
+                           :key="user.id">
             {{ user.name }}
           </a-select-option>
         </a-select>
@@ -114,9 +111,9 @@ export default {
       },
       errors: [],
       users: [],
+      selectedUsers: [],
       employees: [],
       id: '',
-      selectedUsers: [],
     }
   },
   beforeCreate() {
@@ -125,12 +122,8 @@ export default {
   created: function () {
     this.getUsers();
     this.getEmployees();
-
   },
   computed: {
-    filteredOptions() {
-      return this.users.filter(o => !this.selectedUsers.includes(o));
-    }
   },
 
   methods: {
@@ -167,9 +160,6 @@ export default {
           .then(response => {
             this.employees = response.data
           })
-    },
-    formatDate: function (date) {
-      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     },
   },
 }

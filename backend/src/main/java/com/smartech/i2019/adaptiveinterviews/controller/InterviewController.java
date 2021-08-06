@@ -53,6 +53,7 @@ public class InterviewController {
         Interview interview = new Interview();
         interview.setName(form.getName());
         interview.setDescription("");
+        interview.setDate(form.getDate());
         List<User> users = new ArrayList<>();
         for (int userIndex : form.getUsers()) {
             users.add(userService.findById(userIndex));
@@ -60,7 +61,6 @@ public class InterviewController {
         interview.setUsers(users);
         Employee employee = employeeService.findById(form.getEmployeeId());
         interview.setEmployee(employee);
-        interviewService.edit(interview);
         interviewService.add(interview);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
@@ -74,7 +74,18 @@ public class InterviewController {
 
     @Operation(summary = "Обновить данные беседы")
     @PutMapping("/update/{id}")
-    ResponseEntity<Interview> updateInterview(@RequestBody Interview interview) {
+    ResponseEntity<Interview> updateInterview(@PathVariable Long id, @RequestBody InterviewForm form) {
+        Interview interview = interviewService.findById(id);
+        interview.setDate(form.getDate());
+        interview.setDescription(form.getDescription());
+        interview.setName(form.getName());
+        List<User> users = new ArrayList<>();
+        for (int userIndex : form.getUsers()) {
+            users.add(userService.findById(userIndex));
+        }
+        interview.setUsers(users);
+        Employee employee = employeeService.findById(form.getEmployeeId());
+        interview.setEmployee(employee);
         interviewService.edit(interview);
         return new ResponseEntity<>(interview, HttpStatus.OK);
     }
