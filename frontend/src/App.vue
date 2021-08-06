@@ -66,6 +66,7 @@ export default {
 </script>
 
 <style>
+
 html {
   background: lightgray !important;
   min-height: 100%;
@@ -84,7 +85,7 @@ p, h1, h2, h3, h4, h5 {
 
 th {
   cursor: pointer;
-  width: 500px !important;
+  width: 600px !important;
   white-space: nowrap;
   padding: 15px;
   background: lightgray;

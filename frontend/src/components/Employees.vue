@@ -12,8 +12,12 @@
           Все сотрудники
         </a-checkbox>
         <a-checkbox-group v-model="checkedList" :options="plainOptions" @change="onChange"/>
-        <a-input v-model="search" class="form-control" placeholder="Найти сотрудника" style="max-width: 300px"
-                 type="text"></a-input>
+        <a-input v-model="search"
+                 class="form-control"
+                 placeholder="Найти сотрудника"
+                 style="max-width: 300px"
+                 type="text">
+        </a-input>
       </div>
       <br>
       <div class="table-responsive">
@@ -40,7 +44,7 @@
           </thead>
           <tbody align="center">
           <tr v-for="employee in (sortedActivity, filteredList)"
-              :key="employee.status"
+              :key="employee.id"
               :class="getClass(`${employee.status}`)">
             <td>{{ employee.firstName }}</td>
             <td>{{ employee.lastName }}</td>
@@ -104,7 +108,6 @@ export default {
     currentSort: 'lastName',
     currentSortDir: 'asc',
     search: '',
-    searchSelection: '',
     pageSize: 30,
     currentPage: 1,
     isCheckAll: false

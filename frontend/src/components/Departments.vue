@@ -4,27 +4,27 @@
       Войдите или зарегистрируйтесь
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="container">
-      <table border="1" class="table table-striped table-bordered" style="width:50%">
-        <thead width="400px">
+      <table class="table table-striped table-bordered" style="width:50%">
+        <thead>
         <tr align="center">
           <th scope="col">Название</th>
           <th scope="col">Руководитель</th>
-          <th></th>
-          <th></th>
+          <th v-if="isAdmin()"></th>
+          <th v-if="isAdmin()"></th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="department in departments" :key="department.id" align="center">
           <td>{{ department.name }}</td>
           <td>{{ department.supervisor }}</td>
-          <td>
-            <router-link v-if="isAdmin()" :to="{ name: 'Department' , params: {id : department.id}}" tag="a-button">
+          <td v-if="isAdmin()">
+            <router-link :to="{ name: 'Department' , params: {id : department.id}}" tag="a-button">
               <a-icon type="highlight"/>
               Редактировать
             </router-link>
           </td>
-          <td>
-            <a-button v-if="isAdmin()" id="" class="" v-on:click="deleteDepartment(department.id)">
+          <td v-if="isAdmin()">
+            <a-button v-on:click="deleteDepartment(department.id)">
               <a-icon type="delete"/>
               Удалить
             </a-button>
@@ -40,7 +40,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import axios from 'axios'
@@ -81,5 +80,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+th {
+  background: lightgray;
+}
+
+td {
+  background: #f3f3f3;
+}
 </style>

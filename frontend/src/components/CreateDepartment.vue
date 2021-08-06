@@ -63,6 +63,7 @@ export default {
   data() {
     return {
       dateFormat: 'YYYY/MM/DD',
+      department: [],
       formItemLayout: {
         labelCol: {
           xs: {span: 24},
@@ -85,14 +86,11 @@ export default {
           },
         },
       },
-      department: {},
-      errors: [],
     }
   },
   beforeCreate() {
     this.form = this.$form.createForm(this);
   },
-
   methods: {
     handleSubmit(e) {
       e.preventDefault();
