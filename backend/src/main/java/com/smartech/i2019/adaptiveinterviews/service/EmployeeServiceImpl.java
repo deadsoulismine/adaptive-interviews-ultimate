@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> findAll() {
+        List<Employee> employees = employeeRepository.findAll();
         return employeeRepository.findAll();
     }
 
@@ -68,12 +68,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Interview> getInterviews(long id) {
-        return Objects.requireNonNull(employeeRepository.findById(id).orElse(null)).getInterviews();
+        return findById(id).getInterviews();
     }
 
     @Override
     public List<UploadFile> getUploadFiles(long id) {
-        return Objects.requireNonNull(employeeRepository.findById(id).orElse(null)).getFiles();
+        return findById(id).getFiles();
     }
 
 }
