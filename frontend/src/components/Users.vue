@@ -5,14 +5,14 @@
     </router-link>
     <div v-if="this.$store.getters.isAuthenticated" class="container">
       <div class="table-responsive">
-        <table border="1" class="table table-striped table-bordered" style="width:50%">
+        <table class="table table-striped table-bordered" style="width:50%">
           <thead width="400px">
           <tr align="center">
             <th align="left" scope="col">Имя</th>
             <th align="left" scope="col">Должность</th>
             <th align="left" scope="col">E-mail</th>
-            <th></th>
-            <th></th>
+            <th v-if="isAdmin()"></th>
+            <th v-if="isAdmin()"></th>
           </tr>
           </thead>
           <tbody>
@@ -20,18 +20,16 @@
             <td>{{ user.name }}</td>
             <td>{{ user.position }}</td>
             <td>{{ user.email }}</td>
-            <td>
-              <!--                         v-if="this.$store.getters.isAuthenticated"-->
-              <router-link v-if="isAdmin()"
-
-                           :to="{ name: 'EditUser', params: { id: user.id }}"
-                           tag="a-button">
+            <td v-if="isAdmin()">
+              <router-link
+                  :to="{ name: 'EditUser', params: { id: user.id }}"
+                  tag="a-button">
                 <a-icon type="edit"/>
                 Редактировать
               </router-link>
             </td>
-            <td>
-              <a-button v-if="isAdmin()" id="" class="" @click="deleteUser(user.id)">
+            <td v-if="isAdmin()">
+              <a-button @click="deleteUser(user.id)">
                 <a-icon type="delete"/>
                 Удалить
               </a-button>
@@ -56,7 +54,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import axios from 'axios'
@@ -92,18 +89,20 @@ export default {
       return this.$store.getters.isAdmin;
     },
   },
-
-
   mounted() {
     this.loadUsers();
     this.username = this.$store.getters.getUsername;
   },
-  beforeCreate() {
-
-  }
 }
 </script>
 
-<style>
+<style scoped>
+th {
+  background: lightgray;
+}
 
+td {
+  padding: 5px;
+  background: #f3f3f3;
+}
 </style>

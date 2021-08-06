@@ -4,88 +4,162 @@
       <div class="card-header">
       </div>
       <div class="card-body">
-        <form id="app" method="put" novalidate="true" @submit="checkForm" @submit.prevent="editEmployee">
-          <div v-if="errors.length">
-            <p></p>
-            <b>Пожалуйста исправьте указанные ошибки:</b>
-            <ul>
-              <li v-for="error in errors" :key="error">
-                {{ error }}
-              </li>
-            </ul>
-          </div>
+        <a-form
+            :form="form"
+            class="employee-form"
+            @submit="handleSubmit"
+        >
+          <h1 align="center">Изменение данных сотрудника</h1>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Имя"
+          >
+            <a-input v-model="employee.firstName"
+                     v-decorator="[ 'firstName', {
+                           initialValue: employee.firstName,
+                            rules: [{
+                              required: true,
+                              message: 'Пожалуйста введите имя!',
+                            }],
+                         }]"
+                     placeholder="Введите новое имя"
+                     @blur="handleConfirmBlur"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Фамилия"
+          >
+            <a-input v-model="employee.lastName"
+                     v-decorator="[
+                          'lastName', {
+                            initialValue: employee.lastName,
+                            rules: [{
+                              required: true,
+                              message: 'Пожалуйста введите фамилию!',
+                            }],
+                          }
+                        ]"
+                     placeholder="Введите новую фамилию"
+                     @blur="handleConfirmBlur"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              align="left"
+              label="Дата приема на работу"
 
-          <table>
-            <tr>
-              <td><label>Имя*:</label></td>
-              <td>
-                <a-input v-model="employee.firstName" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Фамилия*:</label></td>
-              <td>
-                <a-input v-model="employee.lastName" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Дата приема на работу*:</label></td>
-              <td>
-                <a-input v-model="employee.employmentDate" class="form-control" type="date"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Предпологаемый конец адаптации*:</label></td>
-              <td>
-                <a-input v-model="employee.endOfAdaptation" class="form-control" type="date"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Отдел*:</label></td>
-              <td>
-                <a-select v-model="employee.department">
-                  <a-select-option
-                      v-for="department in departments"
-                      :key="department.id"
-                      :value="department">
-                    {{ department.name }}
-                  </a-select-option>
-                </a-select>
-
-              </td>
-            </tr>
-            <tr>
-              <td><label>Должность*:</label></td>
-              <td>
-                <a-input v-model="employee.position" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Статус*:</label></td>
-              <td>
-                <a-select v-model="employee.status">
-                  <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
-                  <a-select-option value="Адаптация завершена">Адаптация завершена</a-select-option>
-                  <a-select-option value="Уволен">Уволен</a-select-option>
-                </a-select>
-              </td>
-            </tr>
-            <tr>
-            </tr>
-          </table>
+          >
+            <a-date-picker v-model="employee.employmentDate"
+                           v-decorator="['employmentDate', {
+                              initialValue: moment(employee.employmentDate, dateFormat),
+                              rules: [{
+                                type: 'date',
+                                required: true,
+                                message: 'Пожалуйста введите дату приёма!',
+                              }],
+                            }
+                          ]"
+                           placeholder="Введите новую дату приёма"
+                           style="width: 367px"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              align="left"
+              label="Окончание адаптации"
+          >
+            <a-date-picker v-model="employee.endOfAdaptation"
+                           v-decorator="['endOfAdaptation', {
+                                initialValue: moment(employee.endOfAdaptation, dateFormat),
+                                rules: [{
+                                  required: true,
+                                  message: 'Пожалуйста введите конец адаптации!',
+                                }],
+                               }
+                               ]"
+                           placeholder="Введите конец адаптации"
+                           style="width: 367px"
+            >
+            </a-date-picker>
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Отдел"
+          >
+            <a-select v-model="employee.department"
+                      v-decorator="[
+                          'department', {
+                            initialValue: employee.department.name,
+                            rules: [{
+                              required: true,
+                              message: 'Пожалуйста выберите отдел!' }],
+                          }]"
+                      placeholder="Выберите отдел"
+            >
+              <a-select-option
+                  v-for="department in departments"
+                  :key="department.name"
+              >
+                {{ department.name }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Должность"
+          >
+            <a-input v-model="employee.position"
+                     v-decorator="[
+                          'position',
+                          {
+                            initialValue: employee.position,
+                            rules: [{
+                              required: true,
+                              message: 'Пожалуйста введите должность!',
+                            }],
+                          }
+                        ]"
+                     placeholder="Введите должность"
+                     @blur="handleConfirmBlur"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Статус"
+          >
+            <a-select v-model="employee.status"
+                      v-decorator="['status', {
+                          initialValue: employee.status,
+                            rules: [{
+                              required: true,
+                              message: 'Пожалуйста укажите статус сотрудника!' }],
+                          }]"
+                      placeholder="Выберите статус"
+            >
+              <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
+              <a-select-option value="Адаптация завершена">Адаптация завершена</a-select-option>
+              <a-select-option value="Уволен">Уволен</a-select-option>
+            </a-select>
+          </a-form-item>
           <br>
-          <a-button
-              html-type="submit"
-              type="primary"
-          >Отправить
-          </a-button>
-          <router-link :to="{ name: 'Employee',params: { id: this.employee.id }}" tag="a-button">Отменить
-          </router-link>
-        </form>
+          <a-form-item v-bind="tailFormItemLayout">
+            <a-button
+                html-type="submit"
+                type="primary"
+            >
+              Отправить
+            </a-button>
+            <router-link :to="{ name: 'Employee',params: { id: this.employee.id }}" tag="a-button">
+              Отменить
+            </router-link>
+          </a-form-item>
+        </a-form>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 import moment from 'moment';
@@ -93,16 +167,65 @@ import moment from 'moment';
 export default {
   data() {
     return {
+      dateFormat: 'YYYY-MM-DD',
       employee: [],
-      errors: [],
       departments: [],
+      formItemLayout: {
+        labelCol: {
+          xs: {span: 24},
+          sm: {span: 8},
+        },
+        wrapperCol: {
+          xs: {span: 24},
+          sm: {span: 16},
+        },
+      },
+      tailFormItemLayout: {
+        wrapperCol: {
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        },
+      },
     }
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this);
   },
   created: function () {
     this.getDepartments();
     this.getEmployee();
   },
   methods: {
+    moment,
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFieldsAndScroll((err, values) => {
+        if (!err) {
+          this.employee.firstName = values.firstName;
+          this.employee.lastName = values.lastName;
+          this.employee.employmentDate = moment(values.employmentDate).format('YYYY-MM-DD');
+          this.employee.endOfAdaptation = moment(values.endOfAdaptation).format('YYYY-MM-DD');
+          this.employee.department = values.department;
+          this.employee.position = values.position;
+          this.employee.status = values.status;
+          const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+          let uri = '/api/employees/update/' + this.employee.id;
+          axios.put(uri, this.employee, {headers: header}).then((response) => {
+            this.$router.push({name: 'Employee', params: {id: response.data.id}});
+          });
+        }
+      })
+    },
+    handleConfirmBlur(e) {
+      const value = e.target.value;
+      this.confirmDirty = this.confirmDirty || !!value;
+    },
     getDepartments() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
       axios.get('/api/departments', {headers: header})
@@ -115,45 +238,15 @@ export default {
       axios.get('/api/employees/find/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.employee = response.data;
-            this.employee.department = response.data.department.name;
           })
     },
-    formatDate: function (date) {
-      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
-    },
-    checkForm: function (e) {
-      this.errors = [];
-      if (!this.employee.firstName) {
-        this.errors.push('Укажите имя.');
-      }
-      if (!this.employee.lastName) {
-        this.errors.push('Укажите фамилию.');
-      }
-      if (!this.employee.position) {
-        this.errors.push('Укажите должность.');
-      }
-      if (!this.employee.employmentDate) {
-        this.errors.push('Укажите дату приема.');
-      }
-      if (!this.employee.endOfAdaptation) {
-        this.errors.push('Укажите дату окончания адаптации.');
-      }
-      if (!this.employee.department) {
-        this.errors.push('Укажите отдел.');
-      }
-      if (!this.errors.length) {
-        return true;
-      }
-      e.preventDefault();
-    },
-    editEmployee() {
-      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      let uri = '/api/employees/update/' + this.employee.id;
-      if (!this.errors.length)
-        axios.put(uri, this.employee, {headers: header}).then((response) => {
-          this.$router.push({name: 'Employee', params: {id: response.data.id}});
-        });
-    }
   },
 }
 </script>
+<style>
+.employee-form {
+  margin-left: 5%;
+  margin-top: 40px;
+  max-width: 550px;
+}
+</style>

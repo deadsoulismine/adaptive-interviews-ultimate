@@ -134,9 +134,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      user: {
-        role: 'USER',
-      },
+      user: [],
       confirmDirty: false,
       autoCompleteResult: [],
       formItemLayout: {
@@ -188,7 +186,6 @@ export default {
         }
       })
     },
-
     handleConfirmBlur(e) {
       const value = e.target.value;
       this.confirmDirty = this.confirmDirty || !!value;

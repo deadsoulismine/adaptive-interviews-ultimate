@@ -11,14 +11,13 @@
           label="Имя"
       >
         <a-input
-            v-decorator="[
-          'firstname',
-          {
+            v-decorator="['firstname', {
             rules: [{
               required: true, message: 'Пожалуйста введите ваше имя!',
             }],
-          }
-        ]"
+
+        }
+            ]"
             placeholder="Введите имя"
             @blur="handleConfirmBlur"
         />
@@ -62,11 +61,12 @@
       >
         <a-date-picker
             v-decorator="['endOfAdaptation', {
-            rules: [{ required: true, message: 'Пожалуйста укажите дату предпологаемого окончания адапьтации!' }],
+            rules: [{ required: true, message: 'Пожалуйста укажите дату окончания адаптации!' }],
           }]"
             disabledTime
             format="YYYY-MM-DD"
-            placeholder="Выберите дату"></a-date-picker>
+            placeholder="Выберите дату">
+        </a-date-picker>
       </a-form-item>
       <a-form-item
           v-bind="formItemLayout"
@@ -89,14 +89,11 @@
           label="Должность"
       >
         <a-input
-            v-decorator="[
-          'position',
-          {
-            rules: [{
-              required: true, message: 'Пожалуйста укажите вашу должность!',
-            }],
-          }
-        ]"
+            v-decorator="[ 'position', {
+              rules: [{
+                required: true, message: 'Пожалуйста укажите вашу должность!',
+                }],
+            }]"
             placeholder="Введите должность"
             @blur="handleConfirmBlur"
         />
@@ -106,10 +103,10 @@
           label="Статус"
       >
         <a-select
-            v-decorator="[
-          'status', {
-            rules: [{ required: true, message: 'Пожалуйста укажите статус сотрудника!' }],
-          }]"
+            v-decorator="['status', {
+              rules: [{
+                required: true, message: 'Пожалуйста укажите статус сотрудника!' }],
+            }]"
             placeholder="Выберите статус"
         >
           <a-select-option value="Проходит адаптацию">Проходит адаптацию</a-select-option>
@@ -139,10 +136,8 @@ moment.locale('ru');
 export default {
   data() {
     return {
-      employee: {},
-      errors: [],
+      employee: [],
       departments: [],
-      id: '',
       confirmDirty: false,
       autoCompleteResult: [],
       formItemLayout: {
@@ -171,7 +166,6 @@ export default {
   },
   beforeCreate() {
     this.form = this.$form.createForm(this);
-
   },
   created: function () {
     this.getDepartments();

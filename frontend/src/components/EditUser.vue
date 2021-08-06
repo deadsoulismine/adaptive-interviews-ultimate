@@ -1,114 +1,193 @@
 <template>
   <div align="center" class="container">
     <div class="card">
-      <div class="card-header">
+      <div class="card-body">
         <a-avatar icon="user" size="large"/>
         <br><br>
-        <h4>Здравствуйте, {{ user.name }}</h4>
-      </div>
-      <div class="card-body">
-        <form
-            id="app"
-            method="put"
-            novalidate="true"
-            @submit="checkForm"
-            @submit.prevent="editUser"
+        <h2>Изменение данных пользователя</h2>
+        <br>
+        <a-form
+            :form="form"
+            align="center"
+            class="register-form"
+            @submit="handleSubmit"
         >
-          <p v-if="errors.length > 0">
-            <b>Пожалуйста исправьте указанные ошибки:</b>
-          </p>
-          <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
-          </ul>
-          <table>
-            <tr>
-              <td><label>Имя*:</label></td>
-              <td>
-                <a-input v-model="user.name" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Должность*:</label></td>
-              <td>
-                <a-input v-model="user.position" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Email*:</label></td>
-              <td>
-                <a-input v-model="user.email" class="form-control" type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Логин*:</label></td>
-              <td>
-                <a-input v-model="user.username"
-                         class="form-control"
-                         placeholder="Введите новый логин"
-                         type="text"/>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Пароль*:</label></td>
-              <td>
-                <a-input v-model="user.password"
-                         class="form-control"
-                         placeholder="Введите новый пароль"
-                         type="text"/>
-              </td>
-            </tr>
-            <tr v-if="this.$store.getters.isAdmin">
-              <td><label>Уровень доступа*:</label></td>
-              <td>
-                <a-select v-model="user.role"
-                          placeholder="Выберите один из вариантов"
-                          style="width: 250px; height: 40px">
-                  <a-select-option value="ADMIN">Администратор</a-select-option>
-                  <a-select-option value="USER">Пользователь</a-select-option>
-                </a-select>
-              </td>
-            </tr>
-          </table>
-          <br>
+          <a-form-item
+              v-bind="formItemLayout" label="Имя">
+            <a-input v-model="user.name"
+                     v-decorator="[
+                    'name', {
+                        initialValue: user.name,
+                        rules: [{
+                          required: true, message: 'Пожалуйста введите ваше имя!',
+                        }],
+                        }
+                      ]"
+                     placeholder="Введите имя"
+                     @blur="handleConfirmBlur"
+            />
+          </a-form-item>
+          <a-form-item v-bind="formItemLayout" label="E-mail">
+            <a-input v-model="user.email"
+                     v-decorator="[
+                  'email',
+                  {
+                    initialValue: user.email,
+                    rules: [{
+                      type: 'email', message: 'Вы ввели некоректный E-mail!',
+                    }, {
+                      required: true, message: 'Пожалуйста введите свой E-mail!',
+                    }]
+                  }
+                ]"
+                     placeholder="Введите e-mail"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Должность"
+          >
+            <a-input v-model="user.position"
+                     v-decorator="[
+                      'position',
+                      {
+                        initialValue: user.position,
+                        rules: [{
+                          required: true, message: 'Пожалуйста укажите вашу должность!',
+                        }],
+                      }
+                    ]"
+                     placeholder="Введите должность"
+                     @blur="handleConfirmBlur"
+            />
+          </a-form-item>
+          <a-form-item v-bind="formItemLayout" label="Логин">
+            <a-input v-model="user.username"
+                     v-decorator="['username', {
+                        initialValue: user.username,
+                        rules: [{ required: true, message: 'Пожалуйста введите ваш логин', whitespace: true }]
+                        }
+                     ]"
+                     placeholder="Введите логин"
+            />
+          </a-form-item>
+          <a-form-item
+              v-bind="formItemLayout"
+              label="Пароль"
+          >
+            <a-input v-model="user.password"
+                     v-decorator="[ 'password', {
+                       initialValue: user.password,
+                       rules: [{
+                          required: true, message: 'Пожалуйста введите ваш пароль!',
+                       }]
+                      }
+                    ]"
+                     placeholder="Введите пароль"
+                     type="password"
+            />
+          </a-form-item>
+          <a-form-item
+              v-if="!(this.$store.getters.getId === this.user.id) && this.$store.getters.isAdmin"
+              v-bind="formItemLayout"
+              label="Уровень доступа"
+          >
+            <a-select v-model="user.role"
+                      v-decorator="['role', {
+                      rules: [{ required: true, message: 'Пожалуйста укажите уровень доступа!' }],
+                      }]"
+                      placeholder="Выберите один из вариантов">
+              <a-select-option value="ADMIN">Администратор</a-select-option>
+              <a-select-option value="USER">Пользователь</a-select-option>
+            </a-select>
+          </a-form-item>
           <a-button html-type="submit" type="primary">
             Отправить
           </a-button>
           <router-link :to="{ name: 'Users'}" tag="a-button">
             Отменить
           </router-link>
-        </form>
+        </a-form>
       </div>
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
-import moment from 'moment';
 
 export default {
   data() {
     return {
       selected: this.$store.getters.getRole,
       user: [],
-      errors: [],
-      users: [],
+      formItemLayout: {
+        labelCol: {
+          xs: {span: 24},
+          sm: {span: 8},
+        },
+        wrapperCol: {
+          xs: {span: 24},
+          sm: {span: 16},
+        },
+      },
+      tailFormItemLayout: {
+        wrapperCol: {
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        },
+      },
     }
 
   },
+  beforeCreate() {
+    this.form = this.$form.createForm(this);
+  },
   created: function () {
-    this.getUsers();
     this.getThisUser();
   },
-  mounted() {
-
-  },
   methods: {
-    getUsers() {
-      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/users', {headers: header})
-          .then(response => {
-            this.users = response.data
-          })
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFieldsAndScroll((err, values) => {
+        if (!err) {
+          const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+          let url = '/api/users/update/' + this.user.id;
+          this.user.name = values.name;
+          this.user.email = values.email;
+          this.user.username = values.username;
+          this.user.password = values.password;
+          this.user.position = values.position;
+          axios.put(url, this.user, {headers: header})
+              .then((response) => {
+                console.log(response)
+                if (this.user.id === this.$store.getters.getId) {
+                  axios.post(`/api/authenticate`, {'username': this.user.username, 'password': this.user.password})
+                      .then(response => {
+                        console.log(response)
+                        this.$store.dispatch('login', {
+                          'jwtToken': response.data.jwtToken,
+                          'roles': response.data.authorities,
+                          'name': response.data.username,
+                          'id': response.data.id
+                        });
+                        this.$router.push({name: 'Users'});
+                      })
+                }
+
+              });
+          this.$router.push({name: 'Users'});
+        }
+      })
+    },
+    handleConfirmBlur(e) {
+      const value = e.target.value;
+      this.confirmDirty = this.confirmDirty || !!value;
     },
     getThisUser() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
@@ -119,58 +198,6 @@ export default {
         console.log(err)
         this.$router.push('/users')
       })
-    },
-    formatDate: function (date) {
-      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
-    },
-    checkForm: function (e) {
-      this.errors = [];
-      if (!this.user.name) {
-        this.errors.push('Укажите имя.');
-      }
-      if (!this.user.email) {
-        this.errors.push('Укажите email адрес.');
-      }
-      if (!this.user.position) {
-        this.errors.push('Укажите должность.');
-      }
-      if (!this.user.username) {
-        this.errors.push('Введите логин.');
-      }
-      if (!this.user.password) {
-        this.errors.push('Введите пароль');
-      }
-      if (!this.user.role) {
-        this.errors.push('Выберите уровень доступа');
-      }
-      if (!this.errors.length) {
-        return true;
-      }
-      e.preventDefault();
-    },
-    editUser() {
-      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      let url = '/api/users/update/' + this.user.id;
-      if (!this.errors.length) {
-        axios.put(url, this.user, {headers: header})
-            .then((response) => {
-              console.log(response)
-              if (this.user.id === this.$store.getters.getId) {
-                axios.post(`/api/authenticate`, {'username': this.user.username, 'password': this.user.password})
-                    .then(response => {
-                      console.log(response)
-                      this.$store.dispatch('login', {
-                        'jwtToken': response.data.jwtToken,
-                        'roles': response.data.authorities,
-                        'name': response.data.username,
-                        'id': response.data.id
-                      });
-                      this.$router.push({name: 'Users'});
-                    })
-              }
-              this.$router.push({name: 'Users'});
-            });
-      }
     },
   }
 }
