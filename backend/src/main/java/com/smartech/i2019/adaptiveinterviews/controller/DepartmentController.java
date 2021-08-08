@@ -2,6 +2,7 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 
 import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
+import com.smartech.i2019.adaptiveinterviews.util.DepartmentForm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,11 @@ public class DepartmentController {
 
     @Operation(summary = "Добавить отдел")
     @PostMapping("/add")
-    ResponseEntity<Department> addDepartment(@Valid @RequestBody Department department) {
+    ResponseEntity<Department> addDepartment(@RequestBody DepartmentForm departmentForm) {
+        Department department = new Department();
+        System.out.println(departmentForm.getSupervisor());
+        department.setName(departmentForm.getName());
+        department.setSupervisor(departmentForm.getSupervisor());
         departmentService.add(department);
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
@@ -57,7 +62,10 @@ public class DepartmentController {
 
     @Operation(summary = "Обновить данные отдела")
     @PutMapping("/update/{id}")
-    ResponseEntity<Department> updateDepartment(@RequestBody Department department) {
+    ResponseEntity<Department> updateDepartment(@PathVariable long id, @RequestBody DepartmentForm departmentForm) {
+        Department department = departmentService.findById(id);
+        department.setName(departmentForm.getName());
+        department.setSupervisor(departmentForm.getSupervisor());
         departmentService.edit(department);
         return new ResponseEntity<>(department, HttpStatus.OK);
     }

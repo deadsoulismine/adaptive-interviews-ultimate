@@ -134,7 +134,9 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      user: [],
+      user: {
+        role: 'USER',
+      },
       confirmDirty: false,
       autoCompleteResult: [],
       formItemLayout: {

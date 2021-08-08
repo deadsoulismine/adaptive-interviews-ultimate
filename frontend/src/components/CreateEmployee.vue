@@ -136,6 +136,7 @@ moment.locale('ru');
 export default {
   data() {
     return {
+      id: '',
       employee: [],
       departments: [],
       confirmDirty: false,

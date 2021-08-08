@@ -12,10 +12,8 @@ import java.util.Set;
 public class InterviewForm {
     private long id;
     private int employeeId;
-    private String employeeName;
     private Date date;
     private String name;
-    private String nameOfUser;
     private String firstName;
     private String lastName;
     private String description;

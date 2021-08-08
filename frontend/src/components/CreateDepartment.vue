@@ -12,13 +12,12 @@
       >
         <a-input
             v-decorator="[
-          'name',
-          {
-            rules: [{
-              required: true, message: 'Пожалуйста введите название отдела!',
-            }],
-          }
-        ]"
+            'name', {
+              rules: [{
+                required: true, message: 'Пожалуйста введите название отдела!',
+              }],
+              }
+            ]"
             placeholder="Введите название отдела"
             @blur="handleConfirmBlur"
         />
@@ -62,8 +61,9 @@ moment.locale('ru');
 export default {
   data() {
     return {
-      dateFormat: 'YYYY/MM/DD',
+      id: '',
       department: [],
+      dateFormat: 'YYYY/MM/DD',
       formItemLayout: {
         labelCol: {
           xs: {span: 24},
@@ -100,6 +100,7 @@ export default {
           this.department.name = values.name;
           this.department.supervisor = values.supervisor;
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+          console.log(this.department)
           axios.post(uri, this.department, {headers: header}).then(response => {
             console.log(response)
             this.$router.push({name: 'Departments'});
