@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "users_autorities")
 public class UserAutorities {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "username", nullable = false)
     private String username;

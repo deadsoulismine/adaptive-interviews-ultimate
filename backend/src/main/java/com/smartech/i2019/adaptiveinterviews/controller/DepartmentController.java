@@ -35,7 +35,6 @@ public class DepartmentController {
     @PostMapping("/add")
     ResponseEntity<Department> addDepartment(@RequestBody DepartmentForm departmentForm) {
         Department department = new Department();
-        System.out.println(departmentForm.getSupervisor());
         department.setName(departmentForm.getName());
         department.setSupervisor(departmentForm.getSupervisor());
         departmentService.add(department);

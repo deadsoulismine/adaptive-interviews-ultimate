@@ -31,7 +31,7 @@ public class Employee {
     @Column(name = "status")
     private String status;
     @ManyToOne
-    @JoinColumn(name = "department")
+    @JoinColumn(name = "department_id")
     @ToString.Exclude
     private Department department;
     @JsonIgnore

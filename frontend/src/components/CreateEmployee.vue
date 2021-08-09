@@ -137,7 +137,7 @@ export default {
   data() {
     return {
       id: '',
-      employee: [],
+      employee: {},
       departments: [],
       confirmDirty: false,
       autoCompleteResult: [],

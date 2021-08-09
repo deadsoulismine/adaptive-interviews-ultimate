@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       id: '',
-      department: [],
+      department: {},
       dateFormat: 'YYYY/MM/DD',
       formItemLayout: {
         labelCol: {
@@ -96,12 +96,13 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          let uri = '/api/departments/add';
+          let url = '/api/departments/add';
           this.department.name = values.name;
           this.department.supervisor = values.supervisor;
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+          console.log(this.department.length)
           console.log(this.department)
-          axios.post(uri, this.department, {headers: header}).then(response => {
+          axios.post(url, this.department, {headers: header}).then(response => {
             console.log(response)
             this.$router.push({name: 'Departments'});
           }).catch(error => {
