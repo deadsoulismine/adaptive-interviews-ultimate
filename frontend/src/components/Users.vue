@@ -79,7 +79,7 @@ export default {
     },
     deleteUser: function (id) {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.delete('/api/users/delete/' + id, {headers: header})
+      axios.delete('/api/users/' + id, {headers: header})
           .then((response) => {
             console.log(response)
             this.$router.go(0);

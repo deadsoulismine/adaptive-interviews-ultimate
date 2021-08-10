@@ -171,7 +171,7 @@ export default {
     },
     deleteInterview: function (id) {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.delete('/api/interviews/delete/' + id, {headers: header})
+      axios.delete('/api/interviews/' + id, {headers: header})
           .then((response) => {
             console.log(response)
             this.$router.go(0);

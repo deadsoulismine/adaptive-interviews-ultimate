@@ -215,7 +215,7 @@ export default {
           this.employee.position = values.position;
           this.employee.status = values.status;
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-          let uri = '/api/employees/update/' + this.employee.id;
+          let uri = '/api/employees/' + this.employee.id;
           axios.put(uri, this.employee, {headers: header}).then((response) => {
             this.$router.push({name: 'Employee', params: {id: response.data.id}});
           });
@@ -235,7 +235,7 @@ export default {
     },
     getEmployee() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/employees/find/' + this.$route.params.id, {headers: header})
+      axios.get('/api/employees/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.employee = response.data;
           })

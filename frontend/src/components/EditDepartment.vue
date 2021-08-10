@@ -100,7 +100,7 @@ export default {
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
           this.department.name = values.name;
           this.department.supervisor = values.supervisor;
-          let uri = '/api/departments/update/' + this.$route.params.id;
+          let uri = '/api/departments/' + this.$route.params.id;
           axios.put(uri, this.department, {headers: header}).then((response) => {
             this.$router.push({name: 'Departments'});
             console.log(response)
@@ -114,7 +114,7 @@ export default {
     },
     getDepartment: function () {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/departments/find/' + this.$route.params.id, {headers: header})
+      axios.get('/api/departments/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.department = response.data
           })

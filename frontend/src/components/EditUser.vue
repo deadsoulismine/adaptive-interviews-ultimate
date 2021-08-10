@@ -157,7 +157,8 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-          let url = '/api/users/update/' + this.user.id;
+          let url = '/api/users/' + this.user.id;
+
           this.user.name = values.name;
           this.user.email = values.email;
           this.user.username = values.username;
@@ -191,7 +192,7 @@ export default {
     },
     getThisUser() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/users/find/' + this.$route.params.id, {headers: header})
+      axios.get('/api/users/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.user = response.data
           }).catch(err => {

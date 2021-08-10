@@ -150,7 +150,7 @@ export default {
     moment,
     getInterview() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.get('/api/interviews/find/' + this.$route.params.id, {headers: header})
+      axios.get('/api/interviews/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.interview = response.data
           })
@@ -177,7 +177,7 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-          let url = '/api/interviews/update/' + this.$route.params.id;
+          let url = '/api/interviews/' + this.$route.params.id;
           if (this.selectedUsers.length > 0) {
             this.interview.users = this.selectedUsers;
           } else {

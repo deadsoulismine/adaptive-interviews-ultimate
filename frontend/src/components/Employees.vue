@@ -158,7 +158,8 @@ export default {
       }
     },
     deleteData(result, id) {
-      axios.delete('api/employees/delete/' + id)
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
+      axios.delete('/api/employees/' + id, {headers: header})
           .then(response => {
             console.log(response)
             this.$router.go(0);

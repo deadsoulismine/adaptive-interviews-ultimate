@@ -173,7 +173,7 @@ export default {
     },
     deleteFile: function (id) {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
-      axios.delete('/api/employees/delete/' + this.$route.params.id + '/' + id, {headers: header})
+      axios.delete('/api/employees/' + this.$route.params.id + '/' + id, {headers: header})
           .then((response) => {
             console.log(response)
             this.$router.go(0);
@@ -190,14 +190,14 @@ export default {
       return this.$store.getters.isAdmin;
     },
     submitForm() {
+      const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
       let formData = new FormData();
       console.log(this.file)
       formData.append('file', this.file);
-      let url = '/api/employees/upload/' + this.employee.id;
+      let url = '/api/employees/' + this.employee.id;
       axios.post(url, formData, {
             headers: {
-              'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer '
-                  + this.$store.getters.getToken,
+              'Content-Type': 'multipart/form-data', header,
             }
           }
       ).then(response => {
@@ -231,7 +231,7 @@ export default {
               this.files = response.data
             })
         ,
-        axios.get('/api/employees/find/' + this.$route.params.id, {headers: header})
+        axios.get('/api/employees/' + this.$route.params.id, {headers: header})
             .then(response => {
               this.employee = response.data
             })
