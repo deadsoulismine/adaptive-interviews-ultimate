@@ -3,7 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.service;
 import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import com.smartech.i2019.adaptiveinterviews.repository.DepartmentRepository;
-import com.smartech.i2019.adaptiveinterviews.util.specification.DepartmentSpecification;
+import com.smartech.i2019.adaptiveinterviews.repository.specification.DepartmentSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

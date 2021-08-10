@@ -1,7 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.security;
 
-import com.smartech.i2019.adaptiveinterviews.api.UsersAutoritiesService;
-import com.smartech.i2019.adaptiveinterviews.model.UserAutorities;
+import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
+import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UsersAutoritiesService usersAutoritiesService;
+    private final UsersAuthoritiesService usersAuthoritiesService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserAutorities user = usersAutoritiesService.findByUsername(username);
+        UserAuthorities user = usersAuthoritiesService.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

@@ -27,6 +27,7 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+
 a {
   color: #42b983;
 }

@@ -5,9 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import com.smartech.i2019.adaptiveinterviews.repository.EmployeeRepository;
-import com.smartech.i2019.adaptiveinterviews.util.specification.EmployeeSpecification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final EmployeeSpecification employeeSpecification;
 
     @Override
     public void add(Employee employee) {
@@ -39,31 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findByName(String firstName, String lastName) {
-        return (Employee) employeeRepository.findAll(Specification.where(
-                employeeSpecification.hasFirstName(firstName).and(
-                        employeeSpecification.hasLastName(lastName))));
-    }
-
-    @Override
-    public Employee findByLastName(String lastName) {
-        return employeeRepository.findOne(employeeSpecification.hasLastName(lastName)).orElse(null);
-    }
-
-    @Override
     public List<Employee> findAll() {
-        List<Employee> employees = employeeRepository.findAll();
         return employeeRepository.findAll();
-    }
-
-    @Override
-    public List<Employee> listByLastName(String lastName) {
-        return employeeRepository.findAll(employeeSpecification.hasLastName(lastName));
-    }
-
-    @Override
-    public List<Employee> listByStatus(String status) {
-        return employeeRepository.findAll(employeeSpecification.hasStatus(status));
     }
 
     @Override

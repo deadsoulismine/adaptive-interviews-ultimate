@@ -53,8 +53,8 @@
         >
           Войти
         </a-button>
-        Или
-        <router-link :to="{ name: 'CreateUser'}">зарегистрируйтесь!</router-link>
+        или
+        <router-link :to="{ name: 'CreateUser'}">зарегистрироваться!</router-link>
       </a-form-item>
     </a-form>
   </div>

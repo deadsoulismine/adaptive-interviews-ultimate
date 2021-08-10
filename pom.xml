@@ -15,7 +15,6 @@
     <artifactId>adaptiveinterviews</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>adaptiveinterviews</name>
-
     <description>Project for manage interviews and employees</description>
 
     <modules>

@@ -2,7 +2,6 @@ package com.smartech.i2019.adaptiveinterviews.api;
 
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface InterviewService {
@@ -20,11 +19,5 @@ public interface InterviewService {
     List<Interview> listByDateNextDay();
 
     List<Interview> listByDateSubtractDay();
-
-    List<Interview> listTodayAndAfter();
-
-    List<Interview> listWithoutReview();
-
-    List<Interview> listByDate(Date date);
 
 }

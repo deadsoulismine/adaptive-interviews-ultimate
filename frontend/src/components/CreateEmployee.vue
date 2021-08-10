@@ -48,7 +48,6 @@
             v-decorator="['employmentDate', {
             rules: [{ required: true, message: 'Пожалуйста укажите дату приема на работу!' }],
           }]"
-            disabledTime
             format="YYYY-MM-DD"
             placeholder="Выберите дату">
 
@@ -63,7 +62,6 @@
             v-decorator="['endOfAdaptation', {
             rules: [{ required: true, message: 'Пожалуйста укажите дату окончания адаптации!' }],
           }]"
-            disabledTime
             format="YYYY-MM-DD"
             placeholder="Выберите дату">
         </a-date-picker>
@@ -136,7 +134,7 @@ moment.locale('ru');
 export default {
   data() {
     return {
-      id: '',
+      name: '',
       employee: {},
       departments: [],
       confirmDirty: false,
@@ -182,9 +180,9 @@ export default {
           this.employee.lastName = values.lastname;
           this.employee.employmentDate = moment(values.employmentDate).format('YYYY-MM-DD');
           this.employee.endOfAdaptation = moment(values.endOfAdaptation).format('YYYY-MM-DD');
-          this.employee.department = values.department;
           this.employee.position = values.position;
           this.employee.status = values.status;
+          this.employee.department = values.department;
           axios.post(uri, this.employee, {headers: header}).then((response) => {
             this.$router.push({name: 'Employee', params: {id: response.data.id}});
           });

@@ -4,7 +4,7 @@ import com.smartech.i2019.adaptiveinterviews.model.JwtRequest;
 import com.smartech.i2019.adaptiveinterviews.model.JwtResponse;
 import com.smartech.i2019.adaptiveinterviews.security.JwtTokenUtil;
 import com.smartech.i2019.adaptiveinterviews.security.UserDetailsServiceImpl;
-import com.smartech.i2019.adaptiveinterviews.service.UserAutoritiesServiceImpl;
+import com.smartech.i2019.adaptiveinterviews.service.UserAuthoritiesServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserDetailsServiceImpl userDetailsService;
-    private final UserAutoritiesServiceImpl userAutoritiesService;
+    private final UserAuthoritiesServiceImpl userAutoritiesService;
 
     @Operation(summary = "Авторизация")
     @PostMapping(value = "/authenticate")

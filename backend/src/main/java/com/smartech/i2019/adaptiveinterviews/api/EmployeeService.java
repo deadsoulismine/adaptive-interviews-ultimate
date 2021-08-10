@@ -17,14 +17,6 @@ public interface EmployeeService {
 
     Employee findById(long id);
 
-    Employee findByName(String firstName, String lastName);
-
-    Employee findByLastName(String lastName);
-
-    List<Employee> listByStatus(String name);
-
-    List<Employee> listByLastName(String lastName);
-
     List<Interview> getInterviews(long id);
 
     List<UploadFile> getUploadFiles(long id);

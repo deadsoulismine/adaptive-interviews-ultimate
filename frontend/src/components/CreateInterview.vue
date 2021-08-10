@@ -47,10 +47,10 @@
           label="Пользователи"
       >
         <a-select
-            :value="selectedUsers"
             v-decorator="['users', {
               rules: [{ required: true, message: 'Пожалуйста выберите пользователей!' }],
             }]"
+            :value="selectedUsers"
             mode="multiple"
             placeholder="Выберите пользователей"
             style="width: 100%"
@@ -84,6 +84,7 @@ export default {
   data() {
     return {
       dateFormat: 'YYYY/MM/DD',
+      description: '',
       formItemLayout: {
         labelCol: {
           xs: {span: 24},
@@ -127,6 +128,7 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           let url = '/api/interviews/add';
+          this.interview.description = this.description;
           this.interview.name = this.name;
           this.interview.users = this.selectedUsers;
           this.interview.date = moment(values.date).format('YYYY-MM-DD');

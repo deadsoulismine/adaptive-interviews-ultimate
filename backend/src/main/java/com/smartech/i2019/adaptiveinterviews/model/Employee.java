@@ -43,5 +43,6 @@ public class Employee {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Interview> interviews = new ArrayList<>();
+
 }
 
