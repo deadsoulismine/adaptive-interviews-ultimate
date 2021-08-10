@@ -9,8 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,13 +30,12 @@ public class FileController {
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
-    ResponseEntity<List<UploadFile>> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        List<UploadFile> uploadFiles = employeeService.getUploadFiles(id);
-        return new ResponseEntity<>(uploadFiles, HttpStatus.OK);
+    List<UploadFile> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
+        return employeeService.getUploadFiles(id);
     }
 
     @Operation(summary = "Скачать файл")
-    @GetMapping("/download/{id}/{fileId}")
+    @GetMapping("/{id}/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) {
         UploadFile uploadFile = uploadFileService.findById(fileId);
         if (uploadFile == null) {
@@ -50,8 +49,8 @@ public class FileController {
     }
 
     @Operation(summary = "Загрузить файл")
-    @PostMapping("/upload/{id}")
-    public ResponseEntity<String> uploadFile(@PathVariable int id, @RequestParam("file") MultipartFile file) {
+    @PostMapping("/{id}")
+    public String uploadFile(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         Employee employee = employeeService.findById(id);
         try {
             UploadFile uploadFile = new UploadFile();
@@ -62,13 +61,14 @@ public class FileController {
         } catch (IOException e) {
             return null;
         }
-        return ResponseEntity.ok("Файл прикреплен");
+        return "Файл прикреплен";
     }
 
     @Operation(summary = "Удалить файл")
-    @DeleteMapping("/delete/{id}/{fileId}")
-    ResponseEntity<String> deleteFile(@PathVariable Long fileId) {
+    @DeleteMapping("/{id}/{fileId}")
+    @Secured("ROLE_ADMIN")
+    String deleteFile(@PathVariable Long fileId) {
         uploadFileService.delete(fileId);
-        return ResponseEntity.ok("Файл прикреплен");
+        return "Файл прикреплен";
     }
 }

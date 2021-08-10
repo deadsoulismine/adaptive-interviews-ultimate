@@ -1,13 +1,11 @@
-package com.smartech.i2019.adaptiveinterviews.util;
+package com.smartech.i2019.adaptiveinterviews.dto;
 
-import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 
 @Data
-public class EmployeeForm {
+public class EmployeeDTO {
     private long id;
     private String firstName;
     private String lastName;
@@ -16,5 +14,4 @@ public class EmployeeForm {
     private Date endOfAdaptation;
     private String position;
     private String status;
-    private Employee employee;
 }

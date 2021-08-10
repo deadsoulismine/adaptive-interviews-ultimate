@@ -1,9 +1,9 @@
-package com.smartech.i2019.adaptiveinterviews.util;
+package com.smartech.i2019.adaptiveinterviews.dto;
 
 import lombok.Data;
 
 @Data
-public class DepartmentForm {
+public class DepartmentDTO {
     private Long id;
     private String name;
     private String supervisor;
