@@ -6,8 +6,8 @@ import com.smartech.i2019.adaptiveinterviews.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUsersByUsersId(Set<Long> usersId) {
+    public List<User> findUsersByUsersId(Collection<Long> usersId) {
         return userRepository.findUsersByIdIn(usersId);
     }
 }

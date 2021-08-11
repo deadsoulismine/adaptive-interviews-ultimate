@@ -2,8 +2,8 @@ package com.smartech.i2019.adaptiveinterviews.api;
 
 import com.smartech.i2019.adaptiveinterviews.model.User;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
     void add(User user);
@@ -16,5 +16,5 @@ public interface UserService {
 
     User findById(long id);
 
-    List<User> findUsersByUsersId(Set<Long> usersId);
+    List<User> findUsersByUsersId(Collection<Long> usersId);
 }
