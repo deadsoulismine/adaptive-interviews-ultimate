@@ -4,7 +4,7 @@ import Index from "@/components/Index";
 import Login from "@/components/Login";
 import Employee from '@/components/Employee'
 import EditInterview from '@/components/EditInterview'
-import Department from '@/components/EditDepartment'
+import EditDepartment from '@/components/EditDepartment'
 import Users from '@/components/Users'
 import Interviews from '@/components/Interviews'
 import Departments from '@/components/Departments'
@@ -43,14 +43,14 @@ export default new Router({
             component: Employee
         },
         {
-            path: '/interviews/edit/:id',
+            path: '/interviews/:id',
             name: 'EditInterview',
             component: EditInterview
         },
         {
             path: '/departments/:id',
-            name: 'Department',
-            component: Department
+            name: 'EditDepartment',
+            component: EditDepartment
         },
         {
             path: '/departments',
@@ -68,7 +68,7 @@ export default new Router({
             component: Interviews
         },
         {
-            path: '/users/edit/:id',
+            path: '/users/:id',
             name: 'EditUser',
             component: EditUser
         },
@@ -88,7 +88,7 @@ export default new Router({
             component: CreateEmployee
         },
         {
-            path: '/employees/edit/:id',
+            path: '/employees/:id',
             name: 'EditEmployee',
             component: EditEmployee
         },

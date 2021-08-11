@@ -192,12 +192,12 @@ export default {
     submitForm() {
       const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
       let formData = new FormData();
-      console.log(this.file)
       formData.append('file', this.file);
       let url = '/api/employees/' + this.employee.id;
       axios.post(url, formData, {
             headers: {
-              'Content-Type': 'multipart/form-data', header,
+              'Content-Type': 'multipart/form-data',
+              header
             }
           }
       ).then(response => {

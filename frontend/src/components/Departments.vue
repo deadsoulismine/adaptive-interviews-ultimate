@@ -18,7 +18,7 @@
           <td>{{ department.name }}</td>
           <td>{{ department.supervisor }}</td>
           <td v-if="isAdmin()">
-            <router-link :to="{ name: 'Department' , params: {id : department.id}}" tag="a-button">
+            <router-link :to="{ name: 'EditDepartment' , params: {id : department.id}}" tag="a-button">
               <a-icon type="highlight"/>
               Редактировать
             </router-link>
