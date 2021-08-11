@@ -5,6 +5,8 @@ import com.smartech.i2019.adaptiveinterviews.model.JwtResponse;
 import com.smartech.i2019.adaptiveinterviews.security.JwtTokenUtil;
 import com.smartech.i2019.adaptiveinterviews.security.UserDetailsServiceImpl;
 import com.smartech.i2019.adaptiveinterviews.service.UserAuthoritiesServiceImpl;
+import com.smartech.i2019.adaptiveinterviews.util.exception.InvalidCredentialsException;
+import com.smartech.i2019.adaptiveinterviews.util.exception.UserDisabledException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,25 +27,28 @@ public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserDetailsServiceImpl userDetailsService;
-    private final UserAuthoritiesServiceImpl userAutoritiesService;
+    private final UserAuthoritiesServiceImpl userAuthoritiesService;
 
     @Operation(summary = "Авторизация")
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws
+            InvalidCredentialsException, UserDisabledException {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        final Long id = userAutoritiesService.findByUsername(authenticationRequest.getUsername()).getUser().getId();
+        final Long id = userAuthoritiesService.findByUsername(authenticationRequest.getUsername()).getUser().getId();
         return ResponseEntity.ok(new JwtResponse(token, userDetails, id));
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private void authenticate(String username, String password) throws
+            UserDisabledException, InvalidCredentialsException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
+            throw new UserDisabledException("Учетная запись пользователя отключена", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new InvalidCredentialsException("Некорректная пара логин/пароль", e);
         }
     }
+
 }

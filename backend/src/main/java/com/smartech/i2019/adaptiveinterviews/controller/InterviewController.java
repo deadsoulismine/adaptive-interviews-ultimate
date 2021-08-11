@@ -1,18 +1,16 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
-import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.dto.InterviewDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.InterviewMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.util.exception.InterviewNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -23,8 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InterviewController {
     private final InterviewService interviewService;
-    private final EmployeeService employeeService;
-    private final UserService userService;
     private final InterviewMapper interviewMapper;
 
     @Operation(summary = "Список всех бесед")
@@ -35,12 +31,12 @@ public class InterviewController {
 
     @Operation(summary = "Найти беседу по ID")
     @GetMapping("/{id}")
-    Interview findInterview(@PathVariable @Min(1) Long id) throws EntityNotFoundException {
-//        Interview interview = interviewService.findById(id);
-//        if (interview == null) {
-//            throw new EntityNotFoundException("Беседа не найдена");
-//        }
-        return interviewService.findById(id);
+    Interview findInterview(@PathVariable @Min(1) Long id) throws InterviewNotFoundException {
+        Interview interview = interviewService.findById(id);
+        if (interview == null) {
+            throw new InterviewNotFoundException("Беседы с указанным идентификатором нет в базе данных");
+        }
+        return interview;
     }
 
     @Operation(summary = "Добавить беседу")

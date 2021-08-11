@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class FileController {
 
     @Operation(summary = "Скачать файл")
     @GetMapping("/{id}/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) {
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable("fileId") long fileId) throws FileNotFoundException {
         UploadFile uploadFile = uploadFileService.findById(fileId);
         if (uploadFile == null) {
-            throw new EntityNotFoundException("Файл не найден");
+            throw new FileNotFoundException("Файла с указанным идентификатором нет в базе данных");
         }
         ByteArrayResource resource = new ByteArrayResource(uploadFile.getData());
         return ResponseEntity.ok()

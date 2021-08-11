@@ -4,6 +4,7 @@ import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.dto.DepartmentDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.DepartmentMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
+import com.smartech.i2019.adaptiveinterviews.util.exception.DepartmentNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,6 @@ public class DepartmentController {
         return department;
     }
 
-    // FIXME: в этом маппинге не нужно слово "delete"
-    //        достаточно просто @DeleteMapping("/{id}")
-    //
     @Operation(summary = "Удалить отдел")
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
@@ -46,27 +44,16 @@ public class DepartmentController {
         return "Department deleted";
     }
 
-    // FIXME: в этом маппинге не нужно слово "find"
-    //        достаточно просто @GetMapping("/{id}")
-    //
-    //        также проверка на null толком не работает
-    //        в ответе не приходит локализованная строка
-    //        чуть позже прикрутим обработчик
-    //
     @Operation(summary = "Найти отдел по ID")
     @GetMapping("/{id}")
-    Department findDepartment(@PathVariable @Min(1) long id) {
-//        Department department = departmentService.findById(id);
-//        if (department == null) {
-//            throw new EntityNotFoundException("Отдел не найден");
-//        }
-//        return department;
-        return departmentService.findById(id);
+    Department findDepartment(@PathVariable @Min(1) long id) throws DepartmentNotFoundException {
+        Department department = departmentService.findById(id);
+        if (department == null) {
+            throw new DepartmentNotFoundException("Отдела с указанным идентификатором нет в базе данных");
+        }
+        return department;
     }
 
-    // FIXME: в этом маппинге не нужно слово "update"
-    //        достаточно просто @PutMapping("/{id}")
-    //
     @Operation(summary = "Обновить данные отдела")
     @PutMapping("/{id}")
     Department updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
