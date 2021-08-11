@@ -5,6 +5,7 @@ import com.smartech.i2019.adaptiveinterviews.dto.EmployeeDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.EmployeeMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeInterviewsNotFoundException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -33,9 +33,12 @@ public class EmployeeController {
 
     @Operation(summary = "Получить список бесед по ID пользователя")
     @GetMapping("/interviews/{id}")
-    List<Interview> getInterviews(@PathVariable @Min(1) long id) throws EntityNotFoundException {
-        //null check
-        return employeeService.getInterviews(id);
+    List<Interview> getInterviews(@PathVariable @Min(1) long id) throws EmployeeInterviewsNotFoundException {
+        List<Interview> interviews = employeeService.getInterviews(id);
+        if (interviews.isEmpty()) {
+            throw new EmployeeInterviewsNotFoundException("С данным сотрудником не проводили собеседований");
+        }
+        return interviews;
     }
 
     @Operation(summary = "Найти сотрудника по ID")

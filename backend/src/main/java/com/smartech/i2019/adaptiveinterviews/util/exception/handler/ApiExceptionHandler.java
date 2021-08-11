@@ -51,4 +51,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(EmployeeInterviewsNotFoundException.class)
+    protected ResponseEntity<Object> handleEmployeeInterviewsNotFoundException(RuntimeException ex) {
+        Response response = new Response(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(EmployeeFilesNotFoundException.class)
+    protected ResponseEntity<Object> handleEmployeeFilesNotFoundException(RuntimeException ex) {
+        Response response = new Response(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

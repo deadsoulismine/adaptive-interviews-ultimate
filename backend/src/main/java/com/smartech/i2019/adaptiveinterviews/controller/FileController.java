@@ -4,6 +4,7 @@ import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
+import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeFilesNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.Min;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,8 +31,12 @@ public class FileController {
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
-    List<UploadFile> getEmployeeFiles(@PathVariable @Min(1) int id) throws EntityNotFoundException {
-        return employeeService.getUploadFiles(id);
+    List<UploadFile> getEmployeeFiles(@PathVariable @Min(1) int id) throws EmployeeFilesNotFoundException {
+        List<UploadFile> files = employeeService.getUploadFiles(id);
+        if (files.isEmpty()) {
+            throw new EmployeeFilesNotFoundException("Нет загруженных файлов для данного сотрудника");
+        }
+        return files;
     }
 
     @Operation(summary = "Скачать файл")
