@@ -20,13 +20,13 @@ public class AspectLogger {
     @AfterReturning(value = "methodExecuting()", returning = "returningValue")
     public void log(JoinPoint point, Object returningValue) {
         if (returningValue != null) {
-            logger.info("Method [{}] call from class [{}] return value [{}]",
+            logger.debug("Method [{}] call from class [{}] return value [{}]",
                     point.getSignature().getName(),
                     point.getSourceLocation().getWithinType().getSimpleName(),
                     returningValue);
 
         } else {
-            logger.info("Method [{}}] call from class [{}]",
+            logger.debug("Method [{}}] call from class [{}]",
                     point.getSignature().getName(),
                     point.getSourceLocation().getWithinType().getSimpleName());
         }
