@@ -35,20 +35,13 @@ public class EmployeeController {
     @GetMapping("/interviews/{id}")
     List<Interview> getInterviews(@PathVariable @Min(1) long id) throws EmployeeInterviewsNotFoundException {
         List<Interview> interviews = employeeService.getInterviews(id);
-        if (interviews.isEmpty()) {
-            throw new EmployeeInterviewsNotFoundException("С данным сотрудником не проводили собеседований");
-        }
         return interviews;
     }
 
     @Operation(summary = "Найти сотрудника по ID")
     @GetMapping("/{id}")
     Employee findEmployee(@PathVariable @Min(1) long id) throws EmployeeNotFoundException {
-        Employee employee = employeeService.findById(id);
-        if (employee == null) {
-            throw new EmployeeNotFoundException("Сотрудника с указанным идентификатором нет в базе данных");
-        }
-        return employee;
+        return employeeService.findById(id);
     }
 
     @Operation(summary = "Добавить сотрудника")

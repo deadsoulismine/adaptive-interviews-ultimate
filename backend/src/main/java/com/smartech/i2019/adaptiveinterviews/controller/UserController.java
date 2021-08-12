@@ -1,11 +1,11 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
+import com.smartech.i2019.adaptiveinterviews.api.UserService;
+import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.dto.UserDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.UserMapper;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
-import com.smartech.i2019.adaptiveinterviews.service.UserAuthoritiesServiceImpl;
-import com.smartech.i2019.adaptiveinterviews.service.UserServiceImpl;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,8 +22,8 @@ import java.util.List;
 @Tag(name = "Пользователи", description = "Взаимодействие с пользователями")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl userService;
-    private final UserAuthoritiesServiceImpl userAuthoritiesService;
+    private final UserService userService;
+    private final UsersAuthoritiesService userAuthoritiesService;
     private final UserMapper userMapper;
 
     @Operation(summary = "Список всех пользователей")
@@ -35,11 +35,7 @@ public class UserController {
     @Operation(summary = "Найти пользователя по ID")
     @GetMapping("/{id}")
     User findUser(@PathVariable @Min(1) Long id) throws UserNotFoundException {
-        User user = userService.findById(id);
-        if (user == null) {
-            throw new UserNotFoundException("Пользователя с таким идентификатором нет в базе данных");
-        }
-        return user;
+        return userService.findById(id);
     }
 
     @Operation(summary = "Обновить данные пользователя")

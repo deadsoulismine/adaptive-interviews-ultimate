@@ -32,11 +32,7 @@ public class InterviewController {
     @Operation(summary = "Найти беседу по ID")
     @GetMapping("/{id}")
     Interview findInterview(@PathVariable @Min(1) Long id) throws InterviewNotFoundException {
-        Interview interview = interviewService.findById(id);
-        if (interview == null) {
-            throw new InterviewNotFoundException("Беседы с указанным идентификатором нет в базе данных");
-        }
-        return interview;
+        return interviewService.findById(id);
     }
 
     @Operation(summary = "Добавить беседу")

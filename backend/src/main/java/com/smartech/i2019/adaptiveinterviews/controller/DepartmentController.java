@@ -47,11 +47,7 @@ public class DepartmentController {
     @Operation(summary = "Найти отдел по ID")
     @GetMapping("/{id}")
     Department findDepartment(@PathVariable @Min(1) long id) throws DepartmentNotFoundException {
-        Department department = departmentService.findById(id);
-        if (department == null) {
-            throw new DepartmentNotFoundException("Отдела с указанным идентификатором нет в базе данных");
-        }
-        return department;
+        return departmentService.findById(id);
     }
 
     @Operation(summary = "Обновить данные отдела")
