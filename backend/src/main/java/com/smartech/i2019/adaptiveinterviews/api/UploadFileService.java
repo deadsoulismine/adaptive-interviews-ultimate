@@ -2,6 +2,7 @@ package com.smartech.i2019.adaptiveinterviews.api;
 
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public interface UploadFileService {
@@ -10,7 +11,7 @@ public interface UploadFileService {
 
     void delete(long id);
 
-    UploadFile findById(long id);
+    UploadFile findById(long id) throws FileNotFoundException;
 
     List<UploadFile> findAll();
 }

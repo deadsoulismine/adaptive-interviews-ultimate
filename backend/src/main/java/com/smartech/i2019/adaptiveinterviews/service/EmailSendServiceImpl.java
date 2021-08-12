@@ -13,7 +13,7 @@ import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
-public class EmailServiceImpl implements EmailService {
+public class EmailSendServiceImpl implements EmailService {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM", new Locale("ru"));
     private final JavaMailSender javaMailSender;
 
@@ -26,7 +26,6 @@ public class EmailServiceImpl implements EmailService {
         try {
             javaMailSender.send(msg);
         } catch (MailException mailException) {
-            System.out.println("Mail send failed.");
             mailException.printStackTrace();
         }
     }
@@ -40,7 +39,6 @@ public class EmailServiceImpl implements EmailService {
         try {
             javaMailSender.send(msg);
         } catch (MailException mailException) {
-            System.out.println("Mail send failed.");
             mailException.printStackTrace();
         }
     }

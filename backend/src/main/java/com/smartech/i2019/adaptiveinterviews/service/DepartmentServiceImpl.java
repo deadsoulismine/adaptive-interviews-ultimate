@@ -4,7 +4,10 @@ import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import com.smartech.i2019.adaptiveinterviews.repository.DepartmentRepository;
 import com.smartech.i2019.adaptiveinterviews.repository.specification.DepartmentSpecification;
+import com.smartech.i2019.adaptiveinterviews.util.exception.DepartmentNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final DepartmentSpecification departmentSpecification;
+    private static final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     @Override
     public List<Department> findAll() {
@@ -32,7 +36,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(long id) {
-        return departmentRepository.findById(id).orElse(null);
+        Department department = departmentRepository.findById(id).orElse(null);
+        if (department == null) {
+            logger.warn("Отдела с указанным идентификатором ({}) нет в базе данных", id);
+            throw new DepartmentNotFoundException("Отдела с указанным идентификатором нет в базе данных");
+        }
+        return department;
     }
 
     @Override

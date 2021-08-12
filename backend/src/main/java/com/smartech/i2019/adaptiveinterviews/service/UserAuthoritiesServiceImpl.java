@@ -4,7 +4,10 @@ import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 import com.smartech.i2019.adaptiveinterviews.repository.UsersAuthoritiesRepository;
 import com.smartech.i2019.adaptiveinterviews.repository.specification.UserAutoritiesSpecification;
+import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
     private final UsersAuthoritiesRepository usersAuthoritiesRepository;
     private final UserAutoritiesSpecification userAutoritiesSpecification;
+    private static final Logger logger = LoggerFactory.getLogger(UserAuthoritiesServiceImpl.class);
 
     @Override
     public void add(UserAuthorities user) {
@@ -37,7 +41,12 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
 
     @Override
     public UserAuthorities findById(Long id) {
-        return usersAuthoritiesRepository.findById(id).orElse(null);
+        UserAuthorities userAuthorities = usersAuthoritiesRepository.findById(id).orElse(null);
+        if (userAuthorities == null) {
+            logger.error("Пары логин/пароль с таким идентификатором нет в базе данных: ({})", id);
+            throw new UserNotFoundException("Пары логин/пароль с таким идентификатором нет в базе данных");
+        }
+        return userAuthorities;
     }
 
     @Override
