@@ -3,6 +3,7 @@ package com.smartech.i2019.adaptiveinterviews.controller;
 import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.JwtRequest;
 import com.smartech.i2019.adaptiveinterviews.model.JwtResponse;
+import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 import com.smartech.i2019.adaptiveinterviews.security.JwtTokenUtil;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InvalidCredentialsException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserDisabledException;
@@ -40,6 +41,10 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         final Long id = userAuthoritiesService.findByUsername(authenticationRequest.getUsername()).getUser().getId();
+        UserAuthorities user = userAuthoritiesService.findByUserId(id);
+        if (user.getRole().equals("ADMIN")) {
+            logger.warn("Вход администратора под никнеймом: ({})", user.getUsername());
+        }
         return ResponseEntity.ok(new JwtResponse(token, userDetails, id));
     }
 
