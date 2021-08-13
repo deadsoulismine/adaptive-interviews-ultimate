@@ -17,7 +17,6 @@ public abstract class UserMapper {
     UsersAuthoritiesService usersAuthoritiesService;
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(userDTO.getPassword()))")
-    @Mapping(target = "id", expression = "java(usersAuthoritiesService.findByUserId(userDTO.getId()).getId())")
     public abstract UserAuthorities userDTOToUserAuthorities(UserDTO userDTO);
 
     public abstract User userDTOToUser(UserDTO userDTO);
