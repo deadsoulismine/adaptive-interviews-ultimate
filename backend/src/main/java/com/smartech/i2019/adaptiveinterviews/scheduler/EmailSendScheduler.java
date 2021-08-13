@@ -5,22 +5,23 @@ import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailSendScheduler {
     private final EmailService emailService;
     private final InterviewService interviewService;
-    private static final Logger logger = LoggerFactory.getLogger(EmailSendScheduler.class);
 
-    @Scheduled(cron = "0 0 15 * * *")  //каждый день в 9-00
+    @Scheduled(cron = "* * 9 * * *") //каждый день в 9-00
+    @Transactional
     public void sendMailToRemindUsers() {
         List<Interview> interviewsNextDay = interviewService.listByDateNextDay();
         List<Interview> interviewsSubtractDay = interviewService.listByDateSubtractDay();
@@ -33,12 +34,12 @@ public class EmailSendScheduler {
                         String email = user.getEmail();
                         String name = user.getName();
                         emailService.sendRemindInterviewEmail(email, name, employee, date);
-                        logger.info("Пользователю ({}) отправлено напоминание о собеседовании с ({}) на почту ({}). " +
+                        log.info("Пользователю ({}) отправлено напоминание о собеседовании с ({}) на почту ({}). " +
                                 "Оно будет проведено ({})", name, employee, email, date);
                     }
                 }
             } catch (Exception ex) {
-                logger.error("Не удалось отправить напоминание! {}", ex);
+                log.error("Не удалось отправить напоминание! {}", ex);
             }
         }
         if (!interviewsSubtractDay.isEmpty()) {
@@ -49,18 +50,19 @@ public class EmailSendScheduler {
                     for (User user : interview.getUsers()) {
                         String email = user.getEmail();
                         String name = user.getName();
+
                         emailService.sendRemindInterviewEmail(email, name, employee, date);
-                        logger.info("Пользователю ({}) отправлено напоминание о собеседовании с ({}) на почту ({}). " +
+                        log.info("Пользователю ({}) отправлено напоминание о собеседовании с ({}) на почту ({}). " +
                                 "Оно будет проведено ({})", name, employee, email, date);
                         if (interview.getDescription().isEmpty()) {
                             emailService.sendRemindReviewEmail(email, name, employee, date);
-                            logger.info("Пользователю ({}) отправлено напоминание об отзыве в собеседовании" +
+                            log.info("Пользователю ({}) отправлено напоминание об отзыве в собеседовании" +
                                     " с ({}) на почту ({}). Оно будет проведено ({})", name, employee, email, date);
                         }
                     }
                 }
             } catch (Exception ex) {
-                logger.error("Не удалось отправить напоминание! {}", ex);
+                log.error("Не удалось отправить напоминание! {}", ex);
             }
         }
     }

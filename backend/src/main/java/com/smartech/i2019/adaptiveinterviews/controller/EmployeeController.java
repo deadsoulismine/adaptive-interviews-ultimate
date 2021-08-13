@@ -34,8 +34,7 @@ public class EmployeeController {
     @Operation(summary = "Получить список бесед по ID пользователя")
     @GetMapping("/interviews/{id}")
     List<Interview> getInterviews(@PathVariable @Min(1) long id) throws EmployeeInterviewsNotFoundException {
-        List<Interview> interviews = employeeService.getInterviews(id);
-        return interviews;
+        return employeeService.getInterviews(id);
     }
 
     @Operation(summary = "Найти сотрудника по ID")

@@ -10,8 +10,7 @@ import com.smartech.i2019.adaptiveinterviews.util.exception.UserDisabledExceptio
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
     private final UserDetailsService userDetailsService;
     private final UsersAuthoritiesService userAuthoritiesService;
 
@@ -43,7 +42,7 @@ public class JwtAuthenticationController {
         final Long id = userAuthoritiesService.findByUsername(authenticationRequest.getUsername()).getUser().getId();
         UserAuthorities user = userAuthoritiesService.findByUserId(id);
         if (user.getRole().equals("ADMIN")) {
-            logger.warn("Вход администратора под никнеймом: ({})", user.getUsername());
+            log.warn("Вход администратора под никнеймом: ({})", user.getUsername());
         }
         return ResponseEntity.ok(new JwtResponse(token, userDetails, id));
     }
@@ -53,7 +52,7 @@ public class JwtAuthenticationController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            logger.error("Попытка использования деактированной учётной записи!", e);
+            log.error("Попытка использования деактированной учётной записи!", e);
             throw new UserDisabledException("Учетная запись пользователя отключена", e);
         } catch (BadCredentialsException e) {
             throw new InvalidCredentialsException("Некорректная пара логин/пароль", e);

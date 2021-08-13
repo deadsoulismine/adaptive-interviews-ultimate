@@ -7,19 +7,18 @@ import com.smartech.i2019.adaptiveinterviews.repository.specification.InterviewS
 import com.smartech.i2019.adaptiveinterviews.util.Dates;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InterviewNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class InterviewServiceImpl implements InterviewService {
     private final InterviewRepository interviewRepository;
     private final InterviewSpecification interviewSpecification;
     private final Dates date;
-    private static final Logger logger = LoggerFactory.getLogger(InterviewServiceImpl.class);
 
     @Override
     public void add(Interview interview) {
@@ -33,6 +32,7 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     public void delete(long id) {
+        log.info("Беседа ({}) удалена", findById(id).getName());
         interviewRepository.deleteById(id);
     }
 
@@ -45,7 +45,7 @@ public class InterviewServiceImpl implements InterviewService {
     public Interview findById(long id) {
         Interview interview = interviewRepository.findById(id).orElse(null);
         if (interview == null) {
-            logger.warn("Беседы с указанным идентификатором нет в базе данных: ({})", id);
+            log.warn("Беседы с указанным идентификатором нет в базе данных: ({})", id);
             throw new InterviewNotFoundException("Беседы с указанным идентификатором нет в базе данных");
         }
         return interview;

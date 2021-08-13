@@ -5,18 +5,17 @@ import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.repository.UserRepository;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public void add(User user) {
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public User findById(long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) {
-            logger.error("Пользователя с таким идентификатором нет в базе данных: ({})", id);
+            log.error("Пользователя с таким идентификатором нет в базе данных: ({})", id);
             throw new UserNotFoundException("Пользователя с таким идентификатором нет в базе данных");
         }
         return user;

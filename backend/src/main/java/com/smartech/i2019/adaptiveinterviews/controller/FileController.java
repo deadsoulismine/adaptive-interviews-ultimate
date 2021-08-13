@@ -8,8 +8,7 @@ import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeFilesNotFoun
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @CrossOrigin(origins = {"http://localhost:8081"})
 @RestController
 @Tag(name = "Файлы", description = "Взаимодействие с файлами")
@@ -30,7 +30,6 @@ import java.util.List;
 public class FileController {
     private final UploadFileService uploadFileService;
     private final EmployeeService employeeService;
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Operation(summary = "Получить список файлов по ID пользователя")
     @GetMapping("/files/{id}")
@@ -60,7 +59,7 @@ public class FileController {
             uploadFile.setData(file.getBytes());
             uploadFileService.add(uploadFile);
         } catch (IOException e) {
-            logger.error("Не удалось загрузить файл!", e);
+            log.error("Не удалось загрузить файл!", e);
             return null;
         }
         return "Файл прикреплен";
@@ -69,7 +68,7 @@ public class FileController {
     @Operation(summary = "Удалить файл")
     @DeleteMapping("/{id}/{fileId}")
     @Secured("ROLE_ADMIN")
-    String deleteFile(@PathVariable Long fileId) {
+    String deleteFile(@PathVariable Long fileId) throws FileNotFoundException {
         uploadFileService.delete(fileId);
         return "Файл прикреплен";
     }
