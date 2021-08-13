@@ -9,7 +9,7 @@ public interface UploadFileService {
 
     void add(UploadFile file);
 
-    void delete(long id);
+    void delete(long id) throws FileNotFoundException;
 
     UploadFile findById(long id) throws FileNotFoundException;
 
