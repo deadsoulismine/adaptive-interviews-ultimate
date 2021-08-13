@@ -26,7 +26,7 @@
         <a-icon type="highlight"/>
         Редактировать
       </router-link>
-      <a-button v-if="this.file !== ''" v-on:click="submitForm()">
+      <a-button v-if="this.file !== ''" @click="submitForm()">
         <a-icon type="upload"/>
         Прикрепить
       </a-button>
@@ -34,7 +34,8 @@
              ref="file"
              placeholder="Выберите файл"
              type="file"
-             @change="onChangeFileUpload()"/>
+             @change="onChangeFileUpload()"
+      />
     </a-card>
     <p></p>
     <!--    <a-table :dataSource="interviews" v-if="interviews.length > 0" style="word-break: break-all" class="int-table">-->
@@ -140,7 +141,6 @@ export default {
     file: '',
     interviews: [],
     employee: [],
-    message: '',
     columns: [{
       title: 'action',
       key: 'action',
@@ -178,7 +178,6 @@ export default {
             console.log(response)
             this.$router.go(0);
           });
-
     },
     formatDate: function (date) {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
@@ -194,19 +193,14 @@ export default {
       let formData = new FormData();
       formData.append('file', this.file);
       let url = '/api/employees/' + this.employee.id;
-      axios.post(url, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              header
-            }
-          }
+      console.log(header)
+      axios.post(url, formData, {headers: header, 'Content-Type': 'multipart/form-data'}
       ).then(response => {
         console.log(response)
         this.$store.state.reset;
         this.$router.go(0);
       }).catch(function () {
-        this.message = 'Не удалось прикрепить файл!';
-        console.log(this.message)
+        console.log('Не удалось прикрепить файл!')
       });
     },
     onChangeFileUpload() {
