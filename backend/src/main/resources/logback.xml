@@ -5,10 +5,43 @@
             <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>slf4j_backend.log</file>
+    <appender name="FILE_WARNING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>WARNING.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>slf4j_backend.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>WARNING.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_SERVICE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>SERVICE.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>SERVICE.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_MAILSEND" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>MAILSEND.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>MAILSEND.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_DELETE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>DELETE.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>DELETE.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>
         </rollingPolicy>
@@ -20,12 +53,20 @@
     <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="com.smartech.i2019.adaptiveinterviews.util" level="debug">
+    <logger name="com.smartech.i2019.adaptiveinterviews.scheduler.EmailSendScheduler" level="info" additivity="false">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_MAILSEND"/>
     </logger>
-    <logger name="com.smartech.i2019.adaptiveinterviews" level="warn">
-        <appender-ref ref="FILE"/>
+    <logger name="com.smartech.i2019.adaptiveinterviews.util.aspect.AspectLogger" level="info" additivity="false">
+        <appender-ref ref="FILE_SERVICE"/>
     </logger>
-
+    <logger name="com.smartech.i2019.adaptiveinterviews" level="warn" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_WARNING"/>
+    </logger>
+    <logger name="com.smartech.i2019.adaptiveinterviews.service" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_DELETE"/>
+    </logger>
 </configuration>
 
