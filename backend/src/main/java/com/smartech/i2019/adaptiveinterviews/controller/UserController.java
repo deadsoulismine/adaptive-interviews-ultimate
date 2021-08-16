@@ -6,7 +6,6 @@ import com.smartech.i2019.adaptiveinterviews.dto.UserDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.UserMapper;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
-import com.smartech.i2019.adaptiveinterviews.util.exception.SameDataException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,13 +40,12 @@ public class UserController {
 
     @Operation(summary = "Обновить данные пользователя")
     @PutMapping("/{id}")
-    User updateUser(@RequestBody UserDTO userDTO) throws SameDataException {
+    User updateUser(@RequestBody UserDTO userDTO) {
         User userToUpdate = userMapper.userDTOToUser(userDTO);
         UserAuthorities authoritiesToUpdate = userMapper.userDTOToUserAuthorities(userDTO);
         authoritiesToUpdate.setUser(userToUpdate);
-
-        userService.edit(userToUpdate);
         userAuthoritiesService.edit(authoritiesToUpdate);
+        userService.edit(userToUpdate);
         return userToUpdate;
     }
 
@@ -61,13 +59,12 @@ public class UserController {
 
     @Operation(summary = "Добавить нового пользователя")
     @PostMapping("/add")
-    User newUser(@RequestBody UserDTO userDTO) throws SameDataException {
+    User newUser(@RequestBody UserDTO userDTO) {
         User user = userMapper.userDTOToUser(userDTO);
-        userService.add(user);
-
         UserAuthorities userAuthorities = userMapper.userDTOToUserAuthorities(userDTO);
         userAuthorities.setUser(user);
         userAuthoritiesService.add(userAuthorities);
+        userService.add(user);
         return user;
     }
 

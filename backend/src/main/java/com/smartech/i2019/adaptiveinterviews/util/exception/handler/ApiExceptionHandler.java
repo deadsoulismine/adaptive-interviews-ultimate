@@ -63,4 +63,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(SameDataException.class)
+    protected ResponseEntity<Object> handleSameDataException(SameDataException ex) {
+        Response response = new Response(ex.getMessage(), ex.getProblem());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

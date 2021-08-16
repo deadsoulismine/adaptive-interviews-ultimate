@@ -20,13 +20,13 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
     private final UserAutoritiesSpecification userAutoritiesSpecification;
 
     @Override
-    public void add(UserAuthorities user) throws SameDataException {
+    public void add(UserAuthorities user) {
         validate(user);
         usersAuthoritiesRepository.saveAndFlush(user);
     }
 
     @Override
-    public void edit(UserAuthorities user) throws SameDataException {
+    public void edit(UserAuthorities user) {
         validate(user);
         usersAuthoritiesRepository.saveAndFlush(user);
     }
@@ -61,12 +61,14 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
         return usersAuthoritiesRepository.findUserAuthoritiesByUserId(id);
     }
 
-    private void validate(UserAuthorities user) throws SameDataException {
+    private void validate(UserAuthorities currentUser) {
         for (UserAuthorities userAuthorities : findAll()) {
-            if (user.getUsername() == userAuthorities.getUsername()) {
-                throw new SameDataException("Такой логин уже есть!");
-            } else if (user.getUser().getEmail() == userAuthorities.getUser().getEmail()) {
-                throw new SameDataException("Такой e-mail уже есть!");
+            if (currentUser.getUsername().equals(userAuthorities.getUsername())) {
+                log.error("Такой логин уже есть!");
+                throw new SameDataException("Такой логин уже есть!", "login");
+            } else if (currentUser.getUser().getEmail().equals(userAuthorities.getUser().getEmail())) {
+                log.error("Такой e-mail уже есть!");
+                throw new SameDataException("Такой e-mail уже есть!", "e-mail");
             }
         }
     }

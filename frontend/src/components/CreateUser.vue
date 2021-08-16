@@ -8,6 +8,14 @@
     >
       <h1 v-if="!this.$store.getters.isAuthenticated" align="center">Регистрация</h1>
       <h1 v-if="this.$store.getters.isAuthenticated" align="center">Создание нового пользователя</h1>
+      <b-alert
+          :show="dismissCountDown"
+          dismissible
+          variant="danger"
+          @dismissed="dismissCountDown=0"
+          @dismiss-count-down="countDownChanged"
+      > {{ alertMessage }} <br><br>
+      </b-alert>
       <a-form-item v-bind="formItemLayout" label="Имя">
         <a-input v-decorator="[
           'firstname', {
@@ -134,6 +142,9 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      alertMessage: 'Request error',
       user: {
         role: 'USER',
       },
@@ -184,7 +195,15 @@ export default {
             } else {
               this.$router.push({name: 'Users'});
             }
-          });
+          }).catch(error => {
+            if (error.response.data.problem === "login") {
+              this.$data.alertMessage = "Пользователь с таким логином уже есть!"
+              this.showAlert();
+            } else if (error.response.data.problem === "e-mail") {
+              this.$data.alertMessage = "Пользователь с таким e-mail уже есть!"
+              this.showAlert();
+            }
+          })
         }
       })
     },
@@ -206,6 +225,12 @@ export default {
         form.validateFields(['confirm'], {force: true});
       }
       callback();
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs
     },
   },
 };
