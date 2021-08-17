@@ -6,6 +6,14 @@
         <br><br>
         <h2>Изменение данных пользователя</h2>
         <br>
+        <b-alert
+            :show="dismissCountDown"
+            dismissible
+            variant="danger"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged"
+        > {{ alertMessage }} <br><br>
+        </b-alert>
         <a-form
             :form="form"
             align="center"
@@ -118,8 +126,13 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      alertMessage: 'Request error',
       selected: this.$store.getters.getRole,
       user: [],
+      currentLogin: '',
+      currentEmail: '',
       formItemLayout: {
         labelCol: {
           xs: {span: 24},
@@ -143,7 +156,6 @@ export default {
         },
       },
     }
-
   },
   beforeCreate() {
     this.form = this.$form.createForm(this);
@@ -158,15 +170,20 @@ export default {
         if (!err) {
           const header = {'Authorization': 'Bearer ' + this.$store.getters.getToken};
           let url = '/api/users/' + this.user.id;
-
           this.user.name = values.name;
           this.user.email = values.email;
           this.user.username = values.username;
           this.user.password = values.password;
           this.user.position = values.position;
+          this.user.sameLogin = this.currentLogin === values.username;
+          this.user.sameEmail = this.currentEmail === values.email;
+          if (!this.$store.getters.isAdmin) {
+            this.user.role = 'USER';
+          } else {
+            this.user.role = 'ADMIN';
+          }
           axios.put(url, this.user, {headers: header})
-              .then((response) => {
-                console.log(response)
+              .then(() => {
                 if (this.user.id === this.$store.getters.getId) {
                   axios.post(`/api/authenticate`, {'username': this.user.username, 'password': this.user.password})
                       .then(response => {
@@ -178,13 +195,22 @@ export default {
                           'id': response.data.id
                         });
                         this.$router.push({name: 'Users'});
-                      })
+                      }).catch(error => {
+                    this.validate(error)
+                  })
                 }
-
-              });
-          this.$router.push({name: 'Users'});
+                this.$router.push({name: 'Users'});
+              }).catch(error => {
+            this.validate(error)
+          })
         }
       })
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs
     },
     handleConfirmBlur(e) {
       const value = e.target.value;
@@ -195,10 +221,20 @@ export default {
       axios.get('/api/users/' + this.$route.params.id, {headers: header})
           .then(response => {
             this.user = response.data
-          }).catch(err => {
-        console.log(err)
+            this.currentLogin = this.user.login;
+            this.currentEmail = this.user.email;
+          }).catch(() => {
         this.$router.push('/users')
       })
+    },
+    validate(error) {
+      if (error.response.data.problem === "login") {
+        this.$data.alertMessage = "Пользователь с таким логином уже есть!"
+        this.showAlert();
+      } else if (error.response.data.problem === "e-mail") {
+        this.$data.alertMessage = "Пользователь с таким e-mail уже есть!"
+        this.showAlert();
+      }
     },
   }
 }

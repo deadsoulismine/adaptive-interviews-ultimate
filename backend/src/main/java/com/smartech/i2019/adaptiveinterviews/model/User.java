@@ -29,4 +29,8 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JsonIgnore
     private List<Interview> interviews = new ArrayList<>();
+    @Transient
+    private Boolean sameEmail;
+    @Transient
+    private String login;
 }

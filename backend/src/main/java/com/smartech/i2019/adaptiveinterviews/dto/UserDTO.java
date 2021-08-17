@@ -11,6 +11,8 @@ public class UserDTO {
     private String username;
     private String password;
     private String role;
+    private Boolean sameLogin;
+    private Boolean sameEmail;
 }
 
 

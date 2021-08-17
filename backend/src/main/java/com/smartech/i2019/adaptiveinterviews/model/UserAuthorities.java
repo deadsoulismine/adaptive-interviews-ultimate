@@ -26,4 +26,6 @@ public class UserAuthorities {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
+    @Transient
+    private Boolean sameLogin;
 }

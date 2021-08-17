@@ -8,6 +8,7 @@ import com.smartech.i2019.adaptiveinterviews.util.exception.SameDataException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,15 +62,35 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
         return usersAuthoritiesRepository.findUserAuthoritiesByUserId(id);
     }
 
-    private void validate(UserAuthorities currentUser) {
-        for (UserAuthorities userAuthorities : findAll()) {
-            if (currentUser.getUsername().equals(userAuthorities.getUsername())) {
-                log.error("Такой логин уже есть!");
-                throw new SameDataException("Такой логин уже есть!", "login");
-            } else if (currentUser.getUser().getEmail().equals(userAuthorities.getUser().getEmail())) {
-                log.error("Такой e-mail уже есть!");
-                throw new SameDataException("Такой e-mail уже есть!", "e-mail");
+    private void validate(@NotNull UserAuthorities currentUser) {
+        if ((currentUser.getSameLogin() == null) && (currentUser.getUser().getSameEmail() == null) ||
+                (!currentUser.getSameLogin()) && (!currentUser.getUser().getSameEmail())) {
+            for (UserAuthorities userAuthorities : findAll()) {
+                checkLogin(currentUser, userAuthorities);
+                checkEmail(currentUser, userAuthorities);
             }
+        } else if (!currentUser.getSameLogin()) {
+            for (UserAuthorities userAuthorities : findAll()) {
+                checkLogin(currentUser, userAuthorities);
+            }
+        } else if (!currentUser.getUser().getSameEmail()) {
+            for (UserAuthorities userAuthorities : findAll()) {
+                checkEmail(currentUser, userAuthorities);
+            }
+        }
+    }
+
+    private void checkLogin(UserAuthorities currentUser, UserAuthorities userAuthorities) {
+        if (currentUser.getUsername().equals(userAuthorities.getUsername())) {
+            log.error("Такой логин уже есть!");
+            throw new SameDataException("Такой логин уже есть!", "login");
+        }
+    }
+
+    private void checkEmail(UserAuthorities currentUser, UserAuthorities userAuthorities) {
+        if (currentUser.getUser().getEmail().equals(userAuthorities.getUser().getEmail())) {
+            log.error("Такой e-mail уже есть!");
+            throw new SameDataException("Такой e-mail уже есть!", "e-mail");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.service;
 
 import com.smartech.i2019.adaptiveinterviews.api.UserService;
+import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.repository.UserRepository;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final UsersAuthoritiesService usersAuthoritiesService;
 
     @Override
     public void add(User user) {
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
             log.error("Пользователя с таким идентификатором нет в базе данных: ({})", id);
             throw new UserNotFoundException("Пользователя с таким идентификатором нет в базе данных");
         }
+        user.setLogin(usersAuthoritiesService.findByUserId(id).getUsername());
         return user;
     }
 
