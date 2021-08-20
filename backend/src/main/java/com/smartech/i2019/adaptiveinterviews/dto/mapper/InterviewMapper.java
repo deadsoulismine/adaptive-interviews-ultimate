@@ -1,9 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.dto.mapper;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
-import com.smartech.i2019.adaptiveinterviews.api.UserService;
 import com.smartech.i2019.adaptiveinterviews.dto.InterviewDTO;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.service.EmployeeService;
+import com.smartech.i2019.adaptiveinterviews.service.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;

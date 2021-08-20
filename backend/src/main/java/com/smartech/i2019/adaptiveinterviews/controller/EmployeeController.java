@@ -1,10 +1,10 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.dto.EmployeeDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.EmployeeMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.service.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeInterviewsNotFoundException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;

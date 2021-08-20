@@ -1,9 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.dto.InterviewDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.InterviewMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
+import com.smartech.i2019.adaptiveinterviews.service.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InterviewNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

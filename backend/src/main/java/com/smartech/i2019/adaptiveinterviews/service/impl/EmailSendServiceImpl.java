@@ -1,6 +1,6 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.service.impl;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmailService;
+import com.smartech.i2019.adaptiveinterviews.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;

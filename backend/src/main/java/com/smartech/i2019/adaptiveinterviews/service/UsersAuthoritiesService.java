@@ -1,4 +1,4 @@
-package com.smartech.i2019.adaptiveinterviews.api;
+package com.smartech.i2019.adaptiveinterviews.service;
 
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 

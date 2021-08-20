@@ -1,9 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.scheduler;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmailService;
-import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.User;
+import com.smartech.i2019.adaptiveinterviews.service.EmailService;
+import com.smartech.i2019.adaptiveinterviews.service.InterviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,9 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.dto.DepartmentDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.DepartmentMapper;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
+import com.smartech.i2019.adaptiveinterviews.service.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.DepartmentNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,9 +1,9 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.service.impl;
 
-import com.smartech.i2019.adaptiveinterviews.api.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.repository.InterviewRepository;
 import com.smartech.i2019.adaptiveinterviews.repository.specification.InterviewSpecification;
+import com.smartech.i2019.adaptiveinterviews.service.InterviewService;
 import com.smartech.i2019.adaptiveinterviews.util.Dates;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InterviewNotFoundException;
 import lombok.RequiredArgsConstructor;

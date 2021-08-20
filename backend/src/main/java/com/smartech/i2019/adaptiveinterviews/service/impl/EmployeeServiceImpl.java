@@ -1,10 +1,10 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.service.impl;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.Interview;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
 import com.smartech.i2019.adaptiveinterviews.repository.EmployeeRepository;
+import com.smartech.i2019.adaptiveinterviews.service.EmployeeService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeFilesNotFoundException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeInterviewsNotFoundException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeNotFoundException;

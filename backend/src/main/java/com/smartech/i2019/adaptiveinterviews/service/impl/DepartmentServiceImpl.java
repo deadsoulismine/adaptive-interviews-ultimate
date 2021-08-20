@@ -1,9 +1,9 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.service.impl;
 
-import com.smartech.i2019.adaptiveinterviews.api.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.model.Department;
 import com.smartech.i2019.adaptiveinterviews.repository.DepartmentRepository;
 import com.smartech.i2019.adaptiveinterviews.repository.specification.DepartmentSpecification;
+import com.smartech.i2019.adaptiveinterviews.service.DepartmentService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.DepartmentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

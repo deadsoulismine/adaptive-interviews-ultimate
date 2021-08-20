@@ -1,9 +1,9 @@
-package com.smartech.i2019.adaptiveinterviews.service;
+package com.smartech.i2019.adaptiveinterviews.service.impl;
 
-import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 import com.smartech.i2019.adaptiveinterviews.repository.UsersAuthoritiesRepository;
 import com.smartech.i2019.adaptiveinterviews.repository.specification.UserAutoritiesSpecification;
+import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.SameDataException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;

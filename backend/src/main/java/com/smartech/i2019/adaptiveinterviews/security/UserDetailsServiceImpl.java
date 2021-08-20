@@ -1,7 +1,7 @@
 package com.smartech.i2019.adaptiveinterviews.security;
 
-import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
+import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

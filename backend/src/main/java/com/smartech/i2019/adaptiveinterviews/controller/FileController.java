@@ -1,9 +1,9 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.EmployeeService;
-import com.smartech.i2019.adaptiveinterviews.api.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.model.Employee;
 import com.smartech.i2019.adaptiveinterviews.model.UploadFile;
+import com.smartech.i2019.adaptiveinterviews.service.EmployeeService;
+import com.smartech.i2019.adaptiveinterviews.service.UploadFileService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeFilesNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

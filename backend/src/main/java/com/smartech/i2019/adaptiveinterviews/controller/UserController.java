@@ -1,11 +1,11 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.UserService;
-import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.dto.UserDTO;
 import com.smartech.i2019.adaptiveinterviews.dto.mapper.UserMapper;
 import com.smartech.i2019.adaptiveinterviews.model.User;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
+import com.smartech.i2019.adaptiveinterviews.service.UserService;
+import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,10 +1,10 @@
 package com.smartech.i2019.adaptiveinterviews.controller;
 
-import com.smartech.i2019.adaptiveinterviews.api.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.model.JwtRequest;
 import com.smartech.i2019.adaptiveinterviews.model.JwtResponse;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
 import com.smartech.i2019.adaptiveinterviews.security.JwtTokenUtil;
+import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InvalidCredentialsException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserDisabledException;
 import io.swagger.v3.oas.annotations.Operation;
