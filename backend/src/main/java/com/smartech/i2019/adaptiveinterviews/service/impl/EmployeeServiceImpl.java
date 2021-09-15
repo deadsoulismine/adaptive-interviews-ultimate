@@ -10,6 +10,7 @@ import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeInterviewsNo
 import com.smartech.i2019.adaptiveinterviews.util.exception.EmployeeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(long id) {
-        log.info("Сотрудник ({} {}) под идентификатором удалён",
-                findById(id).getFirstName(), findById(id).getLastName());
+        log.info("Сотрудник ({} {}) под идентификатором удалён", findById(id).getFirstName(), findById(id).getLastName());
         employeeRepository.deleteById(id);
     }
 
     @Override
+    @Cacheable(cacheNames = "employee_cache")
     public Employee findById(long id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         if (employee == null) {
@@ -48,6 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Cacheable(cacheNames = "employee_list_cache")
     public List<Employee> findAll() {
         return employeeRepository.findAll();
     }

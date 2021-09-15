@@ -22,10 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsServiceImpl userDetailsService;
-    private final JwtRequestFilter jwtRequestFilter;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final CorsFilter corsFilter;
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
             "/v2/api-docs",
@@ -40,6 +36,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**"
             // other public endpoints of your API may be appended to this array
     };
+    private final UserDetailsServiceImpl userDetailsService;
+    private final JwtRequestFilter jwtRequestFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final CorsFilter corsFilter;
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {

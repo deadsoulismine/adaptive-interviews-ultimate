@@ -18,12 +18,13 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class EventConventer implements MessageConverter {
+public class EventConverter implements MessageConverter {
     private final ObjectMapper mapper;
 
     @Override
     @NonNull
-    public Message toMessage(@NonNull Object object, @NonNull Session session) throws JMSException, MessageConversionException {
+    public Message toMessage(@NonNull Object object, @NonNull Session session) throws
+            JMSException, MessageConversionException {
 
         EmailSendEvent event = (EmailSendEvent) object;
         String payload = null;

@@ -26,16 +26,6 @@ public class HibernateConfig {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
 
-    @Bean(name = "entityManagerFactory")
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.smartech.i2019.adaptiveinterviews");
-        sessionFactory.setHibernateProperties(hibernateProperties());
-
-        return sessionFactory;
-    }
-
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -52,10 +42,21 @@ public class HibernateConfig {
         return hibernateProperties;
     }
 
+    @Bean(name = "entityManagerFactory")
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan("com.smartech.i2019.adaptiveinterviews");
+        sessionFactory.setHibernateProperties(hibernateProperties());
+
+        return sessionFactory;
+    }
+
     @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(sessionFactory().getObject());
         return transactionManager;
     }
+
 }

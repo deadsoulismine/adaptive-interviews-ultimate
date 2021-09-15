@@ -23,7 +23,6 @@ public class AspectLogger {
                     point.getSignature().getName(),
                     point.getSourceLocation().getWithinType().getSimpleName(),
                     returningValue);
-
         } else {
             log.info("Method [{}}] call from class [{}]",
                     point.getSignature().getName(),

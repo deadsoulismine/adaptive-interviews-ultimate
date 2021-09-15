@@ -17,9 +17,7 @@ public abstract class UserMapper {
     UsersAuthoritiesService usersAuthoritiesService;
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(userDTO.getPassword()))")
-    @Mapping(target = "sameLogin", source = "sameLogin")
     public abstract UserAuthorities userDTOToUserAuthorities(UserDTO userDTO);
 
-    @Mapping(source = "sameEmail", target = "sameEmail")
     public abstract User userDTOToUser(UserDTO userDTO);
 }

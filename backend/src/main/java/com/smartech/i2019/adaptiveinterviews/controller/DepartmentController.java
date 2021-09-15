@@ -38,7 +38,7 @@ public class DepartmentController {
 
     @Operation(summary = "Удалить отдел")
     @DeleteMapping("/{id}")
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN"})
     String deleteDepartment(@PathVariable long id) {
         departmentService.delete(id);
         return "Department deleted";

@@ -1,15 +1,102 @@
-20.08.2021 11:41:04.783 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11700 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
-20.08.2021 11:41:04.793 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
-20.08.2021 11:41:14.770 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 10.449 seconds (JVM running for 12.09)
-20.08.2021 11:57:12.748 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 8168 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
-20.08.2021 11:57:12.753 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
-20.08.2021 11:57:42.572 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 30.621 seconds (JVM running for 34.153)
-20.08.2021 12:02:46.200 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11500 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
-20.08.2021 12:02:46.203 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
-20.08.2021 12:03:00.810 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 15.062 seconds (JVM running for 17.334)
-20.08.2021 12:06:09.534 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 4992 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
-20.08.2021 12:06:09.537 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
-20.08.2021 12:06:20.764 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.652 seconds (JVM running for 13.711)
-20.08.2021 12:06:42.107 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11888 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
-20.08.2021 12:06:42.109 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
-20.08.2021 12:06:52.933 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.239 seconds (JVM running for 13.203)
+23.08.2021 11:53:04.721 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 9172 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 11:53:04.793 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 11:53:17.436 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 13.376 seconds (JVM running for 15.668)
+23.08.2021 11:53:42.196 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 9532 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 11:53:42.199 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 11:53:57.730 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 16.016 seconds (JVM running for 18.189)
+23.08.2021 12:37:41.836 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 13224 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:37:41.841 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:37:55.852 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 14.386 seconds (JVM running for 16.802)
+23.08.2021 12:38:14.668 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11144 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:38:14.671 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:38:27.345 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 13.179 seconds (JVM running for 15.564)
+23.08.2021 12:50:24.473 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 10292 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:50:24.477 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:50:33.190 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 9760 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:50:33.193 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:50:45.727 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 21.718 seconds (JVM running for 23.525)
+23.08.2021 12:50:53.518 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 21.293 seconds (JVM running for 24.668)
+23.08.2021 12:56:18.537 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 3560 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:56:18.539 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:56:47.913 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 29.752 seconds (JVM running for 32.034)
+23.08.2021 12:57:23.631 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 3996 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:57:23.636 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:57:34.884 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.656 seconds (JVM running for 13.774)
+23.08.2021 12:57:51.162 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 2864 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:57:51.164 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:58:03.616 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 12.846 seconds (JVM running for 15.039)
+23.08.2021 12:58:48.494 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 8176 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 12:58:48.496 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 12:59:03.853 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 15.774 seconds (JVM running for 17.811)
+23.08.2021 13:12:52.283 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11304 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 13:12:52.288 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 13:13:07.796 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 15.949 seconds (JVM running for 18.104)
+23.08.2021 13:13:42.896 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11884 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 13:13:42.903 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 13:13:56.155 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 13.76 seconds (JVM running for 16.01)
+23.08.2021 14:48:43.464 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12408 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 14:48:43.475 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 14:48:57.769 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 15.211 seconds (JVM running for 19.783)
+23.08.2021 14:51:40.331 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 5720 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 14:51:40.334 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 14:51:53.422 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 13.524 seconds (JVM running for 15.656)
+23.08.2021 14:52:04.115 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (0)
+23.08.2021 14:52:05.251 [main] ERROR c.s.i.a.s.UserServiceImplTest - User not found!
+23.08.2021 14:52:54.228 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 8120 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 14:52:54.234 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 14:53:05.416 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.594 seconds (JVM running for 13.548)
+23.08.2021 14:53:56.142 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (0)
+23.08.2021 14:54:06.803 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12628 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 14:54:06.807 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 14:54:17.961 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.597 seconds (JVM running for 13.871)
+23.08.2021 14:54:28.127 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (0)
+23.08.2021 14:54:44.517 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12028 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 14:54:44.521 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 14:54:55.440 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.345 seconds (JVM running for 13.388)
+23.08.2021 14:55:00.820 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:03:08.331 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 4472 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:03:08.352 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:03:31.271 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 23.456 seconds (JVM running for 26.794)
+23.08.2021 15:03:48.252 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:07:21.433 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 4208 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:07:21.435 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:07:33.973 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 12.966 seconds (JVM running for 14.974)
+23.08.2021 15:07:49.842 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:25:56.430 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 1672 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:25:56.436 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:26:10.025 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 13.998 seconds (JVM running for 16.242)
+23.08.2021 15:26:14.145 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:26:37.171 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 5976 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:26:37.175 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:26:56.608 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 20.061 seconds (JVM running for 22.915)
+23.08.2021 15:26:57.930 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:29:24.887 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12204 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:29:24.889 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:29:41.760 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 17.385 seconds (JVM running for 19.952)
+23.08.2021 15:29:46.503 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:30:51.859 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 2692 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:30:51.862 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:31:03.279 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.833 seconds (JVM running for 13.827)
+23.08.2021 15:31:07.548 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:31:49.239 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11528 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:31:49.241 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:32:00.671 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.876 seconds (JVM running for 13.843)
+23.08.2021 15:32:02.840 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:32:25.789 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 11568 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:32:25.792 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:32:37.149 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 11.76 seconds (JVM running for 13.685)
+23.08.2021 15:32:48.529 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:33:18.975 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12252 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:33:18.981 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:33:30.698 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 12.179 seconds (JVM running for 14.525)
+23.08.2021 15:33:43.271 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (1)
+23.08.2021 15:36:09.386 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 5524 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:36:09.388 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:36:36.919 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 12672 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:36:36.921 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:37:09.514 [main] INFO  c.s.i.a.s.UserServiceImplTest - Starting UserServiceImplTest using Java 1.8.0_302 on WS-PC-107 with PID 4492 (started by mtarasov in C:\Users\mtarasov\IdeaProjects\adaptive-interviews-ultimate\backend)
+23.08.2021 15:37:09.555 [main] INFO  c.s.i.a.s.UserServiceImplTest - No active profile set, falling back to default profiles: default
+23.08.2021 15:37:28.547 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 52.075 seconds (JVM running for 57.83)
+23.08.2021 15:37:28.895 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (2)
+23.08.2021 15:37:37.307 [main] INFO  c.s.i.a.s.UserServiceImplTest - Started UserServiceImplTest in 32.871 seconds (JVM running for 56.24)
+23.08.2021 15:37:41.830 [main] ERROR c.s.i.a.s.i.UserServiceImpl - Пользователя с таким идентификатором нет в базе данных: (2)

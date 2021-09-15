@@ -1,4 +1,4 @@
-package com.smartech.i2019.adaptiveinterviews.model;
+package com.smartech.i2019.adaptiveinterviews.security;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

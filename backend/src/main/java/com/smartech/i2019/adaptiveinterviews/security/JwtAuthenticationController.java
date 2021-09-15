@@ -1,9 +1,6 @@
-package com.smartech.i2019.adaptiveinterviews.controller;
+package com.smartech.i2019.adaptiveinterviews.security;
 
-import com.smartech.i2019.adaptiveinterviews.model.JwtRequest;
-import com.smartech.i2019.adaptiveinterviews.model.JwtResponse;
 import com.smartech.i2019.adaptiveinterviews.model.UserAuthorities;
-import com.smartech.i2019.adaptiveinterviews.security.JwtTokenUtil;
 import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.InvalidCredentialsException;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserDisabledException;

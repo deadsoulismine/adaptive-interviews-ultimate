@@ -26,7 +26,7 @@ public class EmailSendScheduler {
     @Value("${queue.email}")
     private String destination;
 
-    @Scheduled(cron = "*/20 * * * * *") //каждый день в 9-00
+    @Scheduled(cron = "* * 9 * * *") //каждый день в 9-00
     @Transactional
     public void sendMailToRemindUsers() {
         List<Interview> interviewsNextDay = interviewService.listByDateNextDay();

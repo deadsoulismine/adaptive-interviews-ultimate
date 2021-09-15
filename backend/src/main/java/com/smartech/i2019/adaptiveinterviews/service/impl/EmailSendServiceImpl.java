@@ -22,7 +22,8 @@ public class EmailSendServiceImpl implements EmailService {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(to);
         msg.setSubject("Напоминание");
-        msg.setText("Здравствуйте, " + user + ". \n" + simpleDateFormat.format(date) + " у Вас запланирована беседа с " + employee + ".");
+        msg.setText("Здравствуйте, " + user + ". \n"
+                + simpleDateFormat.format(date) + " у Вас запланирована беседа с " + employee + ".");
         try {
             javaMailSender.send(msg);
         } catch (MailException mailException) {
@@ -35,7 +36,8 @@ public class EmailSendServiceImpl implements EmailService {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(to);
         msg.setSubject("Напоминание");
-        msg.setText("Здравствуйте, " + user + ". \n" + simpleDateFormat.format(date) + " Вы проводили беседу с " + employee + ". Оставьте отзыв");
+        msg.setText("Здравствуйте, " + user + ". \n"
+                + simpleDateFormat.format(date) + " Вы проводили беседу с " + employee + ". Оставьте отзыв");
         try {
             javaMailSender.send(msg);
         } catch (MailException mailException) {
