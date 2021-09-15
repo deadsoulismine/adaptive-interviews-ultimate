@@ -1,74 +1,15 @@
-17.08.2021 11:33:09.276 [http-nio-8080-exec-8] INFO  c.s.i.a.s.UserAuthoritiesServiceImpl - Пользователь с никнеймом (test123) удалён
-17.08.2021 11:56:33.517 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 11:57:44.193 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:01:16.069 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:19:41.389 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:20:36.549 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:23:01.818 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:24:03.387 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:24:39.499 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:26:52.485 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:26:59.485 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:28:19.620 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:28:22.238 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:29:13.428 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:29:15.997 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:29:16.798 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:29:17.821 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:29:25.102 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:29:25.365 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:30:19.311 [http-nio-8080-exec-4] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:30:49.652 [http-nio-8080-exec-3] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:30:56.000 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:32:18.949 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:33:34.276 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:34:24.545 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:38:07.417 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:38:55.925 [http-nio-8080-exec-4] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:39:02.792 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:39:05.961 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:42:00.756 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:43:01.603 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:43:50.699 [http-nio-8080-exec-5] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:45:57.319 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:46:50.680 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:51:03.774 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:51:19.786 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:51:26.246 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:51:29.715 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:51:29.961 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:51:30.122 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:51:40.306 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:07.928 [http-nio-8080-exec-4] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:09.657 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:31.974 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:32.679 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:52.598 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:55.159 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:52:56.632 [http-nio-8080-exec-3] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:08.965 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:23.737 [http-nio-8080-exec-4] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:31.647 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:31.648 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:31.649 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:31.649 [http-nio-8080-exec-3] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:31.656 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:53:40.839 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:54:37.963 [http-nio-8080-exec-5] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:55:35.080 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:56:20.569 [http-nio-8080-exec-3] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:56:23.446 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:56:24.408 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 12:56:29.263 [http-nio-8080-exec-5] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:56:31.254 [http-nio-8080-exec-6] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:56:31.757 [http-nio-8080-exec-4] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:56:36.094 [http-nio-8080-exec-2] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 12:56:39.846 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 16:39:56.870 [http-nio-8080-exec-7] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 16:40:09.689 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 16:40:11.850 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 16:40:14.198 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 16:40:15.340 [http-nio-8080-exec-1] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой логин уже есть!
-17.08.2021 16:40:32.253 [http-nio-8080-exec-9] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 16:40:33.137 [http-nio-8080-exec-10] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
-17.08.2021 16:40:33.971 [http-nio-8080-exec-8] ERROR c.s.i.a.s.UserAuthoritiesServiceImpl - Такой e-mail уже есть!
+15.09.2021 18:14:00.430 [http-nio-8080-exec-6] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=6, firstName=Михаил, lastName=Тарасов, employmentDate=2021-05-26, endOfAdaptation=2021-08-25, position=Junior Java Developer, status=Проходит адаптацию))
+15.09.2021 18:14:07.753 [http-nio-8080-exec-10] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=28, firstName=Никита, lastName=Шемелёв, employmentDate=2021-08-01, endOfAdaptation=2021-10-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:14:18.176 [http-nio-8080-exec-5] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=28, firstName=Никита, lastName=Шемелёв, employmentDate=2021-08-01, endOfAdaptation=2021-10-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:17:23.520 [http-nio-8080-exec-3] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:17:23.832 [http-nio-8080-exec-4] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:18:07.298 [http-nio-8080-exec-4] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:18:07.607 [http-nio-8080-exec-5] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:19:12.431 [http-nio-8080-exec-6] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:19:12.727 [http-nio-8080-exec-7] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=41, firstName=Андрей , lastName=Герасимов, employmentDate=2021-08-01, endOfAdaptation=2021-09-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:19:35.289 [http-nio-8080-exec-4] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=6, firstName=Михаил, lastName=Тарасов, employmentDate=2021-05-26, endOfAdaptation=2021-08-25, position=Junior Java Developer, status=Проходит адаптацию))
+15.09.2021 18:19:55.426 [http-nio-8080-exec-8] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=6, firstName=Михаил, lastName=Тарасов, employmentDate=2021-05-26, endOfAdaptation=2021-08-25, position=Junior Java Developer, status=Проходит адаптацию))
+15.09.2021 18:21:23.748 [http-nio-8080-exec-4] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=6, firstName=Михаил, lastName=Тарасов, employmentDate=2021-05-26, endOfAdaptation=2021-08-25, position=Junior Java Developer, status=Проходит адаптацию))
+15.09.2021 18:21:38.407 [http-nio-8080-exec-7] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=28, firstName=Никита, lastName=Шемелёв, employmentDate=2021-08-01, endOfAdaptation=2021-10-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:23:27.206 [http-nio-8080-exec-8] WARN  c.s.i.a.s.i.EmployeeServiceImpl - С данным сотрудником не проводили собеседований: (Employee(id=28, firstName=Никита, lastName=Шемелёв, employmentDate=2021-08-01, endOfAdaptation=2021-10-01, position=Стажёр, status=Проходит адаптацию))
+15.09.2021 18:25:41.207 [http-nio-8080-exec-7] WARN  c.s.i.a.s.i.EmployeeServiceImpl - Нет загруженных файлов для данного сотрудника: (Employee(id=18, firstName=Анжелка, lastName=Полякова, employmentDate=2021-08-08, endOfAdaptation=2021-10-08, position=Junior C++ Developer, status=Проходит адаптацию))

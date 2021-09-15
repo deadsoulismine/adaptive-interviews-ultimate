@@ -28,6 +28,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -219,6 +223,23 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--        FOR CLIENT NODE-->
+
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-enterprise-all</artifactId>
+            <version>4.1</version>
+        </dependency>
+
+        <!--        FOR SERVER NODE-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.hazelcast</groupId>-->
+        <!--            <artifactId>hazelcast-all</artifactId>-->
+        <!--            <version>4.1</version>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -296,6 +317,15 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>client-with-ssl</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.hazelcast.cloud.ClientWithSsl</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -326,5 +356,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>hazelcast-ee</id>
+            <name>Sonatype Repository</name>
+            <url>https://repository-hazelcast-l337.forge.cloudbees.com/release</url>
+        </repository>
+    </repositories>
 
 </project>

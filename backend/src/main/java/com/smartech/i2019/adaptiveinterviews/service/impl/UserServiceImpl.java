@@ -7,6 +7,9 @@ import com.smartech.i2019.adaptiveinterviews.service.UsersAuthoritiesService;
 import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -25,16 +28,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CachePut(cacheNames = "user_authority_cache")
     public void edit(User user) {
         userRepository.saveAndFlush(user);
     }
 
     @Override
+    @CacheEvict(cacheNames = "user_authority_cache")
     public void delete(long id) {
         userRepository.deleteById(id);
     }
 
     @Override
+    @Cacheable(cacheNames = "user_authority_cache")
     public User findById(long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) {
@@ -54,4 +60,5 @@ public class UserServiceImpl implements UserService {
     public List<User> findUsersByUsersId(Collection<Long> usersId) {
         return userRepository.findUsersByIdIn(usersId);
     }
+
 }

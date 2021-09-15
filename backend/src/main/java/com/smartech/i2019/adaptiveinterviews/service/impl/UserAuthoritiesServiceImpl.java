@@ -9,6 +9,9 @@ import com.smartech.i2019.adaptiveinterviews.util.exception.UserNotFoundExceptio
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,18 +24,21 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
     private final UserAutoritiesSpecification userAutoritiesSpecification;
 
     @Override
+
     public void add(UserAuthorities user) {
         validate(user);
         usersAuthoritiesRepository.saveAndFlush(user);
     }
 
     @Override
+    @CachePut(cacheNames = "user_authority_cache")
     public void edit(UserAuthorities user) {
         validate(user);
         usersAuthoritiesRepository.saveAndFlush(user);
     }
 
     @Override
+    @CacheEvict(cacheNames = "user_authority_cache")
     public void delete(long id) {
         log.info("Пользователь с никнеймом ({}) удалён", findById(id).getUsername());
         usersAuthoritiesRepository.deleteById(id);
@@ -44,6 +50,7 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
     }
 
     @Override
+    @Cacheable(cacheNames = "user_authority_cache")
     public UserAuthorities findById(Long id) {
         UserAuthorities userAuthorities = usersAuthoritiesRepository.findById(id).orElse(null);
         if (userAuthorities == null) {
@@ -54,6 +61,7 @@ public class UserAuthoritiesServiceImpl implements UsersAuthoritiesService {
     }
 
     @Override
+    @Cacheable(cacheNames = "user_authority_cache")
     public UserAuthorities findByUsername(String username) {
         return usersAuthoritiesRepository.findOne(userAutoritiesSpecification.hasUsername(username)).orElse(null);
     }
